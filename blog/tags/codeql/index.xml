@@ -5,20 +5,20 @@
     
     
     
-    <link>https://jorgectf.gitlab.io/blog/tags/codeql/</link>
+    <link>https://jorgectf.github.io/blog/tags/codeql/</link>
     <description>Recent content in CodeQL on jorgectf</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 13 Dec 2021 11:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jorgectf.gitlab.io/blog/tags/codeql/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jorgectf.github.io/blog/tags/codeql/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Practical Introduction to CodeQL</title>
-      <link>https://jorgectf.gitlab.io/blog/post/practical-codeql-introduction/</link>
+      <link>https://jorgectf.github.io/blog/post/practical-codeql-introduction/</link>
       <pubDate>Mon, 13 Dec 2021 11:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/practical-codeql-introduction/</guid>
+      <guid>https://jorgectf.github.io/blog/post/practical-codeql-introduction/</guid>
       <description>
         
           

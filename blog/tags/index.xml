@@ -5,20 +5,20 @@
     
     
     
-    <link>https://jorgectf.gitlab.io/blog/tags/</link>
+    <link>https://jorgectf.github.io/blog/tags/</link>
     <description>Recent content in Tags on jorgectf</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 13 Dec 2021 11:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jorgectf.gitlab.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jorgectf.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>CodeQL</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/codeql/</link>
+      <link>https://jorgectf.github.io/blog/tags/codeql/</link>
       <pubDate>Mon, 13 Dec 2021 11:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/codeql/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/codeql/</guid>
       <description>
         
           
@@ -35,10 +35,10 @@
     
     <item>
       <title>CTF</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/ctf/</link>
+      <link>https://jorgectf.github.io/blog/tags/ctf/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/ctf/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/ctf/</guid>
       <description>
         
           
@@ -55,10 +55,10 @@
     
     <item>
       <title>Intigriti</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/intigriti/</link>
+      <link>https://jorgectf.github.io/blog/tags/intigriti/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/intigriti/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/intigriti/</guid>
       <description>
         
           
@@ -75,10 +75,10 @@
     
     <item>
       <title>Web</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/web/</link>
+      <link>https://jorgectf.github.io/blog/tags/web/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/web/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/web/</guid>
       <description>
         
           
@@ -95,10 +95,10 @@
     
     <item>
       <title>XSS</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/xss/</link>
+      <link>https://jorgectf.github.io/blog/tags/xss/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/xss/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/xss/</guid>
       <description>
         
           
@@ -115,10 +115,10 @@
     
     <item>
       <title>Code Injection</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/code-injection/</link>
+      <link>https://jorgectf.github.io/blog/tags/code-injection/</link>
       <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/code-injection/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/code-injection/</guid>
       <description>
         
           
@@ -135,10 +135,10 @@
     
     <item>
       <title>CyberEDU</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/cyberedu/</link>
+      <link>https://jorgectf.github.io/blog/tags/cyberedu/</link>
       <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/cyberedu/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/cyberedu/</guid>
       <description>
         
           
@@ -155,10 +155,10 @@
     
     <item>
       <title>LFI</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/lfi/</link>
+      <link>https://jorgectf.github.io/blog/tags/lfi/</link>
       <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/lfi/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/lfi/</guid>
       <description>
         
           
@@ -175,10 +175,10 @@
     
     <item>
       <title>Loose Comparison</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/loose-comparison/</link>
+      <link>https://jorgectf.github.io/blog/tags/loose-comparison/</link>
       <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/loose-comparison/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/loose-comparison/</guid>
       <description>
         
           
@@ -195,10 +195,10 @@
     
     <item>
       <title>OOB</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/oob/</link>
+      <link>https://jorgectf.github.io/blog/tags/oob/</link>
       <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/oob/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/oob/</guid>
       <description>
         
           
@@ -215,10 +215,10 @@
     
     <item>
       <title>PHP</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/php/</link>
+      <link>https://jorgectf.github.io/blog/tags/php/</link>
       <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/php/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/php/</guid>
       <description>
         
           
@@ -235,10 +235,10 @@
     
     <item>
       <title>Pickle</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/pickle/</link>
+      <link>https://jorgectf.github.io/blog/tags/pickle/</link>
       <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/pickle/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/pickle/</guid>
       <description>
         
           
@@ -255,10 +255,10 @@
     
     <item>
       <title>AeroCTF</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/aeroctf/</link>
+      <link>https://jorgectf.github.io/blog/tags/aeroctf/</link>
       <pubDate>Sat, 27 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/aeroctf/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/aeroctf/</guid>
       <description>
         
           
@@ -275,10 +275,10 @@
     
     <item>
       <title>CybexCTF</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/cybexctf/</link>
+      <link>https://jorgectf.github.io/blog/tags/cybexctf/</link>
       <pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/cybexctf/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/cybexctf/</guid>
       <description>
         
           
@@ -295,10 +295,10 @@
     
     <item>
       <title>HTML</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/html/</link>
+      <link>https://jorgectf.github.io/blog/tags/html/</link>
       <pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/html/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/html/</guid>
       <description>
         
           
@@ -315,10 +315,10 @@
     
     <item>
       <title>XSLeak</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/xsleak/</link>
+      <link>https://jorgectf.github.io/blog/tags/xsleak/</link>
       <pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/xsleak/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/xsleak/</guid>
       <description>
         
           
@@ -335,10 +335,10 @@
     
     <item>
       <title>DefCamp CTF</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/defcamp-ctf/</link>
+      <link>https://jorgectf.github.io/blog/tags/defcamp-ctf/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/defcamp-ctf/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/defcamp-ctf/</guid>
       <description>
         
           
@@ -355,10 +355,10 @@
     
     <item>
       <title>Deserialization</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/deserialization/</link>
+      <link>https://jorgectf.github.io/blog/tags/deserialization/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/deserialization/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/deserialization/</guid>
       <description>
         
           
@@ -375,10 +375,10 @@
     
     <item>
       <title>PHP Deserialization</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/php-deserialization/</link>
+      <link>https://jorgectf.github.io/blog/tags/php-deserialization/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/php-deserialization/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/php-deserialization/</guid>
       <description>
         
           
@@ -395,10 +395,10 @@
     
     <item>
       <title>SSTI</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/ssti/</link>
+      <link>https://jorgectf.github.io/blog/tags/ssti/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/ssti/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/ssti/</guid>
       <description>
         
           
@@ -415,90 +415,10 @@
     
     <item>
       <title>DragonSector CTF</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/dragonsector-ctf/</link>
+      <link>https://jorgectf.github.io/blog/tags/dragonsector-ctf/</link>
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/dragonsector-ctf/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          
-          
-        
-        </description>
-    </item>
-    
-    <item>
-      <title>Gopher</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/gopher/</link>
-      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.gitlab.io/blog/tags/gopher/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          
-          
-        
-        </description>
-    </item>
-    
-    <item>
-      <title>MySQL</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/mysql/</link>
-      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.gitlab.io/blog/tags/mysql/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          
-          
-        
-        </description>
-    </item>
-    
-    <item>
-      <title>SQL Injection</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/sql-injection/</link>
-      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.gitlab.io/blog/tags/sql-injection/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          
-          
-        
-        </description>
-    </item>
-    
-    <item>
-      <title>SSRF</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/ssrf/</link>
-      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.gitlab.io/blog/tags/ssrf/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/dragonsector-ctf/</guid>
       <description>
         
           
@@ -515,10 +435,10 @@
     
     <item>
       <title>Java</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/java/</link>
+      <link>https://jorgectf.github.io/blog/tags/java/</link>
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/java/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/java/</guid>
       <description>
         
           
@@ -535,10 +455,10 @@
     
     <item>
       <title>Java Deserialization</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/java-deserialization/</link>
+      <link>https://jorgectf.github.io/blog/tags/java-deserialization/</link>
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/java-deserialization/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/java-deserialization/</guid>
       <description>
         
           
@@ -555,10 +475,10 @@
     
     <item>
       <title>OSWE</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/oswe/</link>
+      <link>https://jorgectf.github.io/blog/tags/oswe/</link>
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/oswe/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/oswe/</guid>
       <description>
         
           
@@ -575,10 +495,30 @@
     
     <item>
       <title>PostgreSQL</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/postgresql/</link>
+      <link>https://jorgectf.github.io/blog/tags/postgresql/</link>
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/postgresql/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/postgresql/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>SQL Injection</title>
+      <link>https://jorgectf.github.io/blog/tags/sql-injection/</link>
+      <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/tags/sql-injection/</guid>
       <description>
         
           
@@ -595,10 +535,10 @@
     
     <item>
       <title>Fwhibbit</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/fwhibbit/</link>
-      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
+      <link>https://jorgectf.github.io/blog/tags/fwhibbit/</link>
+      <pubDate>Wed, 22 Apr 2020 14:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/fwhibbit/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/fwhibbit/</guid>
       <description>
         
           
@@ -615,10 +555,10 @@
     
     <item>
       <title>LooseComparison</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/loosecomparison/</link>
-      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
+      <link>https://jorgectf.github.io/blog/tags/loosecomparison/</link>
+      <pubDate>Wed, 22 Apr 2020 14:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/loosecomparison/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/loosecomparison/</guid>
       <description>
         
           
@@ -635,10 +575,10 @@
     
     <item>
       <title>Parse_URL</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/parse_url/</link>
-      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
+      <link>https://jorgectf.github.io/blog/tags/parse_url/</link>
+      <pubDate>Wed, 22 Apr 2020 14:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/parse_url/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/parse_url/</guid>
       <description>
         
           
@@ -655,10 +595,10 @@
     
     <item>
       <title>RaceCondition</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/racecondition/</link>
-      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
+      <link>https://jorgectf.github.io/blog/tags/racecondition/</link>
+      <pubDate>Wed, 22 Apr 2020 14:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/racecondition/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/racecondition/</guid>
       <description>
         
           
@@ -675,10 +615,10 @@
     
     <item>
       <title>TypeJuggling</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/typejuggling/</link>
-      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
+      <link>https://jorgectf.github.io/blog/tags/typejuggling/</link>
+      <pubDate>Wed, 22 Apr 2020 14:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/typejuggling/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/typejuggling/</guid>
       <description>
         
           
@@ -695,10 +635,10 @@
     
     <item>
       <title>Crypto</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/crypto/</link>
+      <link>https://jorgectf.github.io/blog/tags/crypto/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/crypto/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/crypto/</guid>
       <description>
         
           
@@ -715,10 +655,10 @@
     
     <item>
       <title>Cybex</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/cybex/</link>
+      <link>https://jorgectf.github.io/blog/tags/cybex/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/cybex/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/cybex/</guid>
       <description>
         
           
@@ -735,10 +675,10 @@
     
     <item>
       <title>deepsound</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/deepsound/</link>
+      <link>https://jorgectf.github.io/blog/tags/deepsound/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/deepsound/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/deepsound/</guid>
       <description>
         
           
@@ -755,10 +695,10 @@
     
     <item>
       <title>john</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/john/</link>
+      <link>https://jorgectf.github.io/blog/tags/john/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/john/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/john/</guid>
       <description>
         
           
@@ -775,10 +715,10 @@
     
     <item>
       <title>python</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/python/</link>
+      <link>https://jorgectf.github.io/blog/tags/python/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/python/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/python/</guid>
       <description>
         
           
@@ -795,10 +735,10 @@
     
     <item>
       <title>Stego</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/stego/</link>
+      <link>https://jorgectf.github.io/blog/tags/stego/</link>
       <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/stego/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/stego/</guid>
       <description>
         
           
@@ -815,10 +755,10 @@
     
     <item>
       <title>LineCTF</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/linectf/</link>
+      <link>https://jorgectf.github.io/blog/tags/linectf/</link>
       <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/linectf/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/linectf/</guid>
       <description>
         
           
@@ -835,10 +775,10 @@
     
     <item>
       <title>Cache poisoning</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/cache-poisoning/</link>
+      <link>https://jorgectf.github.io/blog/tags/cache-poisoning/</link>
       <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/cache-poisoning/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/cache-poisoning/</guid>
       <description>
         
           
@@ -855,10 +795,10 @@
     
     <item>
       <title>NahamCon CTF</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/nahamcon-ctf/</link>
+      <link>https://jorgectf.github.io/blog/tags/nahamcon-ctf/</link>
       <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/nahamcon-ctf/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/nahamcon-ctf/</guid>
       <description>
         
           
@@ -875,10 +815,10 @@
     
     <item>
       <title>h-con</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/h-con/</link>
+      <link>https://jorgectf.github.io/blog/tags/h-con/</link>
       <pubDate>Wed, 20 Nov 2019 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/h-con/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/h-con/</guid>
       <description>
         
           
@@ -895,10 +835,10 @@
     
     <item>
       <title>mongodb</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/mongodb/</link>
+      <link>https://jorgectf.github.io/blog/tags/mongodb/</link>
       <pubDate>Wed, 20 Nov 2019 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/mongodb/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/mongodb/</guid>
       <description>
         
           
@@ -915,10 +855,10 @@
     
     <item>
       <title>boot2root</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/boot2root/</link>
+      <link>https://jorgectf.github.io/blog/tags/boot2root/</link>
       <pubDate>Tue, 19 Nov 2019 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/boot2root/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/boot2root/</guid>
       <description>
         
           
@@ -935,10 +875,10 @@
     
     <item>
       <title>forensics</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/forensics/</link>
+      <link>https://jorgectf.github.io/blog/tags/forensics/</link>
       <pubDate>Tue, 19 Nov 2019 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/forensics/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/forensics/</guid>
       <description>
         
           
@@ -955,10 +895,10 @@
     
     <item>
       <title>radio</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/radio/</link>
+      <link>https://jorgectf.github.io/blog/tags/radio/</link>
       <pubDate>Tue, 19 Nov 2019 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/radio/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/radio/</guid>
       <description>
         
           
@@ -975,10 +915,10 @@
     
     <item>
       <title>distcc</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/distcc/</link>
+      <link>https://jorgectf.github.io/blog/tags/distcc/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/distcc/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/distcc/</guid>
       <description>
         
           
@@ -995,10 +935,10 @@
     
     <item>
       <title>English</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/english/</link>
+      <link>https://jorgectf.github.io/blog/tags/english/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/english/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/english/</guid>
       <description>
         
           
@@ -1015,10 +955,10 @@
     
     <item>
       <title>HackTheBox</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/hackthebox/</link>
+      <link>https://jorgectf.github.io/blog/tags/hackthebox/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/hackthebox/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/hackthebox/</guid>
       <description>
         
           
@@ -1035,10 +975,10 @@
     
     <item>
       <title>kexploit</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/kexploit/</link>
+      <link>https://jorgectf.github.io/blog/tags/kexploit/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/kexploit/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/kexploit/</guid>
       <description>
         
           
@@ -1055,10 +995,10 @@
     
     <item>
       <title>nc</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/nc/</link>
+      <link>https://jorgectf.github.io/blog/tags/nc/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/nc/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/nc/</guid>
       <description>
         
           
@@ -1075,10 +1015,10 @@
     
     <item>
       <title>nmap</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/nmap/</link>
+      <link>https://jorgectf.github.io/blog/tags/nmap/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/nmap/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/nmap/</guid>
       <description>
         
           
@@ -1095,10 +1035,10 @@
     
     <item>
       <title>OSCP Practice</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/oscp-practice/</link>
+      <link>https://jorgectf.github.io/blog/tags/oscp-practice/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/oscp-practice/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/oscp-practice/</guid>
       <description>
         
           
@@ -1115,10 +1055,10 @@
     
     <item>
       <title>searchsploit</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/searchsploit/</link>
+      <link>https://jorgectf.github.io/blog/tags/searchsploit/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/searchsploit/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/searchsploit/</guid>
       <description>
         
           
@@ -1135,10 +1075,10 @@
     
     <item>
       <title>smb</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/smb/</link>
+      <link>https://jorgectf.github.io/blog/tags/smb/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/smb/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/smb/</guid>
       <description>
         
           
@@ -1155,10 +1095,10 @@
     
     <item>
       <title>udev</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/udev/</link>
+      <link>https://jorgectf.github.io/blog/tags/udev/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/udev/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/udev/</guid>
       <description>
         
           
@@ -1175,10 +1115,10 @@
     
     <item>
       <title>Writeup</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/writeup/</link>
+      <link>https://jorgectf.github.io/blog/tags/writeup/</link>
       <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/writeup/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/writeup/</guid>
       <description>
         
           
@@ -1195,10 +1135,10 @@
     
     <item>
       <title>Español</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/espa%C3%B1ol/</link>
+      <link>https://jorgectf.github.io/blog/tags/espa%C3%B1ol/</link>
       <pubDate>Mon, 18 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/espa%C3%B1ol/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/espa%C3%B1ol/</guid>
       <description>
         
           
@@ -1215,10 +1155,10 @@
     
     <item>
       <title>journalctl</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/journalctl/</link>
+      <link>https://jorgectf.github.io/blog/tags/journalctl/</link>
       <pubDate>Mon, 18 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/journalctl/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/journalctl/</guid>
       <description>
         
           
@@ -1235,10 +1175,10 @@
     
     <item>
       <title>nostromo</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/nostromo/</link>
+      <link>https://jorgectf.github.io/blog/tags/nostromo/</link>
       <pubDate>Mon, 18 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/nostromo/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/nostromo/</guid>
       <description>
         
           
@@ -1255,10 +1195,10 @@
     
     <item>
       <title>Spanish</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/spanish/</link>
+      <link>https://jorgectf.github.io/blog/tags/spanish/</link>
       <pubDate>Mon, 18 Nov 2019 12:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/spanish/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/spanish/</guid>
       <description>
         
           
@@ -1275,10 +1215,10 @@
     
     <item>
       <title>bash</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/bash/</link>
+      <link>https://jorgectf.github.io/blog/tags/bash/</link>
       <pubDate>Tue, 10 Sep 2019 18:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/bash/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/bash/</guid>
       <description>
         
           
@@ -1295,10 +1235,10 @@
     
     <item>
       <title>magic bytes</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/magic-bytes/</link>
+      <link>https://jorgectf.github.io/blog/tags/magic-bytes/</link>
       <pubDate>Tue, 10 Sep 2019 18:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/magic-bytes/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/magic-bytes/</guid>
       <description>
         
           
@@ -1315,10 +1255,10 @@
     
     <item>
       <title>msf</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/msf/</link>
+      <link>https://jorgectf.github.io/blog/tags/msf/</link>
       <pubDate>Tue, 10 Sep 2019 18:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/msf/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/msf/</guid>
       <description>
         
           
@@ -1335,10 +1275,10 @@
     
     <item>
       <title>cisco</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/cisco/</link>
+      <link>https://jorgectf.github.io/blog/tags/cisco/</link>
       <pubDate>Sun, 08 Sep 2019 18:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/cisco/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/cisco/</guid>
       <description>
         
           
@@ -1355,10 +1295,10 @@
     
     <item>
       <title>enum4linux</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/enum4linux/</link>
+      <link>https://jorgectf.github.io/blog/tags/enum4linux/</link>
       <pubDate>Sun, 08 Sep 2019 18:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/enum4linux/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/enum4linux/</guid>
       <description>
         
           
@@ -1375,10 +1315,10 @@
     
     <item>
       <title>procdump</title>
-      <link>https://jorgectf.gitlab.io/blog/tags/procdump/</link>
+      <link>https://jorgectf.github.io/blog/tags/procdump/</link>
       <pubDate>Sun, 08 Sep 2019 18:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/tags/procdump/</guid>
+      <guid>https://jorgectf.github.io/blog/tags/procdump/</guid>
       <description>
         
           

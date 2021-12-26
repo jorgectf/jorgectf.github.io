@@ -5,40 +5,20 @@
     
     
     
-    <link>https://jorgectf.gitlab.io/blog/tags/sql-injection/</link>
+    <link>https://jorgectf.github.io/blog/tags/sql-injection/</link>
     <description>Recent content in SQL Injection on jorgectf</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 02 Aug 2020 13:55:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2020 13:55:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jorgectf.gitlab.io/blog/tags/sql-injection/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jorgectf.github.io/blog/tags/sql-injection/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Solving InCTF&#39;s GoSQLv3.</title>
-      <link>https://jorgectf.gitlab.io/blog/post/inctf-gosqlv3/</link>
-      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.gitlab.io/blog/post/inctf-gosqlv3/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          Solving InCTF&amp;rsquo;s GoSQLv3 challenge.
-          
-        
-        </description>
-    </item>
     
     <item>
       <title>Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</title>
-      <link>https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/</link>
+      <link>https://jorgectf.github.io/blog/post/portswigger-java-custom-gadget-chain/</link>
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/</guid>
+      <guid>https://jorgectf.github.io/blog/post/portswigger-java-custom-gadget-chain/</guid>
       <description>
         
           

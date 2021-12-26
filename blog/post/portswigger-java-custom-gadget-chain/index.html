@@ -10,27 +10,27 @@
 <meta name="description" content="Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
-<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/"/>
+<link rel="canonical" href="https://jorgectf.github.io/blog/post/portswigger-java-custom-gadget-chain/"/>
 
 
 
 
 
-<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+<link rel="stylesheet" href="https://jorgectf.github.io/blog/assets/style.css"/>
 
-<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
-
-
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
-<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+<link rel="stylesheet" href="https://jorgectf.github.io/blog/style.css"/>
 
 
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.github.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.github.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
 
 
 <meta name="twitter:card" content="summary"/>
@@ -42,7 +42,7 @@
 <meta property="og:title" content="Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization"/>
 <meta property="og:description" content="Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization."/>
 <meta property="og:type" content="article"/>
-<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/"/><meta property="article:section" content="post"/>
+<meta property="og:url" content="https://jorgectf.github.io/blog/post/portswigger-java-custom-gadget-chain/"/><meta property="article:section" content="post"/>
 <meta property="article:published_time" content="2020-07-19T13:55:00+00:00"/>
 <meta property="article:modified_time" content="2020-07-19T13:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
 
@@ -57,9 +57,9 @@
     <div class="container">
       <header class="header">
   <span class="header__inner">
-    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+    <a href="https://jorgectf.github.io/blog/" class="logo" style="text-decoration: none;">
   
-  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  <img src="https://jorgectf.github.io/blog/logo.png" alt="jorgectf"/>
   
 </a>
     <span class="header__right">
@@ -73,7 +73,7 @@
     
     
     
-    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    <li><a href="https://jorgectf.github.io/blog/research/">Research</a></li>
     
     
     <li><a href="../">About</a></li>
@@ -88,7 +88,7 @@
     
     
     
-    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    <li><a href="https://jorgectf.github.io/blog/research/">Research</a></li>
     
     
     <li><a href="../">About</a></li>
@@ -141,19 +141,19 @@
     
       <span class="post-tags">
         
-          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+          <a href="https://jorgectf.github.io/blog/tags/ctf/">#CTF</a> 
         
-          <a href="https://jorgectf.gitlab.io/blog/tags/oswe/">#OSWE</a> 
+          <a href="https://jorgectf.github.io/blog/tags/oswe/">#OSWE</a> 
         
-          <a href="https://jorgectf.gitlab.io/blog/tags/java/">#Java</a> 
+          <a href="https://jorgectf.github.io/blog/tags/java/">#Java</a> 
         
-          <a href="https://jorgectf.gitlab.io/blog/tags/deserialization/">#Deserialization</a> 
+          <a href="https://jorgectf.github.io/blog/tags/deserialization/">#Deserialization</a> 
         
-          <a href="https://jorgectf.gitlab.io/blog/tags/java-deserialization/">#Java Deserialization</a> 
+          <a href="https://jorgectf.github.io/blog/tags/java-deserialization/">#Java Deserialization</a> 
         
-          <a href="https://jorgectf.gitlab.io/blog/tags/sql-injection/">#SQL Injection</a> 
+          <a href="https://jorgectf.github.io/blog/tags/sql-injection/">#SQL Injection</a> 
         
-          <a href="https://jorgectf.gitlab.io/blog/tags/postgresql/">#PostgreSQL</a> 
+          <a href="https://jorgectf.github.io/blog/tags/postgresql/">#PostgreSQL</a> 
         
       </span>
     
@@ -706,16 +706,16 @@ username, password
           <div class="pagination__buttons">
             
               <span class="button previous">
-                <a href="https://jorgectf.gitlab.io/blog/post/inctf-gosqlv3/">
+                <a href="https://jorgectf.github.io/blog/post/dragonsector-2020-scratchpad/">
                   <span class="button__icon">←</span>
-                  <span class="button__text">Solving InCTF&#39;s GoSQLv3.</span>
+                  <span class="button__text">Solution for DragonSector 2020 CTF&#39;s ScratchPad challenge</span>
                 </a>
               </span>
             
             
               <span class="button next">
-                <a href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/">
-                  <span class="button__text">Fwhibbit CTR (CTF): Solving Blind Hacker</span>
+                <a href="https://jorgectf.github.io/blog/post/ctr-writeup-mike/">
+                  <span class="button__text">Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon</span>
                   <span class="button__icon">→</span>
                 </a>
               </span>
@@ -774,9 +774,9 @@ username, password
         <footer class="footer">
   <div class="footer__inner">
     
-      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+      <a href="https://jorgectf.github.io/blog/" class="logo" style="text-decoration: none;">
   
-  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  <img src="https://jorgectf.github.io/blog/logo.png" alt="jorgectf"/>
   
 </a>
       <div class="copyright">
@@ -789,7 +789,7 @@ username, password
   </div>
 </footer>
 
-<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+<script src="https://jorgectf.github.io/blog/assets/main.js"></script>
 
 
       

@@ -1,50 +1,53 @@
 <!DOCTYPE html><html lang="en"><head>
     
       <title>
-        Fwhibbit CTR (CTF): Solving Blind Hacker ::
+         ::
         jorgectf — blog
       </title>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Fwhibbit CTR (CTF): Solving Blind Hacker."/>
+<meta name="description" content="github.iogithub.io&amp;mdash; title: &amp;ldquo;Fwhibbit CTR (CTF): Solving Blind Hacker&amp;rdquo; tags: [&amp;lsquo;Fwhibbit&amp;rsquo;, &amp;lsquo;CTF&amp;rsquo;,&amp;lsquo;Web&amp;rsquo;,&amp;lsquo;PHP&amp;rsquo;,&amp;lsquo;LooseComparison&amp;rsquo;,&amp;lsquo;TypeJuggling&amp;rsquo;,&amp;lsquo;RaceCondition&amp;rsquo;, &amp;ldquo;Parse_URL&amp;rdquo;] summary: &amp;ldquo;Fwhibbit CTR (CTF): Solving Blind Hacker.&amp;rdquo; date: &amp;lsquo;Tue Apr 30 14:55:00 CET 2020&amp;rsquo; TL;DR This post is the next one of the solutions for the challenges I&amp;rsquo;ve done for Fwhibbit&amp;amp;rsquo;s CTF. Go to the first post solving &amp;amp;ldquo;Mike&amp;amp;rsquo;s Dungeon&amp;amp;rdquo; to see how to solve it.
+DISCLAIMER I have no degree in computer science, programming, cybersecurity&amp;hellip; Mistakes can appear (and they will) so please keep it in mind."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
-<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/"/>
+<link rel="canonical" href="https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/"/>
 
 
 
 
 
-<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+<link rel="stylesheet" href="https://jorgectf.github.io/blog/assets/style.css"/>
 
-<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
-
-
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
-<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+<link rel="stylesheet" href="https://jorgectf.github.io/blog/style.css"/>
 
 
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.github.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.github.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Fwhibbit CTR (CTF): Solving Blind Hacker"/>
-<meta name="twitter:description" content="Fwhibbit CTR (CTF): Solving Blind Hacker."/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="github.iogithub.io— title: “Fwhibbit CTR (CTF): Solving Blind Hacker” tags: [‘Fwhibbit’, ‘CTF’,‘Web’,‘PHP’,‘LooseComparison’,‘TypeJuggling’,‘RaceCondition’, “Parse_URL”] summary: “Fwhibbit CTR (CTF): Solving Blind Hacker.” date: ‘Tue Apr 30 14:55:00 CET 2020’ TL;DR This post is the next one of the solutions for the challenges I’ve done for Fwhibbit&amp;rsquo;s CTF. Go to the first post solving &amp;ldquo;Mike&amp;rsquo;s Dungeon&amp;rdquo; to see how to solve it.
+DISCLAIMER I have no degree in computer science, programming, cybersecurity… Mistakes can appear (and they will) so please keep it in mind."/>
 
 
 
-<meta property="og:title" content="Fwhibbit CTR (CTF): Solving Blind Hacker"/>
-<meta property="og:description" content="Fwhibbit CTR (CTF): Solving Blind Hacker."/>
+<meta property="og:title" content=""/>
+<meta property="og:description" content="github.iogithub.io— title: “Fwhibbit CTR (CTF): Solving Blind Hacker” tags: [‘Fwhibbit’, ‘CTF’,‘Web’,‘PHP’,‘LooseComparison’,‘TypeJuggling’,‘RaceCondition’, “Parse_URL”] summary: “Fwhibbit CTR (CTF): Solving Blind Hacker.” date: ‘Tue Apr 30 14:55:00 CET 2020’ TL;DR This post is the next one of the solutions for the challenges I’ve done for Fwhibbit&amp;rsquo;s CTF. Go to the first post solving &amp;ldquo;Mike&amp;rsquo;s Dungeon&amp;rdquo; to see how to solve it.
+DISCLAIMER I have no degree in computer science, programming, cybersecurity… Mistakes can appear (and they will) so please keep it in mind."/>
 <meta property="og:type" content="article"/>
-<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/"/><meta property="article:section" content="post"/>
-<meta property="article:published_time" content="2020-04-30T14:55:00+00:00"/>
-<meta property="article:modified_time" content="2020-04-30T14:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+<meta property="og:url" content="https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/"/><meta property="article:section" content="post"/>
+
+<meta property="og:site_name" content="jorgectf"/>
 
 
 
@@ -57,9 +60,9 @@
     <div class="container">
       <header class="header">
   <span class="header__inner">
-    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+    <a href="https://jorgectf.github.io/blog/" class="logo" style="text-decoration: none;">
   
-  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  <img src="https://jorgectf.github.io/blog/logo.png" alt="jorgectf"/>
   
 </a>
     <span class="header__right">
@@ -73,7 +76,7 @@
     
     
     
-    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    <li><a href="https://jorgectf.github.io/blog/research/">Research</a></li>
     
     
     <li><a href="../">About</a></li>
@@ -88,7 +91,7 @@
     
     
     
-    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    <li><a href="https://jorgectf.github.io/blog/research/">Research</a></li>
     
     
     <li><a href="../">About</a></li>
@@ -120,16 +123,8 @@
   
 
   <div class="post">
-    <h1 class="post-title">Fwhibbit CTR (CTF): Solving Blind Hacker</h1>
+    <h1 class="post-title"></h1>
     <div class="post-meta">
-      
-        <span class="post-date">
-          2020-04-30
-        </span>
-
-        
-          
-        
       
 
       
@@ -139,46 +134,31 @@
     </div>
 
     
-      <span class="post-tags">
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/fwhibbit/">#Fwhibbit</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/php/">#PHP</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/loosecomparison/">#LooseComparison</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/typejuggling/">#TypeJuggling</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/racecondition/">#RaceCondition</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/parse_url/">#Parse_URL</a> 
-        
-      </span>
-    
 
     
 
     <div class="post-content">
       
-      <h1 id="tldr">TL;DR</h1>
+      <h2 id="date-tue-apr-30-145500-cet-2020">github.iogithub.io—
+title: “Fwhibbit CTR (CTF): Solving Blind Hacker”
+tags: [‘Fwhibbit’, ‘CTF’,‘Web’,‘PHP’,‘LooseComparison’,‘TypeJuggling’,‘RaceCondition’, “Parse_URL”]
+summary: “Fwhibbit CTR (CTF): Solving Blind Hacker.”
+date: ‘Tue Apr 30 14:55:00 CET 2020’</h2>
+<h1 id="tldr">TL;DR</h1>
 <p>This post is the next one of the solutions for the challenges I’ve done for <a href="https://ctf.fwhibbit.es/register" target="_blank">Fwhibbit&amp;rsquo;s CTF</a>. Go to the first post <a href="https://jorgectf.gitlab.io/post/ctr-writeup-mike/" target="_blank">solving &amp;ldquo;Mike&amp;rsquo;s Dungeon&amp;rdquo;</a> to see how to solve it.</p>
 <h2 id="disclaimer">DISCLAIMER</h2>
 <p>I have no degree in computer science, programming, cybersecurity… Mistakes can appear (and they will) so please keep it in mind. (If any, I’d thank you for contacting me via <a href="https://t.me/jorgectf" target="_blank">Telegram</a> or <a href="https://twitter.com/jorge_ctf" target="_blank">Twitter</a>) :D</p>
 <h1 id="challenge">Challenge</h1>
-<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/blind_hacker-1.png" alt=""/></p>
+<p><img src="https://jorgectf.github.io/blog/static/fwhibbit/blind_hacker-1.png" alt=""/></p>
 <p>Challenge information:</p>
-<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/blind_hacker-2.png" alt=""/></p>
+<p><img src="https://jorgectf.github.io/blog/static/fwhibbit/blind_hacker-2.png" alt=""/></p>
 <p><a href="https://github.com/jorgectf/Created-CTF-Challenges/tree/main/challenges/Blind%20Hacker%20@%20Fwhibbit%20CTR%202020" target="_blank">Download</a></p>
 <h1 id="fast-solution-no-explanation">Fast Solution (No explanation)</h1>
 <p>In this section, Im going to leave here the raw requests that had to be done to complete the challenge. If you want a explanation about it, scroll down!</p>
 <h1 id="explained-solution">Explained solution</h1>
 <h2 id="first-stage">First stage</h2>
 <p>First of all, we face a telegram bot:</p>
-<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/blind_hacker-3.png" alt=""/></p>
+<p><img src="https://jorgectf.github.io/blog/static/fwhibbit/blind_hacker-3.png" alt=""/></p>
 <pre tabindex="0"><code>/start
 </code></pre><pre tabindex="0"><code>Welcome to the Blind Hacker Bot
 
@@ -187,7 +167,7 @@ Send me your website and I will be opening it to test for vulnerabilities for 10
 </code></pre><p>Having read this, we can try to set up a server to receive the connection and see what are we facing. For this kind of challenges, I like using <a href="https://ngrok.com/download" target="_blank">Ngrok</a> tunneling it with burp to propperly see the requests done.</p>
 <pre tabindex="0"><code>$ ngrok http 8081
 </code></pre><p>This will forward the connections to the tunel ngrok gives you, to your localhost:8081 in this case. This way, we can configure Burpsuite to see the traffic and send back the data to the actual web server.</p>
-<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/blind_hacker-4.png" alt=""/></p>
+<p><img src="https://jorgectf.github.io/blog/static/fwhibbit/blind_hacker-4.png" alt=""/></p>
 <hr/>
 <h2 id="example">Example</h2>
 <p>Webserver’s index.html</p>
@@ -1127,16 +1107,16 @@ is_admin <span style="color:#f92672">=</span> decoded[<span style="color:#e6db74
           <div class="pagination__buttons">
             
               <span class="button previous">
-                <a href="https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/">
+                <a href="https://jorgectf.github.io/blog/post/heist-writeup-spanish/">
                   <span class="button__icon">←</span>
-                  <span class="button__text">Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</span>
+                  <span class="button__text">[HackTheBox – Heist] Spanish Writeup</span>
                 </a>
               </span>
             
             
               <span class="button next">
-                <a href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/">
-                  <span class="button__text">Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon</span>
+                <a href="https://jorgectf.github.io/blog/post/inctf-gosqlv3/">
+                  <span class="button__text"></span>
                   <span class="button__icon">→</span>
                 </a>
               </span>
@@ -1195,9 +1175,9 @@ is_admin <span style="color:#f92672">=</span> decoded[<span style="color:#e6db74
         <footer class="footer">
   <div class="footer__inner">
     
-      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+      <a href="https://jorgectf.github.io/blog/" class="logo" style="text-decoration: none;">
   
-  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  <img src="https://jorgectf.github.io/blog/logo.png" alt="jorgectf"/>
   
 </a>
       <div class="copyright">
@@ -1210,7 +1190,7 @@ is_admin <span style="color:#f92672">=</span> decoded[<span style="color:#e6db74
   </div>
 </footer>
 
-<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+<script src="https://jorgectf.github.io/blog/assets/main.js"></script>
 
 
       

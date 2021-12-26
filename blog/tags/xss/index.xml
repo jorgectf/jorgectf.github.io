@@ -5,20 +5,20 @@
     
     
     
-    <link>https://jorgectf.gitlab.io/blog/tags/xss/</link>
+    <link>https://jorgectf.github.io/blog/tags/xss/</link>
     <description>Recent content in XSS on jorgectf</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 22 Nov 2021 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jorgectf.gitlab.io/blog/tags/xss/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jorgectf.github.io/blog/tags/xss/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Intigriti&#39;s November 2021 XSS challenge writeup</title>
-      <link>https://jorgectf.gitlab.io/blog/post/intigriti-11-2021/</link>
+      <link>https://jorgectf.github.io/blog/post/intigriti-11-2021/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/intigriti-11-2021/</guid>
+      <guid>https://jorgectf.github.io/blog/post/intigriti-11-2021/</guid>
       <description>
         
           
@@ -35,10 +35,10 @@
     
     <item>
       <title>Intigriti&#39;s October 2021 XSS challenge writeup</title>
-      <link>https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/</link>
+      <link>https://jorgectf.github.io/blog/post/intigriti-10-2021/</link>
       <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/</guid>
+      <guid>https://jorgectf.github.io/blog/post/intigriti-10-2021/</guid>
       <description>
         
           
@@ -55,10 +55,10 @@
     
     <item>
       <title>AeroCTF 2021&#39;s Not received points solution</title>
-      <link>https://jorgectf.gitlab.io/blog/post/aeroctf-2021-not-received-points/</link>
+      <link>https://jorgectf.github.io/blog/post/aeroctf-2021-not-received-points/</link>
       <pubDate>Sat, 27 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/aeroctf-2021-not-received-points/</guid>
+      <guid>https://jorgectf.github.io/blog/post/aeroctf-2021-not-received-points/</guid>
       <description>
         
           
@@ -75,10 +75,10 @@
     
     <item>
       <title>Solution for some DefCamp 2020 CTF&#39;s Web challenges</title>
-      <link>https://jorgectf.gitlab.io/blog/post/defcamp-2020/</link>
+      <link>https://jorgectf.github.io/blog/post/defcamp-2020/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/defcamp-2020/</guid>
+      <guid>https://jorgectf.github.io/blog/post/defcamp-2020/</guid>
       <description>
         
           
@@ -95,10 +95,10 @@
     
     <item>
       <title>NahamCon 2021 CTF&#39;s AgentTester solver</title>
-      <link>https://jorgectf.gitlab.io/blog/post/nahamconctf-2021-agenttester/</link>
+      <link>https://jorgectf.github.io/blog/post/nahamconctf-2021-agenttester/</link>
       <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/nahamconctf-2021-agenttester/</guid>
+      <guid>https://jorgectf.github.io/blog/post/nahamconctf-2021-agenttester/</guid>
       <description>
         
           

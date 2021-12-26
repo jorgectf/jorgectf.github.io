@@ -5,20 +5,20 @@
     
     
     
-    <link>https://jorgectf.gitlab.io/blog/tags/web/</link>
+    <link>https://jorgectf.github.io/blog/tags/web/</link>
     <description>Recent content in Web on jorgectf</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 22 Nov 2021 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jorgectf.gitlab.io/blog/tags/web/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jorgectf.github.io/blog/tags/web/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Intigriti&#39;s November 2021 XSS challenge writeup</title>
-      <link>https://jorgectf.gitlab.io/blog/post/intigriti-11-2021/</link>
+      <link>https://jorgectf.github.io/blog/post/intigriti-11-2021/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/intigriti-11-2021/</guid>
+      <guid>https://jorgectf.github.io/blog/post/intigriti-11-2021/</guid>
       <description>
         
           
@@ -35,10 +35,10 @@
     
     <item>
       <title>Intigriti&#39;s October 2021 XSS challenge writeup</title>
-      <link>https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/</link>
+      <link>https://jorgectf.github.io/blog/post/intigriti-10-2021/</link>
       <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/</guid>
+      <guid>https://jorgectf.github.io/blog/post/intigriti-10-2021/</guid>
       <description>
         
           
@@ -55,10 +55,10 @@
     
     <item>
       <title>CyberEDU&#39;s Web challenges&#39; writeups</title>
-      <link>https://jorgectf.gitlab.io/blog/post/cyberedu-web-challenges/</link>
+      <link>https://jorgectf.github.io/blog/post/cyberedu-web-challenges/</link>
       <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/cyberedu-web-challenges/</guid>
+      <guid>https://jorgectf.github.io/blog/post/cyberedu-web-challenges/</guid>
       <description>
         
           
@@ -75,10 +75,10 @@
     
     <item>
       <title>AeroCTF 2021&#39;s Not received points solution</title>
-      <link>https://jorgectf.gitlab.io/blog/post/aeroctf-2021-not-received-points/</link>
+      <link>https://jorgectf.github.io/blog/post/aeroctf-2021-not-received-points/</link>
       <pubDate>Sat, 27 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/aeroctf-2021-not-received-points/</guid>
+      <guid>https://jorgectf.github.io/blog/post/aeroctf-2021-not-received-points/</guid>
       <description>
         
           
@@ -95,10 +95,10 @@
     
     <item>
       <title>CybexCTF 2021&#39;s WaloW3b solver.</title>
-      <link>https://jorgectf.gitlab.io/blog/post/cybexctf-2021-walow3b/</link>
+      <link>https://jorgectf.github.io/blog/post/cybexctf-2021-walow3b/</link>
       <pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/cybexctf-2021-walow3b/</guid>
+      <guid>https://jorgectf.github.io/blog/post/cybexctf-2021-walow3b/</guid>
       <description>
         
           
@@ -115,10 +115,10 @@
     
     <item>
       <title>Solution for some DefCamp 2020 CTF&#39;s Web challenges</title>
-      <link>https://jorgectf.gitlab.io/blog/post/defcamp-2020/</link>
+      <link>https://jorgectf.github.io/blog/post/defcamp-2020/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/defcamp-2020/</guid>
+      <guid>https://jorgectf.github.io/blog/post/defcamp-2020/</guid>
       <description>
         
           
@@ -135,10 +135,10 @@
     
     <item>
       <title>Solution for DragonSector 2020 CTF&#39;s ScratchPad challenge</title>
-      <link>https://jorgectf.gitlab.io/blog/post/dragonsector-2020-scratchpad/</link>
+      <link>https://jorgectf.github.io/blog/post/dragonsector-2020-scratchpad/</link>
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/dragonsector-2020-scratchpad/</guid>
+      <guid>https://jorgectf.github.io/blog/post/dragonsector-2020-scratchpad/</guid>
       <description>
         
           
@@ -154,31 +154,11 @@
     </item>
     
     <item>
-      <title>Fwhibbit CTR (CTF): Solving Blind Hacker</title>
-      <link>https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/</link>
-      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          Fwhibbit CTR (CTF): Solving Blind Hacker.
-          
-        
-        </description>
-    </item>
-    
-    <item>
       <title>Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon</title>
-      <link>https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/</link>
+      <link>https://jorgectf.github.io/blog/post/ctr-writeup-mike/</link>
       <pubDate>Wed, 22 Apr 2020 14:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/</guid>
+      <guid>https://jorgectf.github.io/blog/post/ctr-writeup-mike/</guid>
       <description>
         
           
@@ -195,10 +175,10 @@
     
     <item>
       <title>LineCTF Your Notes solver</title>
-      <link>https://jorgectf.gitlab.io/blog/post/linectf-2021-your-notes/</link>
+      <link>https://jorgectf.github.io/blog/post/linectf-2021-your-notes/</link>
       <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/linectf-2021-your-notes/</guid>
+      <guid>https://jorgectf.github.io/blog/post/linectf-2021-your-notes/</guid>
       <description>
         
           
@@ -215,10 +195,10 @@
     
     <item>
       <title>NahamCon 2021 CTF&#39;s AgentTester solver</title>
-      <link>https://jorgectf.gitlab.io/blog/post/nahamconctf-2021-agenttester/</link>
+      <link>https://jorgectf.github.io/blog/post/nahamconctf-2021-agenttester/</link>
       <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/nahamconctf-2021-agenttester/</guid>
+      <guid>https://jorgectf.github.io/blog/post/nahamconctf-2021-agenttester/</guid>
       <description>
         
           
@@ -235,10 +215,10 @@
     
     <item>
       <title>Hackplayers Conference 2020 Final CTF Writeup</title>
-      <link>https://jorgectf.gitlab.io/blog/post/h-con-final-writeup/</link>
+      <link>https://jorgectf.github.io/blog/post/h-con-final-writeup/</link>
       <pubDate>Wed, 20 Nov 2019 13:55:00 +0000</pubDate>
       
-      <guid>https://jorgectf.gitlab.io/blog/post/h-con-final-writeup/</guid>
+      <guid>https://jorgectf.github.io/blog/post/h-con-final-writeup/</guid>
       <description>
         
           

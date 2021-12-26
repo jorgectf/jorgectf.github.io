@@ -1,50 +1,50 @@
 <!DOCTYPE html><html lang="en"><head>
     
       <title>
-        Solving InCTF&#39;s GoSQLv3. ::
+         ::
         jorgectf — blog
       </title>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Solving InCTF&amp;rsquo;s GoSQLv3 challenge."/>
+<meta name="description" content="github.iogithub.io&amp;mdash; title: &amp;ldquo;Solving InCTF&amp;rsquo;s GoSQLv3.&amp;rdquo; tags: [&amp;lsquo;CTF&amp;rsquo;, &amp;lsquo;SQL Injection&amp;rsquo;, &amp;lsquo;SSRF&amp;rsquo;, &amp;lsquo;Gopher&amp;rsquo;, &amp;lsquo;MySQL&amp;rsquo;] summary: &amp;ldquo;Solving InCTF&amp;rsquo;s GoSQLv3 challenge.&amp;rdquo; date: &amp;lsquo;Sun Aug 02 13:55:00 CET 2020&amp;rsquo; TL;DR In this post, I&amp;rsquo;ll be showing the path I took to solve GoSQLv3 challenge from teambi0s&#39; InCTF that finished yesterday along with all the tricks and testing that didn&amp;rsquo;t work, because that&amp;rsquo;s as important as the actual solution since them can be valid in other situations."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
-<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/inctf-gosqlv3/"/>
+<link rel="canonical" href="https://jorgectf.github.io/blog/post/inctf-gosqlv3/"/>
 
 
 
 
 
-<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+<link rel="stylesheet" href="https://jorgectf.github.io/blog/assets/style.css"/>
 
-<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
-
-
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
-<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+<link rel="stylesheet" href="https://jorgectf.github.io/blog/style.css"/>
 
 
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
-<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.github.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.github.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Solving InCTF&#39;s GoSQLv3."/>
-<meta name="twitter:description" content="Solving InCTF’s GoSQLv3 challenge."/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="github.iogithub.io— title: “Solving InCTF’s GoSQLv3.” tags: [‘CTF’, ‘SQL Injection’, ‘SSRF’, ‘Gopher’, ‘MySQL’] summary: “Solving InCTF’s GoSQLv3 challenge.” date: ‘Sun Aug 02 13:55:00 CET 2020’ TL;DR In this post, I’ll be showing the path I took to solve GoSQLv3 challenge from teambi0s&#39; InCTF that finished yesterday along with all the tricks and testing that didn’t work, because that’s as important as the actual solution since them can be valid in other situations."/>
 
 
 
-<meta property="og:title" content="Solving InCTF&#39;s GoSQLv3."/>
-<meta property="og:description" content="Solving InCTF’s GoSQLv3 challenge."/>
+<meta property="og:title" content=""/>
+<meta property="og:description" content="github.iogithub.io— title: “Solving InCTF’s GoSQLv3.” tags: [‘CTF’, ‘SQL Injection’, ‘SSRF’, ‘Gopher’, ‘MySQL’] summary: “Solving InCTF’s GoSQLv3 challenge.” date: ‘Sun Aug 02 13:55:00 CET 2020’ TL;DR In this post, I’ll be showing the path I took to solve GoSQLv3 challenge from teambi0s&#39; InCTF that finished yesterday along with all the tricks and testing that didn’t work, because that’s as important as the actual solution since them can be valid in other situations."/>
 <meta property="og:type" content="article"/>
-<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/inctf-gosqlv3/"/><meta property="article:section" content="post"/>
-<meta property="article:published_time" content="2020-08-02T13:55:00+00:00"/>
-<meta property="article:modified_time" content="2020-08-02T13:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+<meta property="og:url" content="https://jorgectf.github.io/blog/post/inctf-gosqlv3/"/><meta property="article:section" content="post"/>
+
+<meta property="og:site_name" content="jorgectf"/>
 
 
 
@@ -57,9 +57,9 @@
     <div class="container">
       <header class="header">
   <span class="header__inner">
-    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+    <a href="https://jorgectf.github.io/blog/" class="logo" style="text-decoration: none;">
   
-  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  <img src="https://jorgectf.github.io/blog/logo.png" alt="jorgectf"/>
   
 </a>
     <span class="header__right">
@@ -73,7 +73,7 @@
     
     
     
-    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    <li><a href="https://jorgectf.github.io/blog/research/">Research</a></li>
     
     
     <li><a href="../">About</a></li>
@@ -88,7 +88,7 @@
     
     
     
-    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    <li><a href="https://jorgectf.github.io/blog/research/">Research</a></li>
     
     
     <li><a href="../">About</a></li>
@@ -120,16 +120,8 @@
   
 
   <div class="post">
-    <h1 class="post-title">Solving InCTF’s GoSQLv3.</h1>
+    <h1 class="post-title"></h1>
     <div class="post-meta">
-      
-        <span class="post-date">
-          2020-08-02
-        </span>
-
-        
-          
-        
       
 
       
@@ -139,26 +131,17 @@
     </div>
 
     
-      <span class="post-tags">
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/sql-injection/">#SQL Injection</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/ssrf/">#SSRF</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/gopher/">#Gopher</a> 
-        
-          <a href="https://jorgectf.gitlab.io/blog/tags/mysql/">#MySQL</a> 
-        
-      </span>
-    
 
     
 
     <div class="post-content">
       
-      <h1 id="tldr">TL;DR</h1>
+      <h2 id="date-sun-aug-02-135500-cet-2020">github.iogithub.io—
+title: “Solving InCTF’s GoSQLv3.”
+tags: [‘CTF’, ‘SQL Injection’, ‘SSRF’, ‘Gopher’, ‘MySQL’]
+summary: “Solving InCTF’s GoSQLv3 challenge.”
+date: ‘Sun Aug 02 13:55:00 CET 2020’</h2>
+<h1 id="tldr">TL;DR</h1>
 <p>In this post, I’ll be showing the path I took to solve GoSQLv3 challenge from <a href="https://twitter.com/teambi0s" target="_blank">teambi0s</a>&#39; <a href="https://ctftime.org/ctf/31" target="_blank">InCTF</a> that finished yesterday along with all the tricks and testing that didn’t work, because that’s as important as the actual solution since them can be valid in other situations.</p>
 <p>If you believe there’s anything wrong, please feel free to contact me via <a href="https://twitter.com/jorge_ctf" target="_blank">Twitter</a> or <a href="https://t.me/jorgectf" target="_blank">Telegram</a>. Let’s begin!</p>
 <h1 id="gosqlv3">GoSQLv3</h1>
@@ -335,7 +318,7 @@ Location: ./feel_the_gosql_series.php
 Content-Type: text/html; charset<span style="color:#f92672">=</span>UTF-8
 </code></pre></div><p>There we go! The Location we must follow is at <code>feel_the_gosql_series.php</code>.</p>
 <h2 id="ssrf-approach">SSRF approach</h2>
-<p><img src="https://jorgectf.gitlab.io/blog/static/inctf2020/ssrf.png" alt=""/></p>
+<p><img src="https://jorgectf.github.io/blog/static/inctf2020/ssrf.png" alt=""/></p>
 <p>We are facing an input whose content will be executed along with cURL. Before enumerating which protocols the input allows, let’s see if anything can be injected.</p>
 <h3 id="code-injection-fail">Code Injection (Fail)</h3>
 <p>If the backend is not using <a href="https://www.php.net/manual/en/function.escapeshellarg.php" target="_blank">escapeshellarg()</a> function, we could inject code by escaping the provided quotes or just executing <code>$(command here)</code>. To propperly test this, a public and reachable IP address is needed, however, there’s a tool called <a href="https://ngrok.com/" target="_blank">ngrok</a> that allow us to <em>open</em> our localhost to a domain controlled by them. There’s a more detailed post about how it works <a href="https://0xdf.gitlab.io/2020/05/12/ngrok-ftw.html" target="_blank">here</a>.</p>
@@ -567,11 +550,11 @@ offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
 </code></pre></div><ul>
 <li>Notice <code>sslmode=disable</code> flag, not to be sending the packet via TLS.</li>
 </ul>
-<p><img src="https://jorgectf.gitlab.io/blog/static/inctf2020/wire-1.png" alt=""/></p>
+<p><img src="https://jorgectf.github.io/blog/static/inctf2020/wire-1.png" alt=""/></p>
 <p>This is the <code>Startup message</code> (aka <strong>auth</strong>) that we will have to <code>Copy &gt; Hex Dump</code> into our script.</p>
-<p><img src="https://jorgectf.gitlab.io/blog/static/inctf2020/wire-2.png" alt=""/></p>
+<p><img src="https://jorgectf.github.io/blog/static/inctf2020/wire-2.png" alt=""/></p>
 <p>The same happens with the <code>Simple query</code>, but the length of it is key for the query to work.</p>
-<p><img src="https://jorgectf.gitlab.io/blog/static/inctf2020/wire-3.png" alt=""/></p>
+<p><img src="https://jorgectf.github.io/blog/static/inctf2020/wire-3.png" alt=""/></p>
 <p>And the last <code>Termination</code> that is needed too.</p>
 <h3 id="joining-it-together">Joining it together</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> binascii
@@ -691,19 +674,12 @@ SELECT 2Z♣I
           <div class="pagination__buttons">
             
               <span class="button previous">
-                <a href="https://jorgectf.gitlab.io/blog/post/dragonsector-2020-scratchpad/">
+                <a href="https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/">
                   <span class="button__icon">←</span>
-                  <span class="button__text">Solution for DragonSector 2020 CTF&#39;s ScratchPad challenge</span>
+                  <span class="button__text"></span>
                 </a>
               </span>
             
-            
-              <span class="button next">
-                <a href="https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/">
-                  <span class="button__text">Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</span>
-                  <span class="button__icon">→</span>
-                </a>
-              </span>
             
           </div>
         </div>
@@ -759,9 +735,9 @@ SELECT 2Z♣I
         <footer class="footer">
   <div class="footer__inner">
     
-      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+      <a href="https://jorgectf.github.io/blog/" class="logo" style="text-decoration: none;">
   
-  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  <img src="https://jorgectf.github.io/blog/logo.png" alt="jorgectf"/>
   
 </a>
       <div class="copyright">
@@ -774,7 +750,7 @@ SELECT 2Z♣I
   </div>
 </footer>
 
-<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+<script src="https://jorgectf.github.io/blog/assets/main.js"></script>
 
 
       
