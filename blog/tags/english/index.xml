@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>English on jorgectf</title>
+    
+    
+    
+    <link>https://jorgectf.gitlab.io/blog/tags/english/</link>
+    <description>Recent content in English on jorgectf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 19 Nov 2019 12:55:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jorgectf.gitlab.io/blog/tags/english/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[HackTheBox – Lame] (OSCP Like) English Writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/lame-writeup-english/</link>
+      <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/lame-writeup-english/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Lame OSCP Practice Writeup.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

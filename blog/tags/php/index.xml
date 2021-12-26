@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PHP on jorgectf</title>
+    
+    
+    
+    <link>https://jorgectf.gitlab.io/blog/tags/php/</link>
+    <description>Recent content in PHP on jorgectf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 26 Sep 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jorgectf.gitlab.io/blog/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CyberEDU&#39;s Web challenges&#39; writeups</title>
+      <link>https://jorgectf.gitlab.io/blog/post/cyberedu-web-challenges/</link>
+      <pubDate>Sun, 26 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/cyberedu-web-challenges/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          CyberEDU&amp;rsquo;s Web challenges&#39; writeups.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>Solution for some DefCamp 2020 CTF&#39;s Web challenges</title>
+      <link>https://jorgectf.gitlab.io/blog/post/defcamp-2020/</link>
+      <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/defcamp-2020/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Solution for some DefCamp 2020 CTF&amp;rsquo;s Web challenges.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>Fwhibbit CTR (CTF): Solving Blind Hacker</title>
+      <link>https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/</link>
+      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Fwhibbit CTR (CTF): Solving Blind Hacker.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon</title>
+      <link>https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/</link>
+      <pubDate>Wed, 22 Apr 2020 14:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Fwhibbit CTR (CTF): Solving Mike&amp;rsquo;s Dunegon.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>[HackTheBox – Networked] Spanish Writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/networked-writeup-spanish./</link>
+      <pubDate>Tue, 10 Sep 2019 18:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/networked-writeup-spanish./</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Networked Spanish Writeup.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

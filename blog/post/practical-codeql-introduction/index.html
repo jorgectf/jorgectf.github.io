@@ -1,0 +1,2665 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        Practical Introduction to CodeQL ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Practical Introduction to CodeQL"/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/practical-codeql-introduction/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Practical Introduction to CodeQL"/>
+<meta name="twitter:description" content="Practical Introduction to CodeQL"/>
+
+
+
+<meta property="og:title" content="Practical Introduction to CodeQL"/>
+<meta property="og:description" content="Practical Introduction to CodeQL"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/practical-codeql-introduction/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2021-12-13T11:00:00+00:00"/>
+<meta property="article:modified_time" content="2021-12-13T11:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Practical Introduction to CodeQL</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2021-12-13
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/codeql/">#CodeQL</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <h1 id="tldr">TL;DR</h1>
+<p>In this post we will be learning in a practical way everything I have been learning for the past few months regarding CodeQL for Python. I hope you like it as much as I do! :)</p>
+<ul>
+<li><a href="#learning-resources">Learning resources</a></li>
+<li><a href="#environment-setup">Environment SetUp</a></li>
+<li>
+<ul>
+<li><a href="#remote-queries">Remote queries</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#automation">Automation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#local-queries">Local queries</a></li>
+</ul>
+</li>
+<li><a href="#concepts">Concepts</a></li>
+<li>
+<ul>
+<li><a href="#source">Source</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#remoteflowsource">RemoteFlowSource</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#source-in-regular-expression-injection-query">Source in Regular Expression injection query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#source-in-ldap-injection-query">Source in LDAP Injection injection query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#source-in-xxe-query">Source in XXE query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#sink">Sink</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#sink-in-regular-expression-injection-query">Sink in Regular Expression injection query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#sink-in-ldap-injection-query">Sink in LDAP Injection injection query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#sink-in-xxe-query">Sink in XXE query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#taint-tracking-configuration-predicates">Taint tracking configuration predicates</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#additional-taint-steps">Additional taint steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#sanitizers">Sanitizers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#concepts-again">Concepts ¿again?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#query-development">Query development</a></li>
+<li>
+<ul>
+<li><a href="#basic-approaches">Basic approaches</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#codebase-distribution">Codebase distribution</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#modeling">Modeling</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#concepts-1">Concepts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#frameworkslibraries">Frameworks/Libraries</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#taint-tracking-configuration-and-query-specific-modeling">Taint tracking configuration and query-specific modeling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#basic-example-of-a-taint-tracking-configuration">Basic example of a taint tracking configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#tests">Tests</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#basic-tests">Basic tests</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#advanced-tests">Advanced tests</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#documentation-qhelp-and-qldocs">Documentation (qhelp and qldocs)</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#submission">Submission</a></li>
+</ul>
+</li>
+<li><a href="#advanced-query-modeling">Advanced query modeling</a></li>
+<li>
+<ul>
+<li><a href="#regular-expression-injection">Regular Expression injection</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#concepts-2">Concepts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#re-library-modeling">re library modeling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#taint-tracking-configuration">Taint tracking configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#complete-query">Complete query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="#ldap-injection">LDAP Injection</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#concepts-3">Concepts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ldap-library-modeling">ldap library modeling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ldap-2">ldap2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ldap-3">ldap3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#everything-together">Everything together</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#taint-tracking-configuration-1">Taint tracking configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#complete-query-1">Complete query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#bonus-excercises">Bonus excercises</a></li>
+<li><a href="#the-end">The end</a></li>
+</ul>
+<h1 id="learning-resources">Learning resources</h1>
+<ul>
+<li>CodeQL documentation (<a href="https://codeql.github.com/docs/" target="_blank">link</a>)</li>
+<li>GitHub Security Lab (<a href="https://securitylab.github.com/" target="_blank">link</a>):</li>
+<li>
+<ul>
+<li>C/C++: <a href="https://securitylab.github.com/research/apple-xnu-dtrace-CVE-2017-13782/" target="_blank">Apple XNU Kernel: Finding a memory exposure vulnerability with CodeQL (CVE-2017-13782)</a></li>
+</ul>
+</li>
+<li>GitHub Learning Lab:</li>
+<li>
+<ul>
+<li><a href="https://lab.github.com/githubtraining/codeql-for-javascript:-unsafe-jquery-plugin" target="_blank">JS</a> and <a href="https://lab.github.com/githubtraining/codeql-u-boot-challenge-%28cc++%29" target="_blank">C/C++</a></li>
+</ul>
+</li>
+<li>GitHub YouTube channel (sort by difficulty and learning quality):</li>
+<li>
+<ul>
+<li>Java: <a href="https://www.youtube.com/watch?v=nvCd0Ee4FgE&amp;t=5680s&amp;ab_channel=GitHub" target="_blank">Finding security vulnerabilities in Java with CodeQL - GitHub Satellite 2020</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>C/C++: <a href="https://www.youtube.com/watch?v=AMzGorD28Ks&amp;ab_channel=GitHub" target="_blank">CodeQL Live Episode 1</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>C/C++: <a href="https://www.youtube.com/watch?v=eAjecQrfv3o&amp;ab_channel=GitHub" target="_blank">Security: Workshop 2 - Finding security vulnerabilities in C/C++ with CodeQL</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>JS: <a href="https://www.youtube.com/watch?v=pYzfGaLTqC0&amp;ab_channel=GitHub" target="_blank">Finding security vulnerabilities in JavaScript with CodeQL - GitHub Satellite 2020</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Java: <a href="https://www.youtube.com/watch?v=uUvhplNbQOI&amp;ab_channel=VishwarajBhattrai" target="_blank">Variant analysis to find SQL injection using CodeQL - CVE-2019-6986</a></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>General: <a href="https://www.youtube.com/watch?v=Y6PjAaZKNYk&amp;ab_channel=GitHub" target="_blank">Community-powered security analysis with CodeQL - GitHub Universe 2020</a></li>
+</ul>
+</li>
+<li>C/C++: <a href="https://www.cyberark.com/resources/threat-research-blog/make-memcpy-safe-again-codeql" target="_blank">Make Memcpy Safe Again: CodeQL</a></li>
+<li>C/C++: <a href="http://f4bb1t.com/post/2020/12/10/cve-2017-13782-codeql-study-note/" target="_blank">CVE-2017-13782: CodeQL Study Note</a></li>
+<li>Tutorial: <a href="https://www.youtube.com/watch?v=HH7wLL2g1Iw&amp;ab_channel=JonathanLeitschuh" target="_blank">[Live Stream] CodeQL Code Scanning Language Tutorial</a></li>
+<li>Java: <a href="https://www.youtube.com/watch?v=qStzSfsEQGQ&amp;ab_channel=BugBountyReportsExplained" target="_blank">$3,000 CodeQL query for finding LDAP Injection - Github Security Lab - Hackerone</a></li>
+</ul>
+<center>
+<img src="https://jorgectf.gitlab.io/blog/static/practical-codeql-introduction/meme1.jpg"/>
+</center>
+<h1 id="environment-setup">Environment SetUp</h1>
+<p>In order to be able to try out the examples this post will show, this section will help you understand what LGTM is and to set up a working codeql environment to run the queries on your end.</p>
+<h2 id="remote-queries">Remote queries</h2>
+<p>LGTM.com is a website holding <code>github/codeql</code>’s <code>lgtm.com</code> branch with an online codeql editor that lets you <a href="https://lgtm.com/help/lgtm/console/ql-python-basic-example" target="_blank">run any codeql snippet</a> using the core codeql libraries.</p>
+<p><a href="https://lgtm.com/query/5947352280136577376/" target="_blank">Run an example!</a></p>
+<p>As you can see, it lets you select several projects to run the query on (being able to create custom lists) and it also shows the results in a pretty way. The former example shows just a string, but using <code>@kind path-problem</code> (query metadata) and <code>DataFlow::PathGraph</code> is much prettier:</p>
+<p><a href="https://lgtm.com/query/4137453158161862770/" target="_blank">Run an example!</a></p>
+<p>This post will refer you to LGTM each time there’s a codeql snippet whose behaviour may be shown.</p>
+<h3 id="automation">Automation</h3>
+<center>
+<img src="https://jorgectf.gitlab.io/blog/static/practical-codeql-introduction/meme2.jpg"/>
+</center>
+<p>The existence of a cloud-based CodeQL “instance” opens a wide range of ideas regarding automation. An aggressive automation clearly goes against LGTM ToS, so use this information at your own risk.</p>
+<p><a href="https://github.com/gagliardetto/lgtm-cli" target="_blank">gagliardetto/lgtm-cli</a> and <a href="https://github.com/JLLeitschuh/lgtm_hack_scripts" target="_blank">JLLeitschuh/lgtm_hack_scripts</a> let you follow repos (for them to be built by LGTM) based on GitHub API search or dependency network, create custom lists, and query already-built projects.</p>
+<p>This automation helps measuring the impact and precission of the query, and lets you provide results for the bounty submissions if any. (see <a href="#submission">#submission</a>).</p>
+<h2 id="local-queries">Local queries</h2>
+<p>This is the way I’d recommend to run queries and play with them. Let’s start!</p>
+<ul>
+<li>Clone <a href="https://github.com/jorgectf/codeql" target="_blank">jorgectf/codeql</a> inside an empty folder.</li>
+<li>Open the empty folder with VSCode.</li>
+<li>Install the CodeQL <a href="https://marketplace.visualstudio.com/items?itemName=github.vscode-codeql" target="_blank">extension</a>.</li>
+<li>Checkout <code>Practical-CodeQL-Introduction</code> branch:</li>
+<li>
+<ul>
+<li>Open a terminal <code>Terminal &gt; New Terminal</code> and run <code>(cd codeql/ &amp;&amp; git checkout Practical-CodeQL-Introduction)</code>.</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>OR</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Go to <code>Source Control</code> pane, click <code>main</code> and choose <code>Practical-CodeQL-Introduction</code>.</li>
+</ul>
+</li>
+<li>Go to <code>Testing</code> pane, expand <code>codeql &gt; python / ql / test &gt; experimental &gt; query-tests &gt; Security &gt; Practical-CodeQL-Introduction</code> and click the “play”/“run” button.</li>
+<li>Once the tests have finished (they will intendedly fail because the results don’t match those from <code>.expected</code> file) a CodeQL database should have been created.</li>
+<li>Go to the <code>CodeQL</code> pane, click <code>Add a CodeQL database: From a Folder</code> and choose <code>codeql/python/ql/test/experimental/query-tests/Security/Practical-CodeQL-Introduction/Practical-CodeQL-Introduction.testproj</code>.</li>
+<li>Find a file called <code>query.ql</code> inside <code>codeql/python/ql/src/experimental/Security/Practical-CodeQL-Introduction/</code>.</li>
+<li>You are ready to go! Feel free to run any query inside <code>query.ql</code> by writing the desired code and running it (Right Click &gt; <code>CodeQL: Run Query</code>). You may also run an specific snippet by selecting it, right-click &gt; <code>CodeQL: Quick Evaluation</code>.</li>
+</ul>
+<p>In case CodeQL CLI doesn’t get installed (a binary capable of running everything related to codeql) head to <code>Extensions &gt; CodeQL &gt; Extension Settings</code>, find <code>Code QL › Cli: Executable Path</code>, add a random string like “a” inside the input form, click outside the form (for vscode to update the value) and remove the written input. You may see a vscode notification showing that the CodeQL CLI is being installed now.</p>
+<h1 id="concepts">Concepts</h1>
+<p>In order to fully understand the incoming points regarding query deveploment we need to look at a few concepts (some which you may already now, but focused on CodeQL).</p>
+<h2 id="source">Source</h2>
+<p>We may understand a “source” as the very first appearance of the code whose flow we want to follow. For example, a source could be user input or a hardcoded string (matching the form of an specific string), and we will sometimes be referring to it as “tainted” data (e.g., <code>TaintTracking</code>: coming from <code>TaintTracking::Configuration</code>, a class allowing us to specify and customize the source, sink and several other parts of a flow configuration).</p>
+<h3 id="remoteflowsource">RemoteFlowSource</h3>
+<p>Since most of the security-related queries&#39; focus is to check whether user input flows into a specific part of the code (e.g., a function’s argument), CodeQL introduced a structure (see <a href="#concepts-again">#concepts-again</a>) that compiles every user input for developers not to worry about it. (Since CodeQL is under development, some frameworks may not be introduced yet, but the objective of this structure is to hold as much as user-input-providing functions as possible)</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import python
+import semmle.python.dataflow.new.RemoteFlowSources
+
+from RemoteFlowSource rfs // create a &#39;rfs&#39; variable of type RemoteFlowSource
+select rfs // return all of its appearances
+</code></pre><p><a href="https://lgtm.com/query/1596444961021798199/" target="_blank">Run it!</a></p>
+<p>You may see some structures used inside an <code>any()</code> function. This is because the <code>from</code> clause can be avoided like this:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import python
+import semmle.python.dataflow.new.RemoteFlowSources
+
+select any(RemoteFlowSource rfs) // select any RemoteFlowSource appearance
+</code></pre><p><a href="https://lgtm.com/query/7023004768016320670/" target="_blank">Run it!</a></p>
+<h3 id="source-in-regular-expression-injection-query">Source in Regular Expression Injection query</h3>
+<p>Given the following snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/direct&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">direct</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;pattern&#34;</span>]
+    re<span style="color:#f92672">.</span>search(unsafe_pattern, <span style="color:#e6db74">&#34;foo&#34;</span>)
+</code></pre></div><p>Since the vulnerability we are looking for happens when user input flows into the first argument of a regular expression operation (<a href="https://blog.deesee.xyz/regex/security/2020/12/27/regular-expression-injection.html" target="_blank">regular expression injection</a>), the source here would be <code>request.args[&#34;pattern&#34;]</code>. Even though there are other ways to model this vulnerability (as seen below), the source of the flow will stay the same because <code>request.args[&#34;pattern&#34;]</code> is the very first appearance of user input (the exact thing whose flow we want to track).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/compiled&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compiled</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;pattern&#34;</span>]
+    compiled_pattern <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(unsafe_pattern)
+    compiled_pattern<span style="color:#f92672">.</span>search(<span style="color:#e6db74">&#34;foo&#34;</span>)
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/inline&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inline</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;pattern&#34;</span>]
+    re<span style="color:#f92672">.</span>compile(unsafe_pattern)<span style="color:#f92672">.</span>search(<span style="color:#e6db74">&#34;foo&#34;</span>)
+</code></pre></div><p>(see <a href="#regular-expression-injection">#advanced-modeling</a>)</p>
+<h3 id="source-in-ldap-injection-query">Source in LDAP Injection query</h3>
+<p>Given the following snippets (python2 and python3 examples):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/normal2&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normal2</span>():
+
+    unsafe_dc <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;dc&#39;</span>]
+    unsafe_filter <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;username&#39;</span>]
+
+    dn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dc=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(unsafe_dc)
+    search_filter <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(foo=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#34;</span><span style="color:#f92672">.</span>format(unsafe_filter)
+
+    ldap_connection <span style="color:#f92672">=</span> ldap<span style="color:#f92672">.</span>initialize(<span style="color:#e6db74">&#34;ldap://127.0.0.1&#34;</span>)
+    user <span style="color:#f92672">=</span> ldap_connection<span style="color:#f92672">.</span>search_s(
+        dn, ldap<span style="color:#f92672">.</span>SCOPE_SUBTREE, search_filter)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/normal3&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normal3</span>():
+
+    unsafe_dc <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;dc&#39;</span>]
+    unsafe_filter <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;username&#39;</span>]
+
+    dn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dc=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(unsafe_dc)
+    search_filter <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(user=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#34;</span><span style="color:#f92672">.</span>format(unsafe_filter)
+
+    srv <span style="color:#f92672">=</span> ldap3<span style="color:#f92672">.</span>Server(<span style="color:#e6db74">&#39;ldap://127.0.0.1&#39;</span>)
+    conn <span style="color:#f92672">=</span> ldap3<span style="color:#f92672">.</span>Connection(srv, user<span style="color:#f92672">=</span>dn, auto_bind<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+    conn<span style="color:#f92672">.</span>search(dn, search_filter)
+</code></pre></div><p>In both cases (<a href="https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html" target="_blank">ldap injection</a>), the source keeps being user input like <code>request.args[&#39;dc&#39;]</code> and <code>request.args[&#39;username&#39;]</code>.</p>
+<p>(see <a href="#ldap-injection">#advanced-modeling</a>)</p>
+<h3 id="source-in-xxe-query">Source in XXE query</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/lxml.etree.fromstring&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lxml_fromstring</span>():
+
+    xml_content <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;xml_content&#39;</span>]
+    <span style="color:#66d9ef">return</span> lxml<span style="color:#f92672">.</span>etree<span style="color:#f92672">.</span>fromstring(xml_content)<span style="color:#f92672">.</span>text
+
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/lxml.etree.XML&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lxml_XML</span>():
+
+    xml_content <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;xml_content&#39;</span>]
+    <span style="color:#66d9ef">return</span> lxml<span style="color:#f92672">.</span>etree<span style="color:#f92672">.</span>XML(xml_content)<span style="color:#f92672">.</span>text
+
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/lxml.etree.parse&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lxml_parse</span>():
+
+    xml_content <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;xml_content&#39;</span>]
+    <span style="color:#66d9ef">return</span> lxml<span style="color:#f92672">.</span>etree<span style="color:#f92672">.</span>parse(StringIO(xml_content))<span style="color:#f92672">.</span>text
+</code></pre></div><p>Yet again (<a href="https://owasp.org/www-community/vulnerabilities/XML_External_Entity_%28XXE%29_Processing" target="_blank">XXE</a>), the very first appearance of user input is <code>request.args[&#39;xml_content&#39;]</code> and so our source would be.</p>
+<p>(see <a href="#xxe">#advanced-modeling</a>)</p>
+<h2 id="sink">Sink</h2>
+<p>As the opposite of what a source is, the “sink” is the <strong>last</strong> place our source has to arrive to be <strong>vulnerable</strong>.</p>
+<p>Given this simple snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/demo&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">demo</span>():
+
+    cmd <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;pattern&#34;</span>]
+    result <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>popen(cmd)<span style="color:#f92672">.</span>read() <span style="color:#75715e"># [1]</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>cmd<span style="color:#e6db74">}</span><span style="color:#e6db74"> has returned </span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># [2]</span>
+</code></pre></div><p>As you may have noticed, it’s clear that the actual last place <code>request.args[&#34;pattern&#34;]</code> (our source) appears/flows to (i.e., where our source sinks) is <code>[2]</code> (<code>{</code><strong><code>cmd</code></strong><code>}</code> and <code>{</code><strong><code>result</code></strong><code>}</code> respectively), but according to the previous definition, the actual sink in this query (<strong>last place to be vulnerable</strong>) would be <code>[1]</code> (<code>os.popen(</code><strong><code>cmd</code></strong><code>).read()</code>).</p>
+<h3 id="sink-in-regular-expression-injection-query">Sink in Regular Expression Injection query</h3>
+<p>Given the following snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/direct&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">direct</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;pattern&#34;</span>]
+    re<span style="color:#f92672">.</span>search(unsafe_pattern, <span style="color:#e6db74">&#34;foo&#34;</span>)
+</code></pre></div><p>The sink in this example would be <code>re.search</code>’s first argument (i.e., the first argument of <code>re</code>’s <code>search</code> method call) <code>unsafe_pattern</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/inline&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inline</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;pattern&#34;</span>]
+    re<span style="color:#f92672">.</span>compile(unsafe_pattern)<span style="color:#f92672">.</span>search(<span style="color:#e6db74">&#34;foo&#34;</span>)
+</code></pre></div><p>This example’s vulnerable call is a bit tricky, because it embeds a method call inside of another method call. The sink would be <code>re.compile</code>’s first argument (i.e., the first argument of <code>re</code>’s <code>compile</code> method call) being then the object of <code>re</code>’s <code>search</code> method call.</p>
+<p>This snippet may help to understand the approach:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import python
+import semmle.python.dataflow.new.DataFlow
+
+from DataFlow::MethodCallNode mc, DataFlow::Node mco
+where
+    mc.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    mco = mc.getObject() and
+    mco instanceof DataFlow::MethodCallNode
+select mco, mc
+</code></pre><p><a href="https://lgtm.com/query/3778945548284219988/" target="_blank">Run it!</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/compile&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compile</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;pattern&#34;</span>]
+    compiled_pattern <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(unsafe_pattern)
+    compiled_pattern<span style="color:#f92672">.</span>search(<span style="color:#e6db74">&#34;&#34;</span>)
+</code></pre></div><p>In this example, the approach would be the same, but we have to uncover <code>getALocalSource()</code>, a function in charge of finding where the variable comes from (i.e., gets declared).</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import python
+import semmle.python.dataflow.new.DataFlow
+
+from DataFlow::MethodCallNode mc, DataFlow::Node mco
+where
+    mc.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    mco = mc.getObject().getALocalSource() and
+    mco instanceof DataFlow::MethodCallNode
+select mco, mc
+</code></pre><p><a href="https://lgtm.com/query/1762912393564367622/" target="_blank">Run it!</a></p>
+<p>However, we are facing some false positives (that actually make sense). This happens because we are not restricting the <code>MethodCallNode</code>s to the <code>re</code> library ones, we are just looking for specific structures.</p>
+<p>(see <a href="#regular-expression-injection">#advanced-modeling</a>)</p>
+<h3 id="sink-in-ldap-injection-query">Sink in LDAP Injection query</h3>
+<p>Given the following snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/normal2&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normal2</span>():
+
+    unsafe_dc <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;dc&#39;</span>]
+    unsafe_filter <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;username&#39;</span>]
+
+    dn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dc=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(unsafe_dc)
+    search_filter <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(user=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#34;</span><span style="color:#f92672">.</span>format(unsafe_filter)
+
+    ldap_connection <span style="color:#f92672">=</span> ldap<span style="color:#f92672">.</span>initialize(<span style="color:#e6db74">&#34;ldap://127.0.0.1&#34;</span>)
+    user <span style="color:#f92672">=</span> ldap_connection<span style="color:#f92672">.</span>search_s(
+        dn, ldap<span style="color:#f92672">.</span>SCOPE_SUBTREE, search_filter)
+</code></pre></div><p>We can use <code>MethodCallNode</code> and <code>getALocalSource()</code> again to find <code>ldap_connection.search_s</code>’s first/third argument (being <code>ldap_connection</code> a variable holding <code>ldap.initialize</code>); in other words, we have to find the first/third argument of a method call whose object’s local source is a call to <code>ldap</code>’s <code>initialize</code> method.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/normal3&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normal3</span>():
+
+    unsafe_dc <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;dc&#39;</span>]
+    unsafe_filter <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;username&#39;</span>]
+
+    dn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dc=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(unsafe_dc)
+    search_filter <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(user=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#34;</span><span style="color:#f92672">.</span>format(unsafe_filter)
+
+    srv <span style="color:#f92672">=</span> ldap3<span style="color:#f92672">.</span>Server(<span style="color:#e6db74">&#39;ldap://127.0.0.1&#39;</span>)
+    conn <span style="color:#f92672">=</span> ldap3<span style="color:#f92672">.</span>Connection(srv, user<span style="color:#f92672">=</span>dn, auto_bind<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+    conn<span style="color:#f92672">.</span>search(dn, search_filter)
+</code></pre></div><p>In this python3 example, the modeling would have to search for the first/second argument of <code>conn.search</code> call, being <code>conn</code> a variable holding <code>ldap3.Connection</code> whose first argument local source is <code>ldap3.Server</code>.</p>
+<p>(see <a href="#ldap-injection">#advanced-modeling</a>)</p>
+<h3 id="sink-in-xxe-query">Sink in XXE query</h3>
+<p>Given the following snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/lxml.etree.fromstring&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lxml_fromstring</span>():
+
+    xml_content <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;xml_content&#39;</span>]
+    <span style="color:#66d9ef">return</span> lxml<span style="color:#f92672">.</span>etree<span style="color:#f92672">.</span>fromstring(xml_content)<span style="color:#f92672">.</span>text
+</code></pre></div><p>The sink would be the first argument of <code>lxml.etree.fromstring</code> call.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/lxml.etree.parse&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lxml_parse</span>():
+
+    xml_content <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;xml_content&#39;</span>]
+    <span style="color:#66d9ef">return</span> lxml<span style="color:#f92672">.</span>etree<span style="color:#f92672">.</span>parse(StringIO(xml_content))<span style="color:#f92672">.</span>text
+</code></pre></div><p>In this example, the sink is again the first arg… wait… the first argument of <code>lxml.etree.parse</code> is actually <code>StringIO(xml_content)</code>! Does that mean that we should be looking for the first argument of <code>StringIO</code> call, being it the first argument of <code>lxml.etree.parse</code>? That would imply modeling all of these related functions just for the sink (like <code>BytesIO</code>).</p>
+<p>That would be a bad practice in terms of effectiveness, since the former modeling idea would not cover the following example, and we would be loosing the power of taint flow analysis (taint tracking).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/lxml.etree.parse&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lxml_parse</span>():
+
+    xml_content <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;xml_content&#39;</span>]
+    xml_content <span style="color:#f92672">=</span> StringIO(xml_content)
+
+    <span style="color:#66d9ef">return</span> lxml<span style="color:#f92672">.</span>etree<span style="color:#f92672">.</span>parse(xml_content)<span style="color:#f92672">.</span>text
+</code></pre></div><p>Because of that, we should be using some taint tracking configuration predicates like <code>isAdditionalTaintStep</code> and <code>Sanitizer</code>s.</p>
+<h2 id="taint-tracking-configuration-predicates">Taint tracking configuration predicates</h2>
+<p>This predicates are like “extras” that let us specify some details for our taint tracking configuration.</p>
+<h3 id="additional-taint-steps">Additional taint steps</h3>
+<p>Additional taint steps let us specify additional “jumps” that the flow may make in order to “bypass” known functions. If specified, once the flow ends (the specified source doesn’t flow anymore) CodeQL applies the specified steps and continues looking for flow.</p>
+<p>For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/lxml.etree.parse&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lxml_parse</span>():
+
+    xml_content <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;xml_content&#39;</span>]
+    xml_content <span style="color:#f92672">=</span> StringIO(xml_content)
+
+    <span style="color:#66d9ef">return</span> lxml<span style="color:#f92672">.</span>etree<span style="color:#f92672">.</span>parse(xml_content)<span style="color:#f92672">.</span>text
+</code></pre></div><p>CodeQL taint tracking will see that <code>request.args[&#39;xml_content&#39;]</code> flows to <code>StringIO(here)</code>, and would stop since the next step would be <code>lxml.etree.parse(here)</code>, but <code>here</code> here would be <code>StringIO(request.args[&#39;xml_content&#39;])</code> instead of being just <code>request.args[&#39;xml_content&#39;]</code>. In other words, the first argument of <code>lxml.etree.parse</code> is seen as the result of <code>StringIO</code> (even though the code is vulnerable). This happens because CodeQL may stop taint flow analysis if the tainted data flows into a function that changes its content. In this case, <code>StringIO</code> returns a file’s filename whose content is the provided argument.</p>
+<p>To make it work, we should specify an additional taint step: <code>StringIO</code>’s first argument being the <code>nodeFrom</code> and <code>StringIO</code>’s entire call being the <code>nodeTo</code>.</p>
+<p>(<code>isAdditionalTaintStep</code> predicate override inside a taint tracking configuration)</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isAdditionalTaintStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
+  exists(DataFlow::CallCfgNode ioCalls |
+    ioCalls = API::moduleImport(&#34;io&#34;).getMember([&#34;StringIO&#34;, &#34;BytesIO&#34;]).getACall() and
+    nodeFrom = ioCalls.getArg(0) and
+    nodeTo = ioCalls
+  )
+}
+</code></pre><p><a href="https://github.com/github/codeql/pull/6112/files#diff-855eeb20989959c4705e15cdcdd672e9b64a00e625f577ff9abf425f8803383cR31-R35" target="_blank">Example</a></p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import python
+import semmle.python.dataflow.new.DataFlow
+import semmle.python.ApiGraphs
+
+from DataFlow::CallCfgNode ioCalls, DataFlow::Node nodeFrom, DataFlow::Node nodeTo
+where 
+    ioCalls.getLocation().getFile().getBaseName().matches(&#34;XXE%&#34;) and // just restricting the file to be queried
+    ioCalls = API::moduleImport(&#34;io&#34;).getMember([&#34;StringIO&#34;, &#34;BytesIO&#34;]).getACall() and
+    nodeFrom = ioCalls.getArg(0) and
+    nodeTo = ioCalls
+select ioCalls, nodeFrom, nodeTo
+</code></pre><p><a href="https://lgtm.com/query/3846180547963359055/" target="_blank">Run it!</a></p>
+<h3 id="sanitizers">Sanitizers</h3>
+<center>
+<img src="https://jorgectf.gitlab.io/blog/static/practical-codeql-introduction/meme3.jpg"/>
+</center>
+<p>Sanitizers, as the opposite to additional taint steps, let us specify functions or behaviours we don’t want CodeQL flow to follow. If specified, each time the flow makes an step, it will be checking that this specific step/behaviour isn’t specified as a sanitizer (if it is, the flow will stop).</p>
+<p>For example, given the following snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/direct&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">direct</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;pattern&#39;</span>]
+    safe_pattern <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>escape(unsafe_pattern)
+    re<span style="color:#f92672">.</span>search(safe_pattern, <span style="color:#e6db74">&#34;&#34;</span>)
+</code></pre></div><p>In case CodeQL saw <code>re.escape</code> as a function that doesn’t decontaminates the source (it keeps being tainted and so the flow wouldn’t stop) we should be specifying it as a sanitizer behaviour.</p>
+<p>Specifying <code>re.escape</code>’s first argument (i.e., the first argument of <code>re</code>’s <code>escape</code> method call) as the node argument of <code>isSanitizer</code>, if CodeQL’s flow is in that position, it will stop.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isSanitizer(DataFlow::Node sanitizer) {
+    sanitizer = API::moduleImport(&#34;re&#34;).getMember(&#34;escape&#34;).getACall().getArg(0)
+}
+</code></pre><p><a href="https://github.com/github/codeql/pull/5442/files#diff-409a1f8f2ea725c9a7e33255377ae0d14d39b7c7db8862878abd5b02590a6f91R51" target="_blank">Example</a></p>
+<p>Furthermore, we may use <code>isSanitizerGuard</code> to specify another situation that we want the flow to stop in. For example, <code>StringConstCompare</code>:</p>
+<p>(According to its qldoc: <code>A validation of unknown node by comparing with a constant string value.</code>)</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isSanitizerGuard(DataFlow::BarrierGuard guard) {
+    guard instanceof StringConstCompare
+}
+</code></pre><p><a href="https://github.com/github/codeql/pull/7127/files#diff-5bf2eef89d0cd3663fe0b15d1824b285f13d94d4b86d190ee83bc9cddec1ea5eR26" target="_blank">Example</a></p>
+<h2 id="concepts-again">Concepts ¿again?</h2>
+<p>CodeQL “Concepts” is a structure in charge of holding many different modelings inside the same structure depending if its <code>Range</code> is extended.</p>
+<p>For example, <a href="https://github.com/github/codeql/blob/main/python/ql/lib/semmle/python/dataflow/new/RemoteFlowSources.qll" target="_blank">RemoteFlowSource</a>’s modeling (although it is not inside <code>Concepts.qll</code>) is quite the same. <a href="https://github.com/github/codeql/blob/main/python/ql/lib/semmle/python/frameworks/Flask.qll#L329L347" target="_blank">This</a> is how <code>flask</code>’s <code>request</code> is developed to extend <code>RemoteFlowSource</code>. Because of that, everytime <code>RequestFlowSource</code> is used with <code>python/ql/lib/semmle/python/frameworks/Flask.qll</code> imported, it makes a reference to the extended structure.</p>
+<p>As an example of an actual Concept inside <code>Concepts.qll</code>, we may see <code>LDAPQuery</code> from the LDAP Injection query:</p>
+<ul>
+<li><a href="https://github.com/github/codeql/pull/5443/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR84-R115" target="_blank">Concept declaration</a> inside <code>Concepts.qll</code>.</li>
+<li><a href="https://github.com/github/codeql/pull/5443/files#diff-912d026443aeccb494f24d6d7b0c5dadf70e1103adc18337228de53c3fe2a323R38-R59" target="_blank">Extending</a> the concept with <code>python2</code>’s LDAP code modeling.</li>
+<li><a href="https://github.com/github/codeql/pull/5443/files#diff-912d026443aeccb494f24d6d7b0c5dadf70e1103adc18337228de53c3fe2a323R98-R115" target="_blank">Extending</a> the concept with <code>python3</code>’s LDAP code modeling.</li>
+<li><a href="https://github.com/github/codeql/pull/5443/files#diff-8c82e5d72954ecd158b724aa1ce7bf0f2a7f10aabf55421d71c5eaf176ce30acR19" target="_blank">Using</a> the concept to match all the extended APIs.</li>
+</ul>
+<p>Concepts&#39; predicates are created for Concepts to be fully customizable. (Notice that <code>RemoteFlowSource</code> does not have any useful predicate while <code>LDAPQuery</code> has a <code>getQuery</code> one, for <code>LDAPQuery</code> to be used as a call to a search call modeling and its <code>getQuery</code> as the compilation of all inputs belonging to a LDAP query).</p>
+<h1 id="query-development">Query development</h1>
+<h2 id="basic-approaches">Basic approaches</h2>
+<ul>
+<li>Finding calls of library methods:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+select API::moduleImport(&#34;re&#34;).getAMember().getACall()
+</code></pre><p><a href="https://lgtm.com/query/225943042926601968/" target="_blank">Run it!</a></p>
+<p>This let us get a general idea of how the library is being used along the codebase.
+You can specify the method name using <code>getMember(name)</code>.</p>
+<ul>
+<li>Getting arguments from method calls:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::CallCfgNode call, DataFlow::Node arg
+where
+  call = API::moduleImport(_).getAMember().getACall() and
+  arg in [call.getArgByName(&#34;auto_bind&#34;), call.getArg(2)]
+select arg
+</code></pre><p><a href="https://lgtm.com/query/3736093809532727865/" target="_blank">Run it!</a></p>
+<p>We are using <code>_</code> in <code>API::moduleImport(_)</code> to get all the module imports as if we used <code>getMember(_)</code> instead of <code>getAMember()</code>. The query finds any call for a <code>library.method</code> and gets the keyword argument <code>auto_bind</code> and the third positional argument.</p>
+<ul>
+<li>Finding calls of any-level library methods:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+select API::moduleImport(&#34;re&#34;).getAMember*().getACall()
+</code></pre><p><a href="https://lgtm.com/query/3133185619335875308/" target="_blank">Run it!</a></p>
+<ul>
+<li>Finding a string that flows to an argument:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import python
+import semmle.python.ApiGraphs
+
+from StrConst str
+where
+  DataFlow::exprNode(str)
+      .(DataFlow::LocalSourceNode)
+      .flowsTo(API::builtin(&#34;eval&#34;).getACall().getArg(0))
+select str.getText()
+</code></pre><p><a href="https://lgtm.com/query/4288940320632526905/" target="_blank">Run it!</a></p>
+<ul>
+<li>Finding a specific string that flows to an argument:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import python
+import semmle.python.ApiGraphs
+
+from StrConst str
+where
+  str.getText().matches(&#34;second%&#34;) and
+  DataFlow::exprNode(str)
+      .(DataFlow::LocalSourceNode)
+      .flowsTo(API::builtin(&#34;eval&#34;).getACall().getArg(0))
+select str.getText()
+</code></pre><p><a href="https://lgtm.com/query/6202208693479714103/" target="_blank">Run it!</a></p>
+<p>See <a href="https://codeql.github.com/codeql-standard-libraries/python/type.string.html" target="_blank">this</a> documentation page for the rest of <code>matches()</code> alike functions.</p>
+<p>More <a href="https://github.com/github/codeql/pull/5588/files#diff-451c91440e94b1ac9f213c6561daa60dd297c61531917bfe6f408744c9004ff2R4-R23" target="_blank">examples</a>.</p>
+<ul>
+<li>Void predicates:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">predicate doSomething() { any() }
+
+where doSomething()
+select &#34;Hello predicate!&#34;
+</code></pre><p><a href="https://lgtm.com/query/3530261217856843429/" target="_blank">Run it!</a></p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">predicate doSomething() { none() }
+
+where doSomething()
+select &#34;Hello predicate!&#34;
+</code></pre><p><a href="https://lgtm.com/query/6682118804600564927/" target="_blank">Run it!</a></p>
+<p><code>any()</code>/<code>none()</code> can also be a condition.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+predicate doSomething() { 
+  exists(API::moduleImport(&#34;re&#34;).getMember(&#34;match&#34;).getACall()) 
+}
+
+where doSomething()
+select &#34;Hello predicate!&#34;
+</code></pre><p><a href="https://lgtm.com/query/3867098522450871379/" target="_blank">Run it!</a></p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+predicate doSomething() { 
+  exists(API::moduleImport(&#34;re&#34;).getMember(&#34;motch&#34;).getACall()) 
+}
+
+where doSomething()
+select &#34;Hello predicate!&#34;
+</code></pre><p><a href="https://lgtm.com/query/5293678819295274366/" target="_blank">Run it!</a></p>
+<p><code>doSomething()</code> will success and continue the execution if calls to <code>re.m(a|o)tch</code> exist.</p>
+<ul>
+<li>Creating a custom class and querying it:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import python
+
+class CustomClass extends StrConst {
+  CustomClass() { this.getText().matches(&#34;this%&#34;) }
+
+  predicate doSomething() { this.getText().matches(&#34;%demo%&#34;) }
+}
+
+from CustomClass a
+where a.doSomething()
+select a.getText()
+</code></pre><p><a href="https://lgtm.com/query/6580299508341767550/" target="_blank">Run it!</a></p>
+<p>This would be the same as using <code>StrConst</code> directly in the <code>from</code> clause and setting the conditionals in the <code>where</code> clause.</p>
+<h2 id="codebase-distribution">Codebase distribution</h2>
+<p>Just before digging into pure query development, let’s see how the code is distributed along the codebase.</p>
+<p>Placed inside <code>codeql/python/ql/src/experimental/Security/CWE-XXX</code> should be the main query (<code>LDAPInjection.ql</code>), the <code>.qhelp</code> file (see <a href="#documentation-qhelp-and-qldocs">#documentation</a>) and simple examples of what the query covers. <a href="https://github.com/jorgectf/codeql/tree/main/python/ql/src/experimental/Security/CWE-090" target="_blank">Example</a></p>
+<p>Placed inside <code>codeql/python/ql/test/experimental/query-tests/Security/CWE-XXX</code> should be all the tests for the query, a <code>.qlref</code> pointing to the previous “main” query and a <code>.expected</code> (see <a href="#tests">#tests</a>).</p>
+<p>Placed inside <code>codeql/python/ql/src/experimental/semmle/python</code> should be the rest of the modeling:</p>
+<ul>
+<li>Concepts</li>
+<li>
+<ul>
+<li><code>...experimental/semmle/python/Concepts.qll</code></li>
+</ul>
+</li>
+<li>Frameworks and libraries&#39; modeling:</li>
+<li>
+<ul>
+<li><code>...experimental/semmle/python/frameworks</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li><code>...experimental/semmle/python/libraries</code></li>
+</ul>
+</li>
+<li>
+<ul>
+<li><code>...experimental/semmle/python/templates</code></li>
+</ul>
+</li>
+<li>TaintTracking configurations and query-specific modeling:</li>
+<li>
+<ul>
+<li><code>...experimental/semmle/python/security</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="modeling">Modeling</h2>
+<h3 id="concepts-1">Concepts</h3>
+<p>The first thing we should be doing while developing a query is thinking about a proper way of making its Concepts.</p>
+<p><code>RegexExecution</code> and <code>RegexEscape</code> <a href="https://github.com/github/codeql/pull/5442/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR17" target="_blank">modeling</a></p>
+<p><code>LDAPQuery</code> and <code>LDAPEscape</code> <a href="https://github.com/github/codeql/pull/5443/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR83" target="_blank">modeling</a></p>
+<p><code>XMLParsing</code> and <code>XMLParser</code> <a href="https://github.com/github/codeql/pull/6112/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR47" target="_blank">modeling</a></p>
+<p><code>JWTEncoding</code> and <code>JWTDecoding</code> <a href="https://github.com/github/codeql/pull/5588/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR300" target="_blank">modeling</a></p>
+<p>As you may have noticed, the above concepts cover the main point of the query (without taking into account the vulnerability itself).</p>
+<h3 id="frameworkslibraries">Frameworks/Libraries</h3>
+<p>In this stage, we should be modeling the libraries or frameworks related to the vulnerability extending the Concepts:</p>
+<p><code>re</code> (<code>Regex Injection</code>) <a href="https://github.com/github/codeql/pull/5442/files#diff-0334e5539ad0424307e82c6dacb174720d092210696406357f6520de3c86e892R18" target="_blank">modeling</a></p>
+<p><code>LDAP</code> (<code>LDAP Injection</code>) <a href="https://github.com/github/codeql/pull/5443/files#diff-912d026443aeccb494f24d6d7b0c5dadf70e1103adc18337228de53c3fe2a323R15" target="_blank">modeling</a></p>
+<p><code>XML</code> (<code>XXE</code>) <a href="https://github.com/github/codeql/pull/6112/files#diff-d5717585be13e399251085204d74d4e8d79c45c150aaaa1d3c5c8c7f7692d842R11" target="_blank">modeling</a></p>
+<p><code>JWT</code> libraries modeling:</p>
+<ul>
+<li><a href="https://github.com/github/codeql/pull/5588/files#diff-fac5aacf97295ac9284e9afa26ca967f5143ec1a433a6ecf5f889bb4b5949fc5R6" target="_blank">PyJWT</a></li>
+<li><a href="https://github.com/github/codeql/pull/5588/files#diff-c6ba0f164cebe320bd428126ef5efdc105822d0f99c519706383deb76d84a00aR6" target="_blank">Authlib</a></li>
+<li><a href="https://github.com/github/codeql/pull/5588/files#diff-83ea4f39086d3f4cbf7446121ceeb5534f446370d8b81c7b6f736ff719d52bf8R6" target="_blank">PythonJose</a></li>
+</ul>
+<h3 id="taint-tracking-configuration-and-query-specific-modeling">Taint tracking configuration and query-specific modeling</h3>
+<p>Finally, it’s time to model the taint tracking config (source, sink, sanitizers and/or additional taint steps):</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">class QUERYFlowConfig extends TaintTracking::Configuration {
+  QUERYFlowConfig() { this = &#34;QUERYFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { 
+    source instanceof SOURCE // [1]
+  }
+
+  override predicate isSink(DataFlow::Node sink) { 
+    sink instanceof SINK // [2]
+  }
+
+  override predicate isSanitizerGuard(DataFlow::BarrierGuard guard) { 
+    guard instanceof StringConstCompare // [3]
+  } 
+
+  override predicate isAdditionalTaintStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) { // [4]
+      nodeFrom instanceof PREV_STEP and
+      nodeTo instanceof NEXT_STEP
+  }
+}
+</code></pre><p>This is the usual syntax of a taint tracking configuration. You may add or remove any predicate as you wish (unless sink/source).</p>
+<p><code>[1]</code> is where the source is declared. When it comes to any injection, it tends to be related to user input flowing into a specific function, for that we would be using <code>RemoteFlowSource</code> like <code>source instanceof RemoteFlowSource</code> (from <code>semmle.python.dataflow.new.RemoteFlowSources</code>) (see <a href="#remoteflowsource">#remoteflowsource</a>)</p>
+<p><code>[2]</code> is where the sink is declared. For this we may have a concept like <code>LDAPQuery</code> with a <code>getQuery</code> predicate. To use it we may write <code>sink = any(LDAPQuery foo).getQuery()</code>. You may use <code>any()</code> to be easily readable, but you could also use an <code>exists()</code> clause declaring a variable of type <code>LDAPQuery</code> and setting the sink to that variable’s <code>.getQuery()</code>:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">exists(LDAPQuery lq |
+    sink = lq.getQuery()
+)
+</code></pre><p><code>[3]</code> is where the sanitizer guard is declared (it could also be a Sanitizer with <code>isSanitizer()</code>). (see <a href="#sanitizers">#sanitizers</a>)</p>
+<p><code>[4]</code> is where the additional taint step is declared. (see <a href="#additional-taint-steps">#additional-taint-steps</a>)</p>
+<ul>
+<li><code>Regex Injection</code> <a href="https://github.com/github/codeql/pull/5442/files#diff-409a1f8f2ea725c9a7e33255377ae0d14d39b7c7db8862878abd5b02590a6f91R43" target="_blank">taint tracking config</a> with a query-specific <a href="https://github.com/github/codeql/pull/5442/files#diff-409a1f8f2ea725c9a7e33255377ae0d14d39b7c7db8862878abd5b02590a6f91R17" target="_blank">modeling</a> in order to display the used regex method in the <a href="https://github.com/github/codeql/pull/5442/files#diff-a579c95946eb22248607688cc62424375b6d5de882be2172a79b3d118d6fa566R19-R29" target="_blank">provided alert</a>.</li>
+<li><code>LDAP Injection</code> pure <a href="https://github.com/github/codeql/pull/5443/files#diff-8c82e5d72954ecd158b724aa1ce7bf0f2a7f10aabf55421d71c5eaf176ce30acR14" target="_blank">taint tracking config</a>.</li>
+<li><code>XXE</code> <a href="https://github.com/github/codeql/pull/6112/files#diff-855eeb20989959c4705e15cdcdd672e9b64a00e625f577ff9abf425f8803383cR15" target="_blank">taint tracking config</a> with “extras”.</li>
+</ul>
+<p>When it comes to query-specific modeling, it is everything related to the objective of the query rather than the library modeling involved.</p>
+<p>For example, <a href="https://github.com/github/codeql/pull/5444/files#diff-198bb2dc00e3a988a9b1fef18ba8118a5ca5bc956021685ae897c36d2e5215efR17-R27" target="_blank">here</a> the query-specific modeling is using <code>LDAPBind</code> (a modeling based on the <code>ldap</code> package) to get those who hold a <code>None</code>, empty or unset password.</p>
+<h4 id="basic-example-of-a-taint-tracking-configuration">Basic example of a taint tracking configuration</h4>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/**
+ * A taint-tracking configuration for detecting code injections.
+ */
+class CodeInjectionFlowConfig extends TaintTracking::Configuration {
+  CodeInjectionFlowConfig() { this = &#34;CodeInjectionFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { 
+    source instanceof RemoteFlowSource 
+  }
+
+  override predicate isSink(DataFlow::Node sink) {
+    sink = API::builtin(&#34;eval&#34;).getACall().getArg(0)
+  }
+}
+</code></pre><p>This taint tracking configuration will detect all <code>RemoteFlowSource</code>s flowing to the first argument of any <code>eval</code> call.</p>
+<p>Let’s give it a try against this following snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask, request
+
+app <span style="color:#f92672">=</span> Flask(__name__)
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/flow1&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flow1</span>():
+    code <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;code&#34;</span>]
+    eval(code)
+
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/flow2&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flow2</span>():
+    email <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;email&#34;</span>]
+    eval(<span style="color:#e6db74">&#34;./send_email </span><span style="color:#e6db74">{email}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(email<span style="color:#f92672">=</span>email))
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flow3_extra</span>(text):
+    <span style="color:#66d9ef">return</span> text<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/flow3&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flow3</span>():
+    text <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;text&#34;</span>]
+    eval(flow3_extra(text))
+
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/flow4&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flow4</span>():
+    text <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;text&#34;</span>]
+    tixt <span style="color:#f92672">=</span> text
+    toxt <span style="color:#f92672">=</span> flow3_extra(tixt)
+    tuxt <span style="color:#f92672">=</span> toxt
+    eval(tuxt)
+
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/flow1_good&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">flow1_good</span>():
+    code <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#34;code&#34;</span>]
+    <span style="color:#66d9ef">if</span> code <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;print(&#39;Hello, Wo... CodeQL!&#39;)&#34;</span>:
+        eval(code)
+</code></pre></div><p>In this snippet we are testing:</p>
+<ul>
+<li>A simple flow with <code>flow1</code> in which the GET parameter <code>code</code> gets assigned to a variable, and then that variable is used as the first argument of an <code>eval</code> call.</li>
+<li>A flow <code>flow2</code> in which the GET parameter <code>email</code> gets assigned to a variable, and then that variable used as an argument of the formatting of the string being used as the first argument of an <code>eval</code> call.</li>
+<li>A tricky flow involving a function <code>flow3</code> in which the GET parameter <code>text</code> gets assigned to a variable, and then that variable is used as the first argument to <code>flow3_extra</code>, who returns the text splitted by <code>\n</code> (LF) and is used as the first argument of an <code>eval</code> call.</li>
+<li>A longer flow <code>flow4</code> in which the GET parameter <code>text</code> gets assigned to a variable, who is then assigned to another, then used as the first argument of <code>floe3_extra</code> who splits the argument by <code>\n</code> returning it and assigning it to another variable who is then assigned to another one and then used as the first argument of an <code>eval</code> call.</li>
+</ul>
+<p>Our query would be something like this:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/*
+ * @kind path-problem
+ */
+import python
+import semmle.python.dataflow.new.TaintTracking
+import semmle.python.dataflow.new.RemoteFlowSources
+import semmle.python.ApiGraphs
+import DataFlow::PathGraph
+
+/**
+ * A taint-tracking configuration for detecting code injections.
+ */
+class CodeInjectionFlowConfig extends TaintTracking::Configuration {
+  CodeInjectionFlowConfig() { this = &#34;CodeInjectionFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { 
+    source instanceof RemoteFlowSource 
+  }
+
+  override predicate isSink(DataFlow::Node sink) {
+    sink= API::builtin(&#34;eval&#34;).getACall().getArg(0)
+  }
+}
+
+from CodeInjectionFlowConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
+where
+    config.hasFlowPath(source, sink)
+select sink.getNode(), source, sink, &#34;$@ eval argument comes from a $@&#34;,
+    sink.getNode(), &#34;This&#34;, source.getNode(), &#34;user-provided value&#34;
+</code></pre><p><a href="https://lgtm.com/query/8300224747347214291/" target="_blank">Run it!</a></p>
+<p>Basically we are telling CodeQL to give us every source and sink when a configuration holding both of them check <code>source</code> to be a <code>RemoteFlowSource</code> and <code>sink</code> the first argument to an <code>eval</code> call. Since we are using <code>DataFlow::PathNode</code>s and <code>@kind path-problem</code>, the results will get displayed in a way that the flow can be easily followed (i.e., each step/jump is shown).</p>
+<p>As you may have seen, all but <code>flow1_good</code> functions are vulnerable even though this query flags them all. As shown in <a href="#sanitizers">#sanitizers</a>, we can add a sanitizer guard like <code>StringConstCompare</code> to avoid CodeQL passing through the <code>==</code> comparison.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/*
+ * @kind path-problem
+ */
+import python
+import semmle.python.dataflow.new.TaintTracking
+import semmle.python.dataflow.new.RemoteFlowSources
+import semmle.python.ApiGraphs
+import semmle.python.dataflow.new.BarrierGuards
+import DataFlow::PathGraph
+
+/**
+ * A taint-tracking configuration for detecting code injections.
+ */
+class CodeInjectionFlowConfig extends TaintTracking::Configuration {
+  CodeInjectionFlowConfig() { this = &#34;CodeInjectionFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { 
+    source instanceof RemoteFlowSource 
+  }
+
+  override predicate isSink(DataFlow::Node sink) {
+    sink= API::builtin(&#34;eval&#34;).getACall().getArg(0)
+  }
+
+  override predicate isSanitizerGuard(DataFlow::BarrierGuard guard) {
+    guard instanceof StringConstCompare
+  }
+}
+
+from CodeInjectionFlowConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
+where
+    config.hasFlowPath(source, sink)
+select sink.getNode(), source, sink, &#34;$@ eval argument comes from a $@&#34;,
+    sink.getNode(), &#34;This&#34;, source.getNode(), &#34;user-provided value&#34;
+</code></pre><p><a href="https://lgtm.com/query/74283159415390484/" target="_blank">Run it!</a></p>
+<h2 id="tests">Tests</h2>
+<h3 id="basic-tests">Basic tests</h3>
+<p>These are placed inside <code>codeql/python/ql/src/experimental/Security/CWE-XXX</code>, perhaps inside a subfolder if they are several. This tests are in charge of showing a basic pattern the query matches. <a href="https://github.com/jorgectf/codeql/tree/main/python/ql/src/experimental/Security/CWE-090/examples" target="_blank">Example</a></p>
+<h3 id="advanced-tests">Advanced tests</h3>
+<p>These are placed inside <code>codeql/python/ql/test/experimental/query-tests/Security/CWE-XXX</code> and should cover every different situation of vulnerable and non-vulnerable (with sanitizers) code patterns. <a href="https://github.com/jorgectf/codeql/tree/main/python/ql/test/experimental/query-tests/Security/CWE-090" target="_blank">Example</a></p>
+<p>The <code>.qlref</code> file will tell the test runner where the query using those tests is. The <code>.expected</code> file will be firstly empty and then it can be filled with the results of the tests for the CodeQL engineers (or reviewers) to check that the query is meeting its expected results.</p>
+<ul>
+<li><code>.qlref</code> <a href="https://github.com/jorgectf/codeql/blob/main/python/ql/test/experimental/query-tests/Security/CWE-090/LDAPInjection.qlref" target="_blank">example</a></li>
+<li><code>.expected</code> <a href="https://github.com/jorgectf/codeql/blob/main/python/ql/test/experimental/query-tests/Security/CWE-090/LDAPInjection.expected" target="_blank">example</a></li>
+</ul>
+<h2 id="documentation-qhelp-and-qldocs">Documentation (qhelp and qldocs)</h2>
+<p>The <code>.qhelp</code> file is an explanation of the query providing an overview of it, the recommendations to fix the vulnerability, an example of what the query looks for (basic tests) and references.</p>
+<p><code>qldocs</code> is the term to refer to the documentation inside the code. Since CodeQL can be a bit tricky while modeling large patterns, the documentation helps everyone to understand the approach taken:</p>
+<ul>
+<li><code>XXE</code> qldocs <a href="https://github.com/github/codeql/pull/6112/files#diff-d5717585be13e399251085204d74d4e8d79c45c150aaaa1d3c5c8c7f7692d842R26-R39" target="_blank">example</a>.</li>
+<li><code>Email injection</code> advanced modeling’s qldocs <a href="https://github.com/github/codeql/pull/7127/files#diff-18859454d048cae2f84ba532e39fbc24fa3fee802e0f0c3e5fc0fdd3c6669d86R44" target="_blank">example</a>.</li>
+</ul>
+<h2 id="submission">Submission</h2>
+<p>Once the query is finished and found some results (at least a new/already discovered CVE) you may make a Pull Request to <code>github/codeql</code> (the latest prerequisite is just for CodeQL’s <a href="https://securitylab.github.com/bounties/" target="_blank">bug bounty program</a>, see its hackerone <a href="https://hackerone.com/github-security-lab/hacktivity?type=team" target="_blank">hacktivity</a>) and <a href="https://github.com/github/securitylab/issues" target="_blank">open an issue</a> in <code>github/securitylab</code>.</p>
+<ul>
+<li>Pull Request <a href="https://github.com/github/codeql/pulls?q=is%3Apr+author%3Ajorgectf" target="_blank">examples</a></li>
+<li>Issue <a href="https://github.com/github/securitylab/issues?q=is%3Aissue+author%3Ajorgectf" target="_blank">examples</a></li>
+</ul>
+<h1 id="advanced-query-modeling">Advanced query modeling</h1>
+<p>In this section we will be covering each part of the following queries to see specific examples.</p>
+<h2 id="regular-expression-injection">Regular expression injection</h2>
+<h3 id="concepts-2">Concepts</h3>
+<p>The main “structures” we will need in the taint tracking configuration are:</p>
+<ul>
+<li>Regular expression executions (calls to a regex operation) (<a href="https://github.com/github/codeql/pull/5442/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR18" target="_blank">link</a>) with:</li>
+<li>
+<ul>
+<li>A predicate to get the input argument holding the regular expression.</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>A predicate to get the method being used.</li>
+</ul>
+</li>
+<li>Regular expression escaping functions with a predicate to get the input being escaped. (<a href="https://github.com/github/codeql/pull/5442/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR55" target="_blank">link</a>)</li>
+</ul>
+<p>Let’s populate them!</p>
+<h3 id="re-library-modeling">re library modeling</h3>
+<p><a href="https://github.com/github/codeql/pull/5442/files#diff-0334e5539ad0424307e82c6dacb174720d092210696406357f6520de3c86e892R18" target="_blank">re.qll</a></p>
+<p>To begin with, we should be compiling <a href="https://docs.python.org/3/library/re.html#module-contents" target="_blank">all</a> <code>re</code> methods executing a provided regex:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+</code></pre><p>Then it is easy to check if a used method is inside the ones we are looking for: (In the actual modeling, the method in <code>[1]</code>is not hardcoded, it is statically obtained)</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+from string method
+where 
+    method = &#34;search&#34; and
+    method instanceof RegexExecutionMethods
+select method
+</code></pre><p><a href="https://lgtm.com/query/1825411704519059456/" target="_blank">Run it!</a></p>
+<p>Let’s model the execution methods:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/direct&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">direct</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;pattern&#39;</span>]
+    safe_pattern <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>escape(unsafe_pattern)
+    re<span style="color:#f92672">.</span>search(safe_pattern, <span style="color:#e6db74">&#34;&#34;</span>)
+
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/compile&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compile</span>():
+
+    unsafe_pattern <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;pattern&#39;</span>]
+    safe_pattern <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>escape(unsafe_pattern)
+    compiled_pattern <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(safe_pattern)
+    compiled_pattern<span style="color:#f92672">.</span>search(<span style="color:#e6db74">&#34;&#34;</span>)
+</code></pre></div><ul>
+<li>Finding <code>re.(RegexExecutionMethods)</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+from DataFlow::CallCfgNode c
+where
+    c.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    c = API::moduleImport(&#34;re&#34;).getMember(any(RegexExecutionMethods r)).getACall()
+select c
+</code></pre><p><a href="https://lgtm.com/query/6547749884029906968/" target="_blank">Run it!</a></p>
+<ul>
+<li>Finding a <code>MethodCallNode</code> whose object is <code>re.compile</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::MethodCallNode mcn
+where
+    mcn.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    mcn.getObject() = API::moduleImport(&#34;re&#34;).getMember(&#34;compile&#34;).getACall()
+select mcn
+</code></pre><p><a href="https://lgtm.com/query/7660357434021169757/" target="_blank">Run it!</a></p>
+<p>However, we won’t be getting the case in which <code>re.compile</code> is previously assigned to a variable. To achieve that we are going to use <code>getALocalSource()</code>. Since <code>re.compile()</code>’s local source node is <code>re.compile()</code>, we will be getting all the cases including when the call is <code>variable.search()</code> where <code>variable = re.compile()</code>.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::MethodCallNode mcn
+where
+    mcn.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    mcn.getObject().getALocalSource() = API::moduleImport(&#34;re&#34;).getMember(&#34;compile&#34;).getACall()
+select mcn
+</code></pre><p><a href="https://lgtm.com/query/717208478449144954/" target="_blank">Run it!</a></p>
+<p>Moreover, you may hace noticed that, even though we will have to make a concept using <code>getRegex</code> to hold the argument to <code>re.compile</code> and we could have made this snippet using a <code>CallCfgNode</code> as the main variable (instead of a <code>CallCfgNode</code>) to make it more visual, turns out <code>RegexExecution</code> will hold calls to <code>re.(RegexExecutionMethods)</code>, so
+this way the predicate will be easier to deal with. Otherwise, we would have to create a class variable to correlate the <code>MethodCallNode</code> with the class&#39; <code>CallCfgNode</code>.</p>
+<ul>
+<li>Restricting <code>MethodCallNode</code> method to <code>RegexExecutionMethods</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+from DataFlow::MethodCallNode mcn
+where
+    mcn.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    mcn.getObject().getALocalSource() = API::moduleImport(&#34;re&#34;).getMember(&#34;compile&#34;).getACall() and
+    mcn.getMethodName() instanceof RegexExecutionMethods
+select mcn
+</code></pre><p><a href="https://lgtm.com/query/2670012825549127437/" target="_blank">Run it!</a></p>
+<ul>
+<li>Getting the arguments:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+from DataFlow::CallCfgNode c
+where
+    c.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    c = API::moduleImport(&#34;re&#34;).getMember(any(RegexExecutionMethods r)).getACall()
+select c, c.getArg(0)
+</code></pre><p><a href="https://lgtm.com/query/4998480592197249549/" target="_blank">Run it!</a></p>
+<p>In this example, getting the used <code>re</code> method directly from <code>c</code> would be a bit tricky since we would have to get the attribute of the function of the call node like <code>.getFunction().asExpr().(Attribute)</code> which would only work under certain conditions. Because of this complexity (done <a href="https://github.com/github/codeql/pull/5442/files#diff-409a1f8f2ea725c9a7e33255377ae0d14d39b7c7db8862878abd5b02590a6f91R25" target="_blank">here</a> in a query-specific modeling), we can create a string variable instance of <code>RegexExecutionMethods</code>, use it inside <code>getMember</code> and use it then in the select clause like:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+from DataFlow::CallCfgNode c, string method
+where
+    c.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    method instanceof RegexExecutionMethods and
+    c = API::moduleImport(&#34;re&#34;).getMember(method).getACall()
+select c, c.getArg(0), method
+</code></pre><p><a href="https://lgtm.com/query/6176111546445757722/" target="_blank">Run it!</a></p>
+<p>To accomplish this later in the class modeling we will be creating a class variable to be able to share it between predicates.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+from DataFlow::MethodCallNode mcn
+where
+    mcn.getLocation().getFile().getBaseName().matches(&#34;Regex%&#34;) and // just restricting the file to be queried
+    mcn.getObject().getALocalSource() = API::moduleImport(&#34;re&#34;).getMember(&#34;compile&#34;).getACall() and
+    mcn.getMethodName() instanceof RegexExecutionMethods
+select mcn, mcn.getArg(0), mcn.getMethodName()
+</code></pre><p><a href="https://lgtm.com/query/1059787899230608733/" target="_blank">Run it!</a></p>
+<ul>
+<li>Making <code>DirectRegex</code> and <code>CompiledRegex</code> classes:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+class DirectRegex extends DataFlow::CallCfgNode {
+  string reMethod;
+
+  DirectRegex() {
+    this = API::moduleImport(&#34;re&#34;).getMember(reMethod).getACall() and
+    reMethod instanceof RegexExecutionMethods
+  }
+
+  DataFlow::Node getRegex() { result = this.getArg(0) }
+
+  DataFlow::Node getReMethod() { result = this }
+
+  string getReMethodName() { result = &#34;re.&#34; + reMethod }
+}
+
+from DirectRegex re
+select re, re.getRegex(), re.getReMethodName()
+</code></pre><p><a href="https://lgtm.com/query/6395622723699778514/" target="_blank">Run it!</a></p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+class CompiledRegex extends DataFlow::MethodCallNode {
+  DataFlow::CallCfgNode compileCall;
+
+  CompiledRegex() {
+    compileCall = API::moduleImport(&#34;re&#34;).getMember(&#34;compile&#34;).getACall() and
+    this.getObject().getALocalSource() = compileCall and
+    this.getMethodName() instanceof RegexExecutionMethods
+  }
+
+  DataFlow::Node getRegex() { result = compileCall.getArg(0) }
+
+  DataFlow::Node getReMethod() { result = compileCall }
+
+  string getReMethodName() { result = &#34;re.compile&#34; }
+}
+
+from CompiledRegex re
+select re, re.getRegex(), re.getReMethodName()
+</code></pre><p><a href="https://lgtm.com/query/9040309391580012928/" target="_blank">Run it!</a></p>
+<ul>
+<li>Merging and extending <code>RegexExecution::Range</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+module RegexExecution {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getRegex();
+
+    abstract DataFlow::Node getReMethod();
+
+    abstract string getReMethodName();
+  }
+}
+
+class RegexExecution extends DataFlow::Node {
+  RegexExecution::Range range;
+
+  RegexExecution() { this = range }
+
+  DataFlow::Node getRegex() { result = range.getRegex() }
+
+  DataFlow::Node getReMethod() { result = range.getReMethod() }
+
+  string getReMethodName() { result = range.getReMethodName() }
+}
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+class DirectRegex extends DataFlow::CallCfgNode, RegexExecution::Range {
+  string reMethod;
+
+  DirectRegex() {
+    this = API::moduleImport(&#34;re&#34;).getMember(reMethod).getACall() and
+    reMethod instanceof RegexExecutionMethods
+  }
+
+  override DataFlow::Node getRegex() { result = this.getArg(0) }
+
+  override DataFlow::Node getReMethod() { result = this }
+
+  override string getReMethodName() { result = &#34;re.&#34; + reMethod }
+}
+
+class CompiledRegex extends DataFlow::MethodCallNode, RegexExecution::Range {
+  DataFlow::CallCfgNode compileCall;
+
+  CompiledRegex() {
+    compileCall = API::moduleImport(&#34;re&#34;).getMember(&#34;compile&#34;).getACall() and
+    this.getObject().getALocalSource() = compileCall and
+    this.getMethodName() instanceof RegexExecutionMethods
+  }
+
+  override DataFlow::Node getRegex() { result = compileCall.getArg(0) }
+
+  override DataFlow::Node getReMethod() { result = compileCall }
+
+  override string getReMethodName() { result = &#34;re.compile&#34; }
+}
+
+
+from RegexExecution re
+select re, re.getRegex(), re.getReMethodName()
+</code></pre><p><a href="https://lgtm.com/query/8848078700637978142/" target="_blank">Run it!</a></p>
+<p>Let’s model the sanitizer!</p>
+<ul>
+<li>Finding the call:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::CallCfgNode reEscapeCall
+where reEscapeCall = API::moduleImport(&#34;re&#34;).getMember(&#34;escape&#34;).getACall()
+select reEscapeCall
+</code></pre><p><a href="https://lgtm.com/query/2853039985476608000/" target="_blank">Run it!</a></p>
+<ul>
+<li>Getting the argument:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::CallCfgNode reEscapeCall, DataFlow::Node reEscaped
+where
+  reEscapeCall = API::moduleImport(&#34;re&#34;).getMember(&#34;escape&#34;).getACall() and
+  reEscaped = reEscapeCall.getArg(0)
+select reEscapeCall, reEscaped
+</code></pre><p><a href="https://lgtm.com/query/5716690598989347535/" target="_blank">Run it!</a></p>
+<p>Since there’s only one escape call related to regular expressions in <code>re</code> that we know of, we will be skipping the escape <a href="https://github.com/github/codeql/pull/5442/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR55-R82" target="_blank">concept</a> (it’s a good practice though, since it makes it very easy to extend the escape concept with a new call and all the queries depending on these regex escape calls would automatically use it).</p>
+<h3 id="taint-tracking-configuration">Taint tracking configuration</h3>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">class RegexInjectionFlowConfig extends TaintTracking::Configuration {
+  RegexInjectionFlowConfig() { this = &#34;RegexInjectionFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { source instanceof RemoteFlowSource }
+
+  override predicate isSink(DataFlow::Node sink) { sink = any(RegexExecution re).getRegex() }
+
+  override predicate isSanitizer(DataFlow::Node sanitizer) {
+    sanitizer = API::moduleImport(&#34;re&#34;).getMember(&#34;escape&#34;).getACall().getArg(0)
+  }
+}
+</code></pre><p>With this configuration, CodeQL will try to find every user input which flows to the first argument of any regex-executing call without passing through the first argument of <code>re.escape</code> call.</p>
+<h3 id="complete-query">Complete query</h3>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/**
+ * @name Regular expression injection
+ * @description User input should not be used in regular expressions without first being escaped,
+ *              otherwise a malicious user may be able to inject an expression that could require
+ *              exponential time on certain inputs.
+ * @kind path-problem
+ * @problem.severity error
+ * @id py/regex-injection
+ * @tags security
+ *       external/cwe/cwe-730
+ *       external/cwe/cwe-400
+ */
+
+import python
+import semmle.python.dataflow.new.TaintTracking
+import semmle.python.dataflow.new.RemoteFlowSources
+import semmle.python.ApiGraphs
+import DataFlow::PathGraph
+
+module RegexExecution {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getRegex();
+
+    abstract DataFlow::Node getReMethod();
+
+    abstract string getReMethodName();
+  }
+}
+
+class RegexExecution extends DataFlow::Node {
+  RegexExecution::Range range;
+
+  RegexExecution() { this = range }
+
+  DataFlow::Node getRegex() { result = range.getRegex() }
+
+  DataFlow::Node getReMethod() { result = range.getReMethod() }
+
+  string getReMethodName() { result = range.getReMethodName() }
+}
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+class DirectRegex extends DataFlow::CallCfgNode, RegexExecution::Range {
+  string reMethod;
+
+  DirectRegex() {
+    this = API::moduleImport(&#34;re&#34;).getMember(reMethod).getACall() and
+    reMethod instanceof RegexExecutionMethods
+  }
+
+  override DataFlow::Node getRegex() { result = this.getArg(0) }
+
+  override DataFlow::Node getReMethod() { result = this }
+
+  override string getReMethodName() { result = &#34;re.&#34; + reMethod }
+}
+
+class CompiledRegex extends DataFlow::MethodCallNode, RegexExecution::Range {
+  DataFlow::CallCfgNode compileCall;
+
+  CompiledRegex() {
+    compileCall = API::moduleImport(&#34;re&#34;).getMember(&#34;compile&#34;).getACall() and
+    this.getObject().getALocalSource() = compileCall and
+    this.getMethodName() instanceof RegexExecutionMethods
+  }
+
+  override DataFlow::Node getRegex() { result = compileCall.getArg(0) }
+
+  override DataFlow::Node getReMethod() { result = compileCall }
+
+  override string getReMethodName() { result = &#34;re.compile&#34; }
+}
+
+class RegexInjectionFlowConfig extends TaintTracking::Configuration {
+  RegexInjectionFlowConfig() { this = &#34;RegexInjectionFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { source instanceof RemoteFlowSource }
+
+  override predicate isSink(DataFlow::Node sink) { sink = any(RegexExecution re).getRegex() }
+
+  override predicate isSanitizer(DataFlow::Node sanitizer) {
+    sanitizer = API::moduleImport(&#34;re&#34;).getMember(&#34;escape&#34;).getACall().getArg(0)
+  }
+}
+
+from RegexInjectionFlowConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
+where config.hasFlowPath(source, sink)
+select sink.getNode(), source, sink, &#34;$@ regular expression is constructed from a $@.&#34;,
+  sink.getNode(), &#34;This&#34;, source.getNode(), &#34;user-provided value&#34;
+</code></pre><p><a href="https://lgtm.com/query/3949547134688980444/" target="_blank">Run it!</a></p>
+<p>In order to display <code>getReMethod</code> and <code>getReMethodName</code> in the <code>select</code> clause we have to create a query-specific modeling to act as a sink, who we can access by casting the sink and then we can access the predicates.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/**
+ * @name Regular expression injection
+ * @description User input should not be used in regular expressions without first being escaped,
+ *              otherwise a malicious user may be able to inject an expression that could require
+ *              exponential time on certain inputs.
+ * @kind path-problem
+ * @problem.severity error
+ * @id py/regex-injection
+ * @tags security
+ *       external/cwe/cwe-730
+ *       external/cwe/cwe-400
+ */
+
+import python
+import semmle.python.dataflow.new.TaintTracking
+import semmle.python.dataflow.new.RemoteFlowSources
+import semmle.python.ApiGraphs
+import DataFlow::PathGraph
+
+module RegexExecution {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getRegex();
+
+    abstract DataFlow::Node getReMethod();
+
+    abstract string getReMethodName();
+  }
+}
+
+class RegexExecution extends DataFlow::Node {
+  RegexExecution::Range range;
+
+  RegexExecution() { this = range }
+
+  DataFlow::Node getRegex() { result = range.getRegex() }
+
+  DataFlow::Node getReMethod() { result = range.getReMethod() }
+
+  string getReMethodName() { result = range.getReMethodName() }
+}
+
+class RegexExecutionMethods extends string {
+  RegexExecutionMethods() {
+    this in [&#34;match&#34;, &#34;fullmatch&#34;, &#34;search&#34;, &#34;split&#34;, &#34;findall&#34;, &#34;finditer&#34;, &#34;sub&#34;, &#34;subn&#34;]
+  }
+}
+
+class DirectRegex extends DataFlow::CallCfgNode, RegexExecution::Range {
+  string reMethod;
+
+  DirectRegex() {
+    this = API::moduleImport(&#34;re&#34;).getMember(reMethod).getACall() and
+    reMethod instanceof RegexExecutionMethods
+  }
+
+  override DataFlow::Node getRegex() { result = this.getArg(0) }
+
+  override DataFlow::Node getReMethod() { result = this }
+
+  override string getReMethodName() { result = &#34;re.&#34; + reMethod }
+}
+
+class CompiledRegex extends DataFlow::MethodCallNode, RegexExecution::Range {
+  DataFlow::CallCfgNode compileCall;
+
+  CompiledRegex() {
+    compileCall = API::moduleImport(&#34;re&#34;).getMember(&#34;compile&#34;).getACall() and
+    this.getObject().getALocalSource() = compileCall and
+    this.getMethodName() instanceof RegexExecutionMethods
+  }
+
+  override DataFlow::Node getRegex() { result = compileCall.getArg(0) }
+
+  override DataFlow::Node getReMethod() { result = compileCall }
+
+  override string getReMethodName() { result = &#34;re.compile&#34; }
+}
+
+class RegexInjectionSink extends DataFlow::Node {
+  string reMethodName;
+  DataFlow::Node reMethod;
+
+  RegexInjectionSink() {
+    exists(RegexExecution reExec |
+      this = reExec.getRegex() and
+      reMethod = reExec.getReMethod() and
+      reMethodName = reExec.getReMethodName()
+    )
+  }
+
+  DataFlow::Node getReMethod() { result = reMethod }
+
+  string getReMethodName() { result = reMethodName }
+}
+
+class RegexInjectionFlowConfig extends TaintTracking::Configuration {
+  RegexInjectionFlowConfig() { this = &#34;RegexInjectionFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { source instanceof RemoteFlowSource }
+
+  override predicate isSink(DataFlow::Node sink) { sink instanceof RegexInjectionSink }
+
+  override predicate isSanitizer(DataFlow::Node sanitizer) {
+    sanitizer = API::moduleImport(&#34;re&#34;).getMember(&#34;escape&#34;).getACall().getArg(0)
+  }
+}
+
+from RegexInjectionFlowConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
+where config.hasFlowPath(source, sink)
+select sink.getNode(), source, sink,
+  &#34;$@ regular expression is constructed from a $@ and executed by $@.&#34;, sink.getNode(), &#34;This&#34;,
+  source.getNode(), &#34;user-provided value&#34;, sink.getNode().(RegexInjectionSink).getReMethod(),
+  sink.getNode().(RegexInjectionSink).getReMethodName()
+</code></pre><p><a href="https://lgtm.com/query/4807369362079831890/" target="_blank">Run it!</a></p>
+<h2 id="ldap-injection">LDAP Injection</h2>
+<h3 id="concepts-3">Concepts</h3>
+<p>The main “structures” we will need in the taint tracking configuration are:</p>
+<ul>
+<li>LDAP queries with a predicate to get the argument holding the query to be executed. (<a href="https://github.com/github/codeql/pull/5443/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR85" target="_blank">Link</a>)</li>
+<li>LDAP escape functions with a predicate to get the argument holding the input being escaped. (<a href="https://github.com/github/codeql/pull/5443/files#diff-07631b7f3489bbd6603ecbc9149f5919406181361b1bd04a53e048f531a4986aR118" target="_blank">Link</a>)</li>
+</ul>
+<p>Let’s populate them!</p>
+<h3 id="ldap-library-modeling">LDAP library modeling</h3>
+<p><a href="https://github.com/github/codeql/pull/5443/files#diff-912d026443aeccb494f24d6d7b0c5dadf70e1103adc18337228de53c3fe2a323R15" target="_blank">LDAP.qll</a></p>
+<h4 id="ldap-2">LDAP 2</h4>
+<p>The first thing done is the creation of a class holding all the methods in charge of executing an LDAP query, let’s begin with <code>python2</code>’s <code>ldap</code>:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">private class LDAP2QueryMethods extends string {
+    LDAP2QueryMethods() {
+        this in [&#34;search&#34;, &#34;search_s&#34;, &#34;search_st&#34;, &#34;search_ext&#34;, &#34;search_ext_s&#34;]
+    }
+}
+</code></pre><p>Then it would be easy to check whether a used method is inside the ones we are looking for: (In the actual modeling, the method is not hardcoded)</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">class LDAP2QueryMethods extends string {
+    LDAP2QueryMethods() {
+        this in [&#34;search&#34;, &#34;search_s&#34;, &#34;search_st&#34;, &#34;search_ext&#34;, &#34;search_ext_s&#34;]
+    }
+}
+
+from string method
+where 
+    method = &#34;search_s&#34; and
+    method instanceof LDAP2QueryMethods
+select method
+</code></pre><p><a href="https://lgtm.com/query/2527964597115621622/" target="_blank">Run it!</a></p>
+<p>Let’s model the query methods:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/normal2&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normal2</span>():
+
+    unsafe_dc <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;dc&#39;</span>]
+    unsafe_filter <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args[<span style="color:#e6db74">&#39;username&#39;</span>]
+
+    dn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dc=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(unsafe_dc)
+    search_filter <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(foo=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#34;</span><span style="color:#f92672">.</span>format(unsafe_filter)
+
+    ldap_connection <span style="color:#f92672">=</span> ldap<span style="color:#f92672">.</span>initialize(<span style="color:#e6db74">&#34;ldap://127.0.0.1&#34;</span>)
+    user <span style="color:#f92672">=</span> ldap_connection<span style="color:#f92672">.</span>search_s(
+        dn, ldap<span style="color:#f92672">.</span>SCOPE_SUBTREE, search_filter)
+</code></pre></div><ul>
+<li>Finding <code>ldap.initialize()</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::CallCfgNode c
+where
+    c.getLocation().getFile().getBaseName().matches(&#34;LDAP_%&#34;) and // just restricting the file to be queried
+    c = API::moduleImport(&#34;ldap&#34;).getMember(&#34;initialize&#34;).getACall()
+select c
+</code></pre><p><a href="https://lgtm.com/query/5820995969085922572/" target="_blank">Run it!</a></p>
+<p><code>API::moduleImport(&#34;ldap&#34;)</code> will return a reference to the <code>ldap</code> library, <code>getMember(&#34;initialize&#34;)</code> will return an instance to <code>ldap</code>’s <code>initialize</code> method, and <code>getACall()</code> will get a call like <code>ldap.initialize(&#34;ldap://127.0.0.1&#34;)</code>.</p>
+<ul>
+<li>Finding a <code>MethodCallNode</code> whose object local source is the call found previously:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::MethodCallNode searchMethod
+where
+    searchMethod.getLocation().getFile().getBaseName().matches(&#34;LDAP_%&#34;) and // just restricting the file to be queried
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;initialize&#34;).getACall()
+select searchMethod
+</code></pre><p><a href="https://lgtm.com/query/280362518757544058/" target="_blank">Run it!</a></p>
+<p>You may have noticed that the main modeling uses <code>DataFlow::AttrRead</code>, a structure meant for an object’s attribute read. I can’t remember why I used it, perhaps because <code>MethodCallNode</code> wasn’t introduced yet, but anyway, we will be using <code>MethodCallNode</code>.</p>
+<ul>
+<li>Restricting <code>searchMethod</code> to <code>LDAP2QueryMethods</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class LDAP2QueryMethods extends string {
+  LDAP2QueryMethods() { this in [&#34;search&#34;, &#34;search_s&#34;, &#34;search_st&#34;, &#34;search_ext&#34;, &#34;search_ext_s&#34;] }
+}
+
+from DataFlow::MethodCallNode searchMethod
+where
+    searchMethod.getLocation().getFile().getBaseName().matches(&#34;LDAP_%&#34;) and // just restricting the file to be queried
+    searchMethod.getMethodName() instanceof LDAP2QueryMethods and
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;initialize&#34;).getACall()
+select searchMethod
+</code></pre><p><a href="https://lgtm.com/query/2248847663477264291/" target="_blank">Run it!</a></p>
+<p>It is faster to restrict <code>searchMethod</code>’s method name before computing that its object’s local source equals a call to <code>ldap.initialize</code>, because if there’s no <code>LDAP2QueryMethods</code>, the latest won’t be computed.</p>
+<ul>
+<li>Getting the arguments:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class LDAP2QueryMethods extends string {
+  LDAP2QueryMethods() { this in [&#34;search&#34;, &#34;search_s&#34;, &#34;search_st&#34;, &#34;search_ext&#34;, &#34;search_ext_s&#34;] }
+}
+
+from DataFlow::MethodCallNode searchMethod, DataFlow::Node arg
+where
+    searchMethod.getLocation().getFile().getBaseName().matches(&#34;LDAP_%&#34;) and // just restricting the file to be queried
+    searchMethod.getMethodName() instanceof LDAP2QueryMethods and
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;initialize&#34;).getACall() and
+    arg in [searchMethod.getArg(0), searchMethod.getArg(2), searchMethod.getArgByName(&#34;filterstr&#34;)]
+select searchMethod, arg
+</code></pre><p><a href="https://lgtm.com/query/5804210247409903209/" target="_blank">Run it!</a></p>
+<p><code>arg in []</code> means that CodeQL will execute the code following that statement setting <code>arg</code> to each object inside the list.</p>
+<ul>
+<li>Making a <code>LDAP2Query</code> class:</li>
+</ul>
+<center>
+<img src="https://jorgectf.gitlab.io/blog/static/practical-codeql-introduction/meme4.jpg"/>
+</center>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class LDAP2QueryMethods extends string {
+  LDAP2QueryMethods() { this in [&#34;search&#34;, &#34;search_s&#34;, &#34;search_st&#34;, &#34;search_ext&#34;, &#34;search_ext_s&#34;] }
+}
+
+class LDAP2Query extends DataFlow::CallCfgNode {
+  DataFlow::MethodCallNode searchMethod;
+
+  LDAP2Query() {
+    searchMethod.getMethodName() instanceof LDAP2QueryMethods and
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;initialize&#34;).getACall() and
+    this = searchMethod.(DataFlow::CallCfgNode)
+  }
+
+  DataFlow::Node getQuery() {
+    result in [
+        searchMethod.getArg(0), searchMethod.getArg(2), searchMethod.getArgByName(&#34;filterstr&#34;)
+      ]
+  }
+}
+
+from LDAP2Query lq
+select lq, lq.getQuery()
+</code></pre><p><a href="https://lgtm.com/query/108645587745194222/" target="_blank">Run it!</a></p>
+<p>Notice that, in order to use <code>searchMethod</code> in a class predicate (<code>getQuery</code>) we need to create a class variable <code>DataFlow::MethodCallNode searchMethod;</code>. Otherwise, the only thing correlating <code>getQuery</code> with its own <code>LDAP2Query</code> would be <code>this</code> and so we should make more type casting than this way.</p>
+<ul>
+<li>Extending <code>LDAPQuery::Range</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+module LDAPQuery {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getQuery();
+  }
+}
+
+class LDAPQuery extends DataFlow::Node {
+  LDAPQuery::Range range;
+
+  LDAPQuery() { this = range }
+
+  DataFlow::Node getQuery() { result = range.getQuery() }
+}
+
+class LDAP2QueryMethods extends string {
+  LDAP2QueryMethods() { this in [&#34;search&#34;, &#34;search_s&#34;, &#34;search_st&#34;, &#34;search_ext&#34;, &#34;search_ext_s&#34;] }
+}
+
+class LDAP2Query extends DataFlow::CallCfgNode, LDAPQuery::Range {
+  DataFlow::MethodCallNode searchMethod;
+
+  LDAP2Query() {
+    searchMethod.getMethodName() instanceof LDAP2QueryMethods and
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;initialize&#34;).getACall() and
+    this = searchMethod.(DataFlow::CallCfgNode) // [1]
+  }
+
+  override DataFlow::Node getQuery() {
+    result in [
+        searchMethod.getArg(0), searchMethod.getArg(2), searchMethod.getArgByName(&#34;filterstr&#34;)
+      ]
+  }
+}
+
+from LDAPQuery lq // [2]
+select lq, lq.getQuery() // [3]
+</code></pre><p><a href="https://lgtm.com/query/8172309066654025585/" target="_blank">Run it!</a></p>
+<p>Notice the use of <code>this</code> inside <code>LDAP2Query</code> <code>[1]</code> (since calling <code>LDAPQuery</code> will return all query calls and so <code>this</code> refers to <code>LDAP2Query</code> being the call to a <code>LDAP2QueryMethods</code> method), and the use of <code>LDAPQuery</code> in the <code>select</code> statement <code>[2]</code> along with <code>LDAPQuery</code>’s Concept predicate <code>getQuery()</code> <code>[3]</code>.</p>
+<p>Now we have <code>python2</code>’s <code>LDAPQuery</code> modeled, we may now be heading to model its escape methods:</p>
+<ul>
+<li>
+<p><code>ldap.dn.escape_dn_chars</code> (<a href="https://github.com/python-ldap/python-ldap/blob/7ce471e238cdd9a4dd8d17baccd1c9e05e6f894a/Lib/ldap/dn.py#L17" target="_blank">source</a>)</p>
+</li>
+<li>
+<p><code>ldap.filter.escape_filter_chars</code> (<a href="https://www.python-ldap.org/en/python-ldap-3.3.0/reference/ldap-filter.html#ldap.filter.escape_filter_chars" target="_blank">documentation</a>)</p>
+</li>
+<li>
+<p>Finding the calls:</p>
+</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::CallCfgNode ldap2EscapeCall
+where
+  ldap2EscapeCall in [
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;dn&#34;).getMember(&#34;escape_dn_chars&#34;).getACall(),
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;filter&#34;).getMember(&#34;escape_filter_chars&#34;).getACall()
+    ]
+select ldap2EscapeCall, ldap2EscapeCall.getArg(0)
+</code></pre><p><a href="https://lgtm.com/query/765900880834902999/" target="_blank">Run it!</a></p>
+<ul>
+<li>Wrapping them in their own classes:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class LDAP2EscapeDNCall extends DataFlow::CallCfgNode {
+  LDAP2EscapeDNCall() {
+    this = API::moduleImport(&#34;ldap&#34;).getMember(&#34;dn&#34;).getMember(&#34;escape_dn_chars&#34;).getACall()
+  }
+
+  DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP2EscapeFilterCall extends DataFlow::CallCfgNode {
+  LDAP2EscapeFilterCall() {
+    this = API::moduleImport(&#34;ldap&#34;).getMember(&#34;filter&#34;).getMember(&#34;escape_filter_chars&#34;).getACall()
+  }
+
+  DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+from DataFlow::CallCfgNode ldap2EscapeCall
+where
+    ldap2EscapeCall instanceof LDAP2EscapeDNCall or
+    ldap2EscapeCall instanceof LDAP2EscapeFilterCall
+select ldap2EscapeCall
+</code></pre><p><a href="https://lgtm.com/query/7120087946578882861/" target="_blank">Run it!</a></p>
+<p>As you may have noticed, we can’t use <code>ldapEscapeCall.getAnInput()</code> in the select statement. This happens because we are dealing with a variable whose type is <code>CallCfgNode</code>, and this specific type does not have any <code>getAnInput</code> predicate. We could do something like <code>ldapEscapeCall.(LDAP2EscapeDNCall).getAnInput()</code> and it would work because the casting would be successful, but using Concepts is easier.</p>
+<ul>
+<li>Extending <code>LDAPEscape::Range</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+module LDAPEscape {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getAnInput();
+  }
+}
+
+class LDAPEscape extends DataFlow::Node {
+  LDAPEscape::Range range;
+
+  LDAPEscape() { this = range }
+
+  DataFlow::Node getAnInput() { result = range.getAnInput() }
+}
+
+class LDAP2EscapeDNCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP2EscapeDNCall() {
+    this = API::moduleImport(&#34;ldap&#34;).getMember(&#34;dn&#34;).getMember(&#34;escape_dn_chars&#34;).getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP2EscapeFilterCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP2EscapeFilterCall() {
+    this = API::moduleImport(&#34;ldap&#34;).getMember(&#34;filter&#34;).getMember(&#34;escape_filter_chars&#34;).getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+from LDAPEscape ldapEscapeCall
+select ldapEscapeCall, ldapEscapeCall.getAnInput()
+</code></pre><p><a href="https://lgtm.com/query/8717212845203315141/" target="_blank">Run it!</a></p>
+<p>Since we are done with <code>python2</code>’s <code>ldap</code>, we are ready to get <code>python3</code>’s <code>ldap3</code> modeling done!</p>
+<h4 id="ldap-3">LDAP 3</h4>
+<p>Given the following vulnerable snippet:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">@app.route(&#34;/normal&#34;)
+def normal():
+
+    unsafe_dc = request.args[&#39;dc&#39;]
+    unsafe_filter = request.args[&#39;username&#39;]
+
+    dn = &#34;dc={}&#34;.format(unsafe_dc)
+    search_filter = &#34;(user={})&#34;.format(unsafe_filter)
+
+    srv = ldap3.Server(&#39;ldap://127.0.0.1&#39;)
+    conn = ldap3.Connection(srv, user=dn, auto_bind=True)
+    conn.search(dn, search_filter)
+</code></pre><ul>
+<li>Finding <code>ldap3.Connection()</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::CallCfgNode c
+where
+    c.getLocation().getFile().getBaseName().matches(&#34;LDAP3%&#34;) and // just restricting the file to be queried
+    c = API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall()
+select c
+</code></pre><p><a href="https://lgtm.com/query/6982976857222897601/" target="_blank">Run it!</a></p>
+<p><code>API::moduleImport(&#34;ldap3&#34;)</code> will return a reference to the <code>ldap3</code> library, <code>getMember(&#34;Connection&#34;)</code> will return an instance to <code>ldap3</code>’s <code>Connection</code> method, and <code>getACall()</code> will get a call like <code>ldap3.Connection(srv, user=dn, auto_bind=True)</code>.</p>
+<ul>
+<li>Finding a <code>MethodCallNode</code> whose object local source is the call found previously:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::MethodCallNode searchMethod
+where
+    searchMethod.getLocation().getFile().getBaseName().matches(&#34;LDAP3%&#34;) and // just restricting the file to be queried
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall()
+select searchMethod
+</code></pre><p><a href="https://lgtm.com/query/5928342444431627790/" target="_blank">Run it!</a></p>
+<p>As in <code>python2</code>’s <code>ldap</code> modeling, you may have noticed that the main modeling uses <code>DataFlow::AttrRead</code>, a structure meant for an object’s attribute read. I can’t remember why I used it, perhaps because <code>MethodCallNode</code> wasn’t introduced yet, but anyway, we will be using <code>MethodCallNode</code>.</p>
+<ul>
+<li>Restricting <code>searchMethod</code> method to <code>search</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::MethodCallNode searchMethod
+where
+    searchMethod.getLocation().getFile().getBaseName().matches(&#34;LDAP3%&#34;) and // just restricting the file to be queried
+    searchMethod.getMethodName() = &#34;search&#34; and
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall()
+select searchMethod
+</code></pre><p><a href="https://lgtm.com/query/3002936305709240473/" target="_blank">Run it!</a></p>
+<ul>
+<li>Bonus: correlating <code>ldap3.Connection()</code>’s first argument local source to <code>ldap3.Server()</code>.</li>
+</ul>
+<p>Since the appearance of <code>ldap3.Connection</code> means there will be a call to <code>ldap3.Server</code> (otherwise <code>ldap3.Connection</code> wouldn’t work), applying the correlation is a great way to practice.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::MethodCallNode searchMethod, DataFlow::CallCfgNode connectionCall
+where
+    searchMethod.getLocation().getFile().getBaseName().matches(&#34;LDAP3%&#34;) and // just restricting the file to be queried
+    connectionCall = API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall() and
+    searchMethod.getMethodName() = &#34;search&#34; and
+    searchMethod.getObject().getALocalSource() = connectionCall and
+    connectionCall.getArg(0).getALocalSource() =
+      API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Server&#34;).getACall()
+select searchMethod
+</code></pre><p><a href="https://lgtm.com/query/754545651621748018/" target="_blank">Run it!</a></p>
+<ul>
+<li>Getting the arguments:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::MethodCallNode searchMethod, DataFlow::CallCfgNode connectionCall, DataFlow::Node arg
+where
+    searchMethod.getLocation().getFile().getBaseName().matches(&#34;LDAP3%&#34;) and // just restricting the file to be queried
+    connectionCall = API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall() and
+    searchMethod.getMethodName() = &#34;search&#34; and
+    searchMethod.getObject().getALocalSource() = connectionCall and
+    connectionCall.getArg(0).getALocalSource() =
+      API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Server&#34;).getACall() and
+    arg = searchMethod.getArg([0, 1])
+select searchMethod, arg
+</code></pre><p><a href="https://lgtm.com/query/3118413964839267840/" target="_blank">Run it!</a></p>
+<ul>
+<li>Making an <code>LDAP3Query</code> class:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class LDAP3Query extends DataFlow::CallCfgNode {
+  DataFlow::MethodCallNode searchMethod;
+
+  LDAP3Query() {
+    exists(DataFlow::CallCfgNode connectionCall |
+      connectionCall = API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall() and
+      searchMethod.getMethodName() = &#34;search&#34; and
+      searchMethod.getObject().getALocalSource() = connectionCall and
+      connectionCall.getArg(0).getALocalSource() =
+        API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Server&#34;).getACall() and
+      this = searchMethod.(DataFlow::CallCfgNode)
+    )
+  }
+
+  DataFlow::Node getQuery() { result = searchMethod.getArg([0, 1]) }
+}
+
+from LDAP3Query lq
+select lq, lq.getQuery()
+</code></pre><p><a href="https://lgtm.com/query/515954725188792199/" target="_blank">Run it!</a></p>
+<ul>
+<li>Extending <code>LDAPQuery::Range</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+import semmle.python.ApiGraphs
+
+module LDAPQuery {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getQuery();
+  }
+}
+
+class LDAPQuery extends DataFlow::Node {
+  LDAPQuery::Range range;
+
+  LDAPQuery() { this = range }
+
+  DataFlow::Node getQuery() { result = range.getQuery() }
+}
+
+class LDAP3Query extends DataFlow::CallCfgNode, LDAPQuery::Range {
+  DataFlow::MethodCallNode searchMethod;
+
+  LDAP3Query() {
+    exists(DataFlow::CallCfgNode connectionCall |
+      connectionCall = API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall() and
+      searchMethod.getMethodName() = &#34;search&#34; and
+      searchMethod.getObject().getALocalSource() = connectionCall and
+      connectionCall.getArg(0).getALocalSource() =
+        API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Server&#34;).getACall() and
+      this = searchMethod.(DataFlow::CallCfgNode)
+    )
+  }
+
+  override DataFlow::Node getQuery() { result = searchMethod.getArg([0, 1]) }
+}
+
+from LDAPQuery lq
+select lq, lq.getQuery()
+</code></pre><p><a href="https://lgtm.com/query/8297875830755765550/" target="_blank">Run it!</a></p>
+<p>Now we have <code>python3</code>’s <code>LDAPQuery</code> modeled, we may now be heading to model its escape methods:</p>
+<ul>
+<li>
+<p><code>ldap3.utils.dn.escape_rdn</code> (<a href="https://github.com/cannatag/ldap3/blob/4d33166f0869b929f59c6e6825a1b9505eb99967/ldap3/utils/dn.py#L390" target="_blank">source</a>)</p>
+</li>
+<li>
+<p><code>ldap3.utils.conv.escape_filter_chars</code> (<a href="https://github.com/cannatag/ldap3/blob/4d33166f0869b929f59c6e6825a1b9505eb99967/ldap3/utils/conv.py#L91" target="_blank">source</a>)</p>
+</li>
+<li>
+<p>Finding the calls:</p>
+</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+from DataFlow::CallCfgNode ldap3EscapeCall
+where
+  ldap3EscapeCall in [
+      API::moduleImport(&#34;ldap3&#34;).getMember(&#34;utils&#34;).getMember(&#34;dn&#34;).getMember(&#34;escape_rdn&#34;).getACall(),
+      API::moduleImport(&#34;ldap3&#34;).getMember(&#34;utils&#34;).getMember(&#34;conv&#34;).getMember(&#34;escape_filter_chars&#34;).getACall()
+    ]
+select ldap3EscapeCall, ldap3EscapeCall.getArg(0)
+</code></pre><p><a href="https://lgtm.com/query/525827575937799251/" target="_blank">Run it!</a></p>
+<ul>
+<li>Wrapping them in their own classes:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+class LDAP3EscapeDNCall extends DataFlow::CallCfgNode {
+  LDAP3EscapeDNCall() {
+    this =
+      API::moduleImport(&#34;ldap3&#34;)
+          .getMember(&#34;utils&#34;)
+          .getMember(&#34;dn&#34;)
+          .getMember(&#34;escape_rdn&#34;)
+          .getACall()
+  }
+
+  DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP3EscapeFilterCall extends DataFlow::CallCfgNode {
+  LDAP3EscapeFilterCall() {
+    this =
+      API::moduleImport(&#34;ldap3&#34;)
+          .getMember(&#34;utils&#34;)
+          .getMember(&#34;conv&#34;)
+          .getMember(&#34;escape_filter_chars&#34;)
+          .getACall()
+  }
+
+  DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+from DataFlow::CallCfgNode ldap3EscapeCall
+where
+    ldap3EscapeCall instanceof LDAP3EscapeDNCall or
+    ldap3EscapeCall instanceof LDAP3EscapeFilterCall
+select ldap3EscapeCall
+</code></pre><p><a href="https://lgtm.com/query/3638918882453793416/" target="_blank">Run it!</a></p>
+<ul>
+<li>Extending <code>LDAPEscape::Range</code>:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+module LDAPEscape {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getAnInput();
+  }
+}
+
+class LDAPEscape extends DataFlow::Node {
+  LDAPEscape::Range range;
+
+  LDAPEscape() { this = range }
+
+  DataFlow::Node getAnInput() { result = range.getAnInput() }
+}
+
+class LDAP3EscapeDNCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP3EscapeDNCall() {
+    this =
+      API::moduleImport(&#34;ldap3&#34;)
+          .getMember(&#34;utils&#34;)
+          .getMember(&#34;dn&#34;)
+          .getMember(&#34;escape_rdn&#34;)
+          .getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP3EscapeFilterCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP3EscapeFilterCall() {
+    this =
+      API::moduleImport(&#34;ldap3&#34;)
+          .getMember(&#34;utils&#34;)
+          .getMember(&#34;conv&#34;)
+          .getMember(&#34;escape_filter_chars&#34;)
+          .getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+from LDAPEscape ldapEscapeCall
+select ldapEscapeCall, ldapEscapeCall.getAnInput()
+</code></pre><p><a href="https://lgtm.com/query/2045944684640195102/" target="_blank">Run it!</a></p>
+<h4 id="everything-together">Everything together</h4>
+<ul>
+<li><code>LDAPQuery</code> Concept:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+module LDAPQuery {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getQuery();
+  }
+}
+
+class LDAPQuery extends DataFlow::Node {
+  LDAPQuery::Range range;
+
+  LDAPQuery() { this = range }
+
+  DataFlow::Node getQuery() { result = range.getQuery() }
+}
+
+class LDAP2QueryMethods extends string {
+  LDAP2QueryMethods() { this in [&#34;search&#34;, &#34;search_s&#34;, &#34;search_st&#34;, &#34;search_ext&#34;, &#34;search_ext_s&#34;] }
+}
+
+class LDAP2Query extends DataFlow::CallCfgNode, LDAPQuery::Range {
+  DataFlow::MethodCallNode searchMethod;
+
+  LDAP2Query() {
+    searchMethod.getMethodName() instanceof LDAP2QueryMethods and
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;initialize&#34;).getACall() and
+    this = searchMethod.(DataFlow::CallCfgNode)
+  }
+
+  override DataFlow::Node getQuery() {
+    result in [
+        searchMethod.getArg(0), searchMethod.getArg(2), searchMethod.getArgByName(&#34;filterstr&#34;)
+      ]
+  }
+}
+
+class LDAP3Query extends DataFlow::CallCfgNode, LDAPQuery::Range {
+  DataFlow::MethodCallNode searchMethod;
+
+  LDAP3Query() {
+    exists(DataFlow::CallCfgNode connectionCall |
+      connectionCall = API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall() and
+      searchMethod.getMethodName() = &#34;search&#34; and
+      searchMethod.getObject().getALocalSource() = connectionCall and
+      connectionCall.getArg(0).getALocalSource() =
+        API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Server&#34;).getACall() and
+      this = searchMethod.(DataFlow::CallCfgNode)
+    )
+  }
+
+  override DataFlow::Node getQuery() { result = searchMethod.getArg([0, 1]) }
+}
+
+from LDAPQuery lq
+select lq, lq.getQuery()
+</code></pre><p><a href="https://lgtm.com/query/6899109290791585328/" target="_blank">Run it!</a></p>
+<ul>
+<li><code>LDAPEscape</code> Concept:</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">import semmle.python.ApiGraphs
+
+module LDAPEscape {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getAnInput();
+  }
+}
+
+class LDAPEscape extends DataFlow::Node {
+  LDAPEscape::Range range;
+
+  LDAPEscape() { this = range }
+
+  DataFlow::Node getAnInput() { result = range.getAnInput() }
+}
+
+class LDAP2EscapeDNCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP2EscapeDNCall() {
+    this = API::moduleImport(&#34;ldap&#34;).getMember(&#34;dn&#34;).getMember(&#34;escape_dn_chars&#34;).getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP2EscapeFilterCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP2EscapeFilterCall() {
+    this = API::moduleImport(&#34;ldap&#34;).getMember(&#34;filter&#34;).getMember(&#34;escape_filter_chars&#34;).getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP3EscapeDNCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP3EscapeDNCall() {
+    this =
+      API::moduleImport(&#34;ldap3&#34;)
+          .getMember(&#34;utils&#34;)
+          .getMember(&#34;dn&#34;)
+          .getMember(&#34;escape_rdn&#34;)
+          .getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP3EscapeFilterCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP3EscapeFilterCall() {
+    this =
+      API::moduleImport(&#34;ldap3&#34;)
+          .getMember(&#34;utils&#34;)
+          .getMember(&#34;conv&#34;)
+          .getMember(&#34;escape_filter_chars&#34;)
+          .getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+from LDAPEscape ldapEscapeCall
+select ldapEscapeCall, ldapEscapeCall.getAnInput()
+</code></pre><p><a href="https://lgtm.com/query/5486265406968942206/" target="_blank">Run it!</a></p>
+<h3 id="taint-tracking-configuration-1">Taint tracking configuration</h3>
+<p>Once both concepts have been populated, we are ready to get into the last stage of the query, the <a href="https://github.com/github/codeql/pull/5443/files#diff-8c82e5d72954ecd158b724aa1ce7bf0f2a7f10aabf55421d71c5eaf176ce30acR14" target="_blank">taint tracking configuration</a></p>
+<p>Since this is a pretty basic query we will be using only one extra predicate, the Sanitizer.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">class LDAPInjectionFlowConfig extends TaintTracking::Configuration {
+  LDAPInjectionFlowConfig() { this = &#34;LDAPInjectionFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { source instanceof RemoteFlowSource }
+
+  override predicate isSink(DataFlow::Node sink) { sink = any(LDAPQuery ldapQuery).getQuery() }
+
+  override predicate isSanitizer(DataFlow::Node sanitizer) {
+    sanitizer = any(LDAPEscape ldapEsc).getAnInput()
+  }
+}
+</code></pre><p>As you can see, we are setting <code>RemoteFlowSource</code> as the source, <code>LDAPQuery</code>’s <code>getQuery</code> as the sink and <code>LDAPEscape</code>’s <code>getAnInput</code> as a sanitizer, so the query will flag a flow from <code>RemoteFlowSource</code> to any <code>LDAPQuery</code>’s <code>getQuery</code> if the mentioned <code>RemoteFlowSource</code> doesn’t flow into any <code>LDAPEscape</code>’s <code>getAnInput</code>.</p>
+<h3 id="complete-query-1">Complete query</h3>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/**
+ * @name LDAP query built from user-controlled sources
+ * @description Building an LDAP query from user-controlled sources is vulnerable to insertion of
+ *              malicious LDAP code by the user.
+ * @kind path-problem
+ * @problem.severity error
+ * @id py/ldap-injection
+ * @tags experimental	
+ *       security	
+ *       external/cwe/cwe-090
+ */
+
+import python
+import semmle.python.dataflow.new.TaintTracking
+import semmle.python.dataflow.new.RemoteFlowSources
+import semmle.python.ApiGraphs
+import DataFlow::PathGraph
+
+module LDAPQuery {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getQuery();
+  }
+}
+
+class LDAPQuery extends DataFlow::Node {
+  LDAPQuery::Range range;
+
+  LDAPQuery() { this = range }
+
+  DataFlow::Node getQuery() { result = range.getQuery() }
+}
+
+module LDAPEscape {
+  abstract class Range extends DataFlow::Node {
+    abstract DataFlow::Node getAnInput();
+  }
+}
+
+class LDAPEscape extends DataFlow::Node {
+  LDAPEscape::Range range;
+
+  LDAPEscape() { this = range }
+
+  DataFlow::Node getAnInput() { result = range.getAnInput() }
+}
+
+class LDAP2QueryMethods extends string {
+  LDAP2QueryMethods() { this in [&#34;search&#34;, &#34;search_s&#34;, &#34;search_st&#34;, &#34;search_ext&#34;, &#34;search_ext_s&#34;] }
+}
+
+class LDAP2Query extends DataFlow::CallCfgNode, LDAPQuery::Range {
+  DataFlow::MethodCallNode searchMethod;
+
+  LDAP2Query() {
+    searchMethod.getMethodName() instanceof LDAP2QueryMethods and
+    searchMethod.getObject().getALocalSource() =
+      API::moduleImport(&#34;ldap&#34;).getMember(&#34;initialize&#34;).getACall() and
+    this = searchMethod.(DataFlow::CallCfgNode)
+  }
+
+  override DataFlow::Node getQuery() {
+    result in [
+        searchMethod.getArg(0), searchMethod.getArg(2), searchMethod.getArgByName(&#34;filterstr&#34;)
+      ]
+  }
+}
+
+class LDAP3Query extends DataFlow::CallCfgNode, LDAPQuery::Range {
+  DataFlow::MethodCallNode searchMethod;
+
+  LDAP3Query() {
+    exists(DataFlow::CallCfgNode connectionCall |
+      connectionCall = API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Connection&#34;).getACall() and
+      searchMethod.getMethodName() = &#34;search&#34; and
+      searchMethod.getObject().getALocalSource() = connectionCall and
+      connectionCall.getArg(0).getALocalSource() =
+        API::moduleImport(&#34;ldap3&#34;).getMember(&#34;Server&#34;).getACall() and
+      this = searchMethod.(DataFlow::CallCfgNode)
+    )
+  }
+
+  override DataFlow::Node getQuery() { result = searchMethod.getArg([0, 1]) }
+}
+
+class LDAP2EscapeDNCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP2EscapeDNCall() {
+    this = API::moduleImport(&#34;ldap&#34;).getMember(&#34;dn&#34;).getMember(&#34;escape_dn_chars&#34;).getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP2EscapeFilterCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP2EscapeFilterCall() {
+    this = API::moduleImport(&#34;ldap&#34;).getMember(&#34;filter&#34;).getMember(&#34;escape_filter_chars&#34;).getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP3EscapeDNCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP3EscapeDNCall() {
+    this =
+      API::moduleImport(&#34;ldap3&#34;)
+          .getMember(&#34;utils&#34;)
+          .getMember(&#34;dn&#34;)
+          .getMember(&#34;escape_rdn&#34;)
+          .getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAP3EscapeFilterCall extends DataFlow::CallCfgNode, LDAPEscape::Range {
+  LDAP3EscapeFilterCall() {
+    this =
+      API::moduleImport(&#34;ldap3&#34;)
+          .getMember(&#34;utils&#34;)
+          .getMember(&#34;conv&#34;)
+          .getMember(&#34;escape_filter_chars&#34;)
+          .getACall()
+  }
+
+  override DataFlow::Node getAnInput() { result = this.getArg(0) }
+}
+
+class LDAPInjectionFlowConfig extends TaintTracking::Configuration {
+  LDAPInjectionFlowConfig() { this = &#34;LDAPInjectionFlowConfig&#34; }
+
+  override predicate isSource(DataFlow::Node source) { source instanceof RemoteFlowSource }
+
+  override predicate isSink(DataFlow::Node sink) { sink = any(LDAPQuery ldapQuery).getQuery() }
+
+  override predicate isSanitizer(DataFlow::Node sanitizer) {
+    sanitizer = any(LDAPEscape ldapEsc).getAnInput()
+  }
+}
+
+from LDAPInjectionFlowConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
+where config.hasFlowPath(source, sink)
+select sink.getNode(), source, sink, &#34;$@ LDAP query parameter comes from $@.&#34;, sink.getNode(),
+  &#34;This&#34;, source.getNode(), &#34;a user-provided value&#34;
+</code></pre><p><a href="https://lgtm.com/query/3465568559021124629/" target="_blank">Run it!</a></p>
+<h1 id="bonus-excercises">Bonus excercises</h1>
+<p>If you have enjoyed this post and want to learn further I encourage you to give this excercises a shot and feel free to discuss the solutions.</p>
+<ul>
+<li>Simplify modeling for <code>MethodCallNode</code> avoiding <code>getObject().getALocalSource()</code>. Spoiler: <code>Z2V0QU1ldGhvZENhbGwobWV0aG9kTmFtZSk=</code></li>
+<li>Get <code>text</code> in <code>xml.etree.ElementTree.parse(StringIO(xml_content), parser=parser).getroot().text</code> when <code>xml_content</code> is user-controlled data. <a href="https://github.com/github/codeql/pull/6112/files#diff-664753c7199b02926310f2706dcc7a85ab09f8728acf15bf2aa8d0fef6306473R68-R73" target="_blank">Sample code</a> (contains spoilers in other parts of the same page).</li>
+<li>Model your favourite library even though it is already modeled in the official repository.</li>
+<li>Contribute your favourite security query and <a href="https://hackerone.com/github-security-lab/hacktivity?type=team" target="_blank">earn some cash</a> $$$$.</li>
+</ul>
+<h1 id="the-end">The end</h1>
+<p>This is the end of this post, I really hope you enjoyed learning CodeQL for Python and had a great time as I had writing this!</p>
+<p><a href="https://twitter.com/jorge_ctf" target="_blank">Jorge</a></p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/intigriti-11-2021/">
+                  <span class="button__text">Intigriti&#39;s November 2021 XSS challenge writeup</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

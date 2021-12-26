@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CodeQL on jorgectf</title>
+    
+    
+    
+    <link>https://jorgectf.gitlab.io/blog/tags/codeql/</link>
+    <description>Recent content in CodeQL on jorgectf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 13 Dec 2021 11:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jorgectf.gitlab.io/blog/tags/codeql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Practical Introduction to CodeQL</title>
+      <link>https://jorgectf.gitlab.io/blog/post/practical-codeql-introduction/</link>
+      <pubDate>Mon, 13 Dec 2021 11:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/practical-codeql-introduction/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Practical Introduction to CodeQL
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

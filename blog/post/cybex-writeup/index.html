@@ -1,0 +1,418 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        CybexCTF 2020 Writeup (Beep Boop, Potencial/Intensidad &amp; Unsafe Behaviour) ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Cybex CTF Writeup."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/cybex-writeup/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CybexCTF 2020 Writeup (Beep Boop, Potencial/Intensidad &amp; Unsafe Behaviour)"/>
+<meta name="twitter:description" content="Cybex CTF Writeup."/>
+
+
+
+<meta property="og:title" content="CybexCTF 2020 Writeup (Beep Boop, Potencial/Intensidad &amp; Unsafe Behaviour)"/>
+<meta property="og:description" content="Cybex CTF Writeup."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/cybex-writeup/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2020-04-05T00:00:00+00:00"/>
+<meta property="article:modified_time" content="2020-04-05T00:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">CybexCTF 2020 Writeup (Beep Boop, Potencial/Intensidad &amp; Unsafe Behaviour)</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2020-04-05
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/cybex/">#Cybex</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/stego/">#Stego</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/crypto/">#Crypto</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/python/">#python</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/john/">#john</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/deepsound/">#deepsound</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>En este post voy a tratar los retos que he presentado para el CTF comunitario de Cybex, empecemos!</p>
+<h1 id="esteganografía">Esteganografía</h1>
+<h2 id="beep-boop">Beep Boop</h2>
+<ul>
+<li>
+<p>The FBI has found this strange audio with a list of weird things inside the computer of a suspect of stealing a dog. They think this won’t be a great problem, but they don’t know they are dealing with a well-known cybercriminal.</p>
+</li>
+<li>
+<p>Hint 1: Stay out of the Deep dangers of the cyberworld. (Haciendo referencia al programa que se debe usar al principio: DeepSound)</p>
+</li>
+<li>
+<p>Hint 2: Not everything is graphically watchable with your eyes. (Haciendo refierencia a que se debe investigar en una foto la cual contiene más archivos.)</p>
+</li>
+<li>
+<p>Flag: CYBEX{mR_R0b0T_FtW!}</p>
+</li>
+<li>
+<p>Dificultad: Medio</p>
+</li>
+<li>
+<p><a href="https://github.com/jorgectf/Created-CTF-Challenges/tree/main/challenges/BeepBoop%20%40%20CybexCTF%202020" target="_blank">Archivos</a>.</p>
+</li>
+</ul>
+<p>Este reto está escrito en inglés para ayudar a llegar a la conclusión de que se está haciendo referencia a la serie “Mr Robot”.</p>
+<p>Para empezar, si hacemos una búsqueda en google sobre Mr Robot, esteganografía (y Deep si cogiéramos la pista) llegaríamos a artículos o vídeos como <a href="https://www.youtube.com/watch?v=wVpxxQchb54" target="_blank">este</a>.</p>
+<p>Tras descargar la herramienta, vemos que nos pide una contraseña, aquí es cuando <a href="https://www.openwall.com/john/" target="_blank">john</a>, <a href="https://github.com/magnumripper/JohnTheRipper/blob/bleeding-jumbo/run/deepsound2john.py" target="_blank">deepsound2john</a> y la lista “extraña” entran en acción.</p>
+<p>Primero utilizaremos deepsound2john para hashear el wav y posteriormente poder crackearlo con john.</p>
+<pre tabindex="0"><code>$ /usr/share/john/deepsound2john.py hellofriend.wav 
+hellofriend.wav:$dynamic_1529$bbfe6bb6e1deb87f3a09ca2964e227cb15179959
+</code></pre><p>Una vez tenemos el hash, lo mandamos a john y en escasos segundos tendremos la contraseña. (Se podría haber “adivinado” al ver que es bastante distinta a las demás de la lista.)</p>
+<pre tabindex="0"><code>hellofriend.wav:ER280652
+</code></pre><p>Teniendo la contraseña podemos entrar en deepsound y extraer los archivos:</p>
+<pre tabindex="0"><code>$ ls
+image01.jpg  image02.jpg  image03.png  image04.png  image06.jpg  image07.png
+</code></pre><p>Aquí entra en juego el análisis simultáneo de muchas imágenes, en el que hay que pensar de manera crítica e ir “a lo seguro”.</p>
+<pre tabindex="0"><code># exiftool *
+======== image01.jpg
+ExifTool Version Number         : 11.80
+File Name                       : image01.jpg
+Directory                       : .
+File Size                       : 354 kB
+File Modification Date/Time     : 
+
+&lt;-- data --&gt;
+
+Datemodify                      : 2020-02-12T20:13:59+01:00
+Comment                         : CYBEX{h4hA_n0T_th4T_EaSY}
+Warning                         : [minor] Trailer data after PNG IEND chunk
+Image Size                      : 540x277
+Megapixels                      : 0.150
+    6 image files read
+</code></pre><p>Aquí encontramos lo que parece una flag,</p>
+<pre tabindex="0"><code>CYBEX{h4hA_n0T_th4T_EaSY}
+</code></pre><p>pero no es legítima. Si seguimos buscando podemos ver que en la última foto hay cosillas inusuales.</p>
+<p>Si investigamos los carácteres legibles…</p>
+<pre tabindex="0"><code>$ strings image07.png
+&lt;-- data --&gt;
+If&lt;c
+If you read this means we are under terrible circumstances, please be careful. czNjcjN0cDRzc3cwckQhKg==
+9JP&#39;8MIfxr
+&lt;-- data --&gt;
+</code></pre><p>¡Tenemos una contraseña!
+czNjcjN0cDRzc3cwckQhKg== : s3cr3tp4ssw0rD!*</p>
+<p>&lt; Imagen normal &gt;</p>
+<pre tabindex="0"><code>DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             JPEG image data, EXIF standard
+12            0xC             TIFF image data, little-endian offset of first image directory: 8
+1210          0x4BA           Copyright string: &#34;Copyright (c) 1998 Hewlett-Packard Company&#34;
+
+</code></pre><p>&lt; Imagen modificada &gt;</p>
+<pre tabindex="0"><code>DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 540 x 277, 8-bit colormap, non-interlaced
+1029          0x405           Zlib compressed data, best compression
+94181         0x16FE5         PNG image, 540 x 277, 8-bit colormap, non-interlaced
+95055         0x1734F         Zlib compressed data, best compression
+187948        0x2DE2C         Zip archive data, encrypted at least v1.0 to extract, compressed size: 33, uncompressed size: 21, name: flag.txt
+188141        0x2DEED         End of Zip archive, footer length: 22
+
+</code></pre><p>Podemos ver que dentro de esta imagen hay otra imagen y un zip que contiene un archivo llamado “flag.txt”.</p>
+<p>Si lo extraemos e introducimos la contraseña que vimos anteriormente:</p>
+<pre tabindex="0"><code>$ binwalk -e image07.png 
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 540 x 277, 8-bit colormap, non-interlaced
+1029          0x405           Zlib compressed data, best compression
+94181         0x16FE5         PNG image, 540 x 277, 8-bit colormap, non-interlaced
+95055         0x1734F         Zlib compressed data, best compression
+187948        0x2DE2C         Zip archive data, encrypted at least v1.0 to extract, compressed size: 33, uncompressed size: 21, name: flag.txt
+188141        0x2DEED         End of Zip archive, footer length: 22
+
+$ cd _image07.png.extracted/
+$ ls
+1734F  1734F.zlib  2DE2C.zip  405  405.zlib  flag.txt
+$ unzip 2DE2C.zip 
+Archive:  2DE2C.zip
+[2DE2C.zip] flag.txt password: s3cr3tp4ssw0rD!*
+replace flag.txt? [y]es, [n]o, [A]ll, [N]one, [r]ename: y
+ extracting: flag.txt                
+$ cat flag.txt 
+CYBEX{mR_R0b0T_FtW!}
+</code></pre><h1 id="criptografía">Criptografía</h1>
+<h2 id="potencial--intensidad">Potencial / Intensidad</h2>
+<ul>
+<li>
+<p>Hacienda ha abierto una investigación contra uno de los mayores cómicos de la actualidad en España. Te han pedido que descifres el mensaje que han encontrado en su portátil, junto a unos ejemplares en pdf del “Hola”.</p>
+</li>
+<li>
+<p>Flag: CYBEX{l4_r3s1st3nc14_m0l4}</p>
+</li>
+<li>
+<p><a href="https://github.com/jorgectf/Created-CTF-Challenges/tree/main/challenges/PotencialPartidoIntensidad%20@%20CybexCTF%202020" target="_blank">Archivos</a>.</p>
+</li>
+</ul>
+<p>Este reto lo quise ambientar en el programa “La Resistencia”, y se trataba de un texto de 512 carácteres en el que se podían distinguir frases dichas en el programa por el presentador.</p>
+<p>Si nos fijamos, vemos que hay letras en minúscula y mayúscula, sin seguir un patrón de principio de palabra, pero sí encontramos que todos los segmentos miden 8 carácteres.</p>
+<p>Si probamos a pasar las minúsculas a 0s y las mayúsculas a 1s vemos que nos queda un mensaje coherente si lo desciframos:</p>
+<pre tabindex="0"><code>&lt; mensaje.enc a binario &gt;
+
+010100000110100101110001011101011110100100100000011100000110000101100111011000010010000001101100011000010010000001100101011100110111010001100001011101000111010101100001001011000010000001111010011011110111001001110010011011110010111000001010000010100100001101011001010000100100010101011000011110110110110000110100010111110111001000110011011100110011000101110011011101000011001101101110011000110011000100110100010111110110110100110000011011000011010001111101
+
+&lt; binario a texto &gt;
+
+Piqué paga la estatua, zorro.
+
+CYBEX{l4_r3s1st3nc14_m0l4}
+
+</code></pre><h1 id="web">Web</h1>
+<h2 id="unsafe-behaviour">Unsafe behaviour</h2>
+<ul>
+<li>
+<p>Un amigo me ha dicho que ha desarrollado un login imbatible y me ha pasado esta web. Parece bastante segura, ¿sabrías colarte?. Te aviso, mi amigo es muy troll.</p>
+</li>
+<li>
+<p>Flag: CYBEX{Cl13nT_s1D3_v4l1D4TIOn}</p>
+</li>
+<li>
+<p><a href="https://github.com/jorgectf/Created-CTF-Challenges/tree/main/challenges/Unsafe%20Behaviour%20%40%20CybexCTF%202020" target="_blank">Archivos</a>.</p>
+</li>
+</ul>
+<p>En este reto intento demostrar cómo la validación de datos en el lado del cliente es muy insegura.</p>
+<p>Para pasar el reto debemos aplicar un breakpoint en la línea en la que se valida el usuario y la contraseña:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cybexctf/breakpoint772238.png" alt=""/></p>
+<p>Cuando el breakpoint salte, podemos pedirle al navegador que nos de la resolución de la ofuscación del usuario.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cybexctf/consola1122.png" alt=""/></p>
+<p>Con esto, sabemos que el usuario es “admin”, y la contraseña “hunter2”. Si entramos con estas credenciales vemos que visita hiddenflag.html y vuelve a index.html. Si abrimos la pestaña de red e investigamos el comportamiento tras pulsar el login vemos la flag:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cybexctf/red1221.png" alt=""/></p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/linectf-2021-your-notes/">
+                  <span class="button__text">LineCTF Your Notes solver</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

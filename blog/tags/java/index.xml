@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on jorgectf</title>
+    
+    
+    
+    <link>https://jorgectf.gitlab.io/blog/tags/java/</link>
+    <description>Recent content in Java on jorgectf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 19 Jul 2020 13:55:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jorgectf.gitlab.io/blog/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</title>
+      <link>https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/</link>
+      <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>msf on jorgectf</title>
+    
+    
+    
+    <link>https://jorgectf.gitlab.io/blog/tags/msf/</link>
+    <description>Recent content in msf on jorgectf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 10 Sep 2019 18:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jorgectf.gitlab.io/blog/tags/msf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[HackTheBox – Networked] Spanish Writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/networked-writeup-spanish./</link>
+      <pubDate>Tue, 10 Sep 2019 18:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/networked-writeup-spanish./</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Networked Spanish Writeup.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>[HackTheBox – Heist] Spanish Writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/heist-writeup-spanish/</link>
+      <pubDate>Sun, 08 Sep 2019 18:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/heist-writeup-spanish/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Heist Spanish Writeup.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

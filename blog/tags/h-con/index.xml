@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>h-con on jorgectf</title>
+    
+    
+    
+    <link>https://jorgectf.gitlab.io/blog/tags/h-con/</link>
+    <description>Recent content in h-con on jorgectf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 20 Nov 2019 13:55:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jorgectf.gitlab.io/blog/tags/h-con/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hackplayers Conference 2020 Final CTF Writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/h-con-final-writeup/</link>
+      <pubDate>Wed, 20 Nov 2019 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/h-con-final-writeup/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Hackplayers Conference Qualifiers CTF Wrietup.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>Hackplayers Conference 2020 Qualifiers CTF Writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/h-con-writeup/</link>
+      <pubDate>Tue, 19 Nov 2019 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/h-con-writeup/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Hackplayers Conference Qualifiers CTF Writeup.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

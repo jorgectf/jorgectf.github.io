@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Intigriti on jorgectf</title>
+    
+    
+    
+    <link>https://jorgectf.gitlab.io/blog/tags/intigriti/</link>
+    <description>Recent content in Intigriti on jorgectf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 22 Nov 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jorgectf.gitlab.io/blog/tags/intigriti/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Intigriti&#39;s November 2021 XSS challenge writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/intigriti-11-2021/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/intigriti-11-2021/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Intigriti&amp;rsquo;s November 2021 XSS challenge writeup.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>Intigriti&#39;s October 2021 XSS challenge writeup</title>
+      <link>https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/</link>
+      <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.gitlab.io/blog/post/intigriti-10-2021/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Intigriti&amp;rsquo;s October 2021 XSS challenge writeup.
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>
