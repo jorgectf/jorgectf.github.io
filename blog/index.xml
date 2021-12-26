@@ -469,11 +469,16 @@ DISCLAIMER I have no degree in computer science, programming, cybersecurity&amp;
         
         
           Acknowledgements SAP June 2021
-Disclosures Coming soon.
-CVEs CVE-2020-36144
-CVE-2021-3027
-CVE-2021-44556
-CVE-2021-44557
+Vunerabilities LDAP Injection in SAP/InfraBox - (Fix)
+CVE-2020-36144 - LDAP Injection in Redash without apparent impact
+CVE-2021-3027 - LDAP Injection in LibrIT/passhport
+LDAP Injection in lxc-gpu - Issue - Fix
+LDAP Injection in UCL-INGI/INGInious - Fix
+LDAP Injection in cernanalysispreservation/analysispreservation.cern.ch - Fix
+Regular Expression injection in tubone24/ebook_homebrew - Fix
+Regular Expression injection in kevoreilly/CAPEv2 - Fix
+CVE-2021-44556 - XXE in KBNLresearch/digger
+CVE-2021-44557 - XXE in KBNLresearch/multiNER
           
         
         </description>
