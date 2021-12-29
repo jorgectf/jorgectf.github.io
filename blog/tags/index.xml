@@ -434,6 +434,86 @@
     </item>
     
     <item>
+      <title>Gopher</title>
+      <link>https://jorgectf.github.io/blog/tags/gopher/</link>
+      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/tags/gopher/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://jorgectf.github.io/blog/tags/mysql/</link>
+      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/tags/mysql/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>SQL Injection</title>
+      <link>https://jorgectf.github.io/blog/tags/sql-injection/</link>
+      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/tags/sql-injection/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>SSRF</title>
+      <link>https://jorgectf.github.io/blog/tags/ssrf/</link>
+      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/tags/ssrf/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          
+          
+        
+        </description>
+    </item>
+    
+    <item>
       <title>Java</title>
       <link>https://jorgectf.github.io/blog/tags/java/</link>
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
@@ -499,26 +579,6 @@
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
       
       <guid>https://jorgectf.github.io/blog/tags/postgresql/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          
-          
-        
-        </description>
-    </item>
-    
-    <item>
-      <title>SQL Injection</title>
-      <link>https://jorgectf.github.io/blog/tags/sql-injection/</link>
-      <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.github.io/blog/tags/sql-injection/</guid>
       <description>
         
           

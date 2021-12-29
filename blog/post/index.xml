@@ -174,6 +174,26 @@
     </item>
     
     <item>
+      <title>Solving InCTF&#39;s GoSQLv3.</title>
+      <link>https://jorgectf.github.io/blog/post/inctf-gosqlv3/</link>
+      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/post/inctf-gosqlv3/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Solving InCTF&amp;rsquo;s GoSQLv3 challenge.
+          
+        
+        </description>
+    </item>
+    
+    <item>
       <title>Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</title>
       <link>https://jorgectf.github.io/blog/post/portswigger-java-custom-gadget-chain/</link>
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
@@ -408,26 +428,6 @@
         
         
           Heist Spanish Writeup.
-          
-        
-        </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://jorgectf.github.io/blog/post/inctf-gosqlv3/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.github.io/blog/post/inctf-gosqlv3/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          github.iogithub.io&amp;mdash; title: &amp;ldquo;Solving InCTF&amp;rsquo;s GoSQLv3.&amp;rdquo; tags: [&amp;lsquo;CTF&amp;rsquo;, &amp;lsquo;SQL Injection&amp;rsquo;, &amp;lsquo;SSRF&amp;rsquo;, &amp;lsquo;Gopher&amp;rsquo;, &amp;lsquo;MySQL&amp;rsquo;] summary: &amp;ldquo;Solving InCTF&amp;rsquo;s GoSQLv3 challenge.&amp;rdquo; date: &amp;lsquo;Sun Aug 02 13:55:00 CET 2020&amp;rsquo; TL;DR In this post, I&amp;rsquo;ll be showing the path I took to solve GoSQLv3 challenge from teambi0s&#39; InCTF that finished yesterday along with all the tricks and testing that didn&amp;rsquo;t work, because that&amp;rsquo;s as important as the actual solution since them can be valid in other situations.
           
         
         </description>

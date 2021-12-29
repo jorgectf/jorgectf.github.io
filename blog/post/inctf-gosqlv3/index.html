@@ -1,13 +1,13 @@
 <!DOCTYPE html><html lang="en"><head>
     
       <title>
-         ::
+        Solving InCTF&#39;s GoSQLv3. ::
         jorgectf — blog
       </title>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="github.iogithub.io&amp;mdash; title: &amp;ldquo;Solving InCTF&amp;rsquo;s GoSQLv3.&amp;rdquo; tags: [&amp;lsquo;CTF&amp;rsquo;, &amp;lsquo;SQL Injection&amp;rsquo;, &amp;lsquo;SSRF&amp;rsquo;, &amp;lsquo;Gopher&amp;rsquo;, &amp;lsquo;MySQL&amp;rsquo;] summary: &amp;ldquo;Solving InCTF&amp;rsquo;s GoSQLv3 challenge.&amp;rdquo; date: &amp;lsquo;Sun Aug 02 13:55:00 CET 2020&amp;rsquo; TL;DR In this post, I&amp;rsquo;ll be showing the path I took to solve GoSQLv3 challenge from teambi0s&#39; InCTF that finished yesterday along with all the tricks and testing that didn&amp;rsquo;t work, because that&amp;rsquo;s as important as the actual solution since them can be valid in other situations."/>
+<meta name="description" content="Solving InCTF&amp;rsquo;s GoSQLv3 challenge."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://jorgectf.github.io/blog/post/inctf-gosqlv3/"/>
@@ -34,17 +34,17 @@
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="github.iogithub.io— title: “Solving InCTF’s GoSQLv3.” tags: [‘CTF’, ‘SQL Injection’, ‘SSRF’, ‘Gopher’, ‘MySQL’] summary: “Solving InCTF’s GoSQLv3 challenge.” date: ‘Sun Aug 02 13:55:00 CET 2020’ TL;DR In this post, I’ll be showing the path I took to solve GoSQLv3 challenge from teambi0s&#39; InCTF that finished yesterday along with all the tricks and testing that didn’t work, because that’s as important as the actual solution since them can be valid in other situations."/>
+<meta name="twitter:title" content="Solving InCTF&#39;s GoSQLv3."/>
+<meta name="twitter:description" content="Solving InCTF’s GoSQLv3 challenge."/>
 
 
 
-<meta property="og:title" content=""/>
-<meta property="og:description" content="github.iogithub.io— title: “Solving InCTF’s GoSQLv3.” tags: [‘CTF’, ‘SQL Injection’, ‘SSRF’, ‘Gopher’, ‘MySQL’] summary: “Solving InCTF’s GoSQLv3 challenge.” date: ‘Sun Aug 02 13:55:00 CET 2020’ TL;DR In this post, I’ll be showing the path I took to solve GoSQLv3 challenge from teambi0s&#39; InCTF that finished yesterday along with all the tricks and testing that didn’t work, because that’s as important as the actual solution since them can be valid in other situations."/>
+<meta property="og:title" content="Solving InCTF&#39;s GoSQLv3."/>
+<meta property="og:description" content="Solving InCTF’s GoSQLv3 challenge."/>
 <meta property="og:type" content="article"/>
 <meta property="og:url" content="https://jorgectf.github.io/blog/post/inctf-gosqlv3/"/><meta property="article:section" content="post"/>
-
-<meta property="og:site_name" content="jorgectf"/>
+<meta property="article:published_time" content="2020-08-02T13:55:00+00:00"/>
+<meta property="article:modified_time" content="2020-08-02T13:55:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
 
 
 
@@ -120,8 +120,16 @@
   
 
   <div class="post">
-    <h1 class="post-title"></h1>
+    <h1 class="post-title">Solving InCTF’s GoSQLv3.</h1>
     <div class="post-meta">
+      
+        <span class="post-date">
+          2020-08-02
+        </span>
+
+        
+          
+        
       
 
       
@@ -131,17 +139,26 @@
     </div>
 
     
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.github.io/blog/tags/ctf/">#CTF</a> 
+        
+          <a href="https://jorgectf.github.io/blog/tags/sql-injection/">#SQL Injection</a> 
+        
+          <a href="https://jorgectf.github.io/blog/tags/ssrf/">#SSRF</a> 
+        
+          <a href="https://jorgectf.github.io/blog/tags/gopher/">#Gopher</a> 
+        
+          <a href="https://jorgectf.github.io/blog/tags/mysql/">#MySQL</a> 
+        
+      </span>
+    
 
     
 
     <div class="post-content">
       
-      <h2 id="date-sun-aug-02-135500-cet-2020">github.iogithub.io—
-title: “Solving InCTF’s GoSQLv3.”
-tags: [‘CTF’, ‘SQL Injection’, ‘SSRF’, ‘Gopher’, ‘MySQL’]
-summary: “Solving InCTF’s GoSQLv3 challenge.”
-date: ‘Sun Aug 02 13:55:00 CET 2020’</h2>
-<h1 id="tldr">TL;DR</h1>
+      <h1 id="tldr">TL;DR</h1>
 <p>In this post, I’ll be showing the path I took to solve GoSQLv3 challenge from <a href="https://twitter.com/teambi0s" target="_blank">teambi0s</a>&#39; <a href="https://ctftime.org/ctf/31" target="_blank">InCTF</a> that finished yesterday along with all the tricks and testing that didn’t work, because that’s as important as the actual solution since them can be valid in other situations.</p>
 <p>If you believe there’s anything wrong, please feel free to contact me via <a href="https://twitter.com/jorge_ctf" target="_blank">Twitter</a> or <a href="https://t.me/jorgectf" target="_blank">Telegram</a>. Let’s begin!</p>
 <h1 id="gosqlv3">GoSQLv3</h1>
@@ -674,12 +691,19 @@ SELECT 2Z♣I
           <div class="pagination__buttons">
             
               <span class="button previous">
-                <a href="https://jorgectf.github.io/blog/post/heist-writeup-spanish/">
+                <a href="https://jorgectf.github.io/blog/post/dragonsector-2020-scratchpad/">
                   <span class="button__icon">←</span>
-                  <span class="button__text">[HackTheBox – Heist] Spanish Writeup</span>
+                  <span class="button__text">Solution for DragonSector 2020 CTF&#39;s ScratchPad challenge</span>
                 </a>
               </span>
             
+            
+              <span class="button next">
+                <a href="https://jorgectf.github.io/blog/post/portswigger-java-custom-gadget-chain/">
+                  <span class="button__text">Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
             
           </div>
         </div>

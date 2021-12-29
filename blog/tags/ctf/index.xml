@@ -154,6 +154,26 @@
     </item>
     
     <item>
+      <title>Solving InCTF&#39;s GoSQLv3.</title>
+      <link>https://jorgectf.github.io/blog/post/inctf-gosqlv3/</link>
+      <pubDate>Sun, 02 Aug 2020 13:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/post/inctf-gosqlv3/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Solving InCTF&amp;rsquo;s GoSQLv3 challenge.
+          
+        
+        </description>
+    </item>
+    
+    <item>
       <title>Solving PortSwigger Lab: Developing a custom gadget chain for Java deserialization</title>
       <link>https://jorgectf.github.io/blog/post/portswigger-java-custom-gadget-chain/</link>
       <pubDate>Sun, 19 Jul 2020 13:55:00 +0000</pubDate>
