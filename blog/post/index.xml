@@ -194,6 +194,26 @@
     </item>
     
     <item>
+      <title>Fwhibbit CTR (CTF): Solving Blind Hacker</title>
+      <link>https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/</link>
+      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Fwhibbit CTR (CTF): Solving Blind Hacker.
+          
+        
+        </description>
+    </item>
+    
+    <item>
       <title>Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon</title>
       <link>https://jorgectf.github.io/blog/post/ctr-writeup-mike/</link>
       <pubDate>Wed, 22 Apr 2020 14:55:00 +0000</pubDate>
@@ -388,27 +408,6 @@
         
         
           Heist Spanish Writeup.
-          
-        
-        </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/</guid>
-      <description>
-        
-          
-          
-          
-        
-        
-        
-          github.iogithub.io&amp;mdash; title: &amp;ldquo;Fwhibbit CTR (CTF): Solving Blind Hacker&amp;rdquo; tags: [&amp;lsquo;Fwhibbit&amp;rsquo;, &amp;lsquo;CTF&amp;rsquo;,&amp;lsquo;Web&amp;rsquo;,&amp;lsquo;PHP&amp;rsquo;,&amp;lsquo;LooseComparison&amp;rsquo;,&amp;lsquo;TypeJuggling&amp;rsquo;,&amp;lsquo;RaceCondition&amp;rsquo;, &amp;ldquo;Parse_URL&amp;rdquo;] summary: &amp;ldquo;Fwhibbit CTR (CTF): Solving Blind Hacker.&amp;rdquo; date: &amp;lsquo;Tue Apr 30 14:55:00 CET 2020&amp;rsquo; TL;DR This post is the next one of the solutions for the challenges I&amp;rsquo;ve done for Fwhibbit&amp;amp;rsquo;s CTF. Go to the first post solving &amp;amp;ldquo;Mike&amp;amp;rsquo;s Dungeon&amp;amp;rdquo; to see how to solve it.
-DISCLAIMER I have no degree in computer science, programming, cybersecurity&amp;hellip; Mistakes can appear (and they will) so please keep it in mind.
           
         
         </description>

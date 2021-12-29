@@ -8,10 +8,30 @@
     <link>https://jorgectf.github.io/blog/tags/parse_url/</link>
     <description>Recent content in Parse_URL on jorgectf</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 22 Apr 2020 14:55:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Apr 2020 14:55:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jorgectf.github.io/blog/tags/parse_url/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fwhibbit CTR (CTF): Solving Blind Hacker</title>
+      <link>https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/</link>
+      <pubDate>Thu, 30 Apr 2020 14:55:00 +0000</pubDate>
+      
+      <guid>https://jorgectf.github.io/blog/post/ctr-writeup-blind_hacker/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Fwhibbit CTR (CTF): Solving Blind Hacker.
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Fwhibbit CTR (CTF): Solving Mike&#39;s Dungeon</title>
