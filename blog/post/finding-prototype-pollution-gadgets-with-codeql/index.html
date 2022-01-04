@@ -163,7 +163,7 @@
 <center>
 <img src="https://jorgectf.github.io/blog/static/proto-poll-gadgets/meme1.jpg"/>
 </center>
-<p>The objective of this post is not to explain what prototype pollution vulnerability is, but overall, being able to edit an object’s prototype or <code>Object</code>’s prototype (through their properties) let an attacker pollute it and likely maliciously change affected code’s objective.</p>
+<p>The objective of this post is not to explain what prototype pollution vulnerability is, but overall, being able to edit an object’s prototype or <code>Object</code>’s prototype (through their properties) lets an attacker pollute it and likely maliciously change affected code’s objective.</p>
 <h2 id="gadgets">Gadgets</h2>
 <p>We may understand [insert vulnerability here] gadgets as code snippets or behaviours that help a vulnerability to happen. In this case, a prototype pollution gadget is an object’s property read <em>which is not defined</em> flowing to a JS-executing function (such as <code>eval</code> or <code>Function</code>).</p>
 <ul>
