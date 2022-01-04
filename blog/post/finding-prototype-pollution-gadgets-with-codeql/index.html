@@ -291,7 +291,15 @@ select sink.getNode(), source, sink, &#34;$@ flows to $@&#34;, source.getNode(),
     )
 }
 </code></pre><p>This taint step lets CodeQL know that there may be flow like an <code>ObjectLiteralNode</code> flowing to the first argument of <code>Object.create</code>, whose result is also a valid gadget.</p>
-<h2 id="sanitizer">Sanitizer</h2>
+<p>We will be using <code>globalVarRef</code> and its <code>getAMemberCall</code> predicate to properly get <code>Object.create</code> call (instead of using <code>SourceNode</code>’s <code>toString</code>).</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isAdditionalTaintStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
+    exists(DataFlow::InvokeNode objectCreate |
+        objectCreate = DataFlow::globalVarRef(&#34;Object&#34;).getAMemberCall(&#34;create&#34;) and
+        nodeFrom = objectCreate.getArgument(0) and
+        nodeTo = objectCreate
+    )
+}
+</code></pre><h2 id="sanitizer">Sanitizer</h2>
 <pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isSanitizer(DataFlow::Node sanitizer) {
     exists(LogOrExpr orExpr, Expr leftSource |
         leftSource = orExpr.getLeftOperand().flow().getALocalSource().asExpr() and
