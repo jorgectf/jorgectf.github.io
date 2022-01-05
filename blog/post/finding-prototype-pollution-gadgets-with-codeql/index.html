@@ -313,7 +313,7 @@ select sink.getNode(), source, sink, &#34;$@ flows to $@&#34;, source.getNode(),
 <h3 id="debugging">Debugging</h3>
 <p>Let’s make query development easier and more fun by:</p>
 <ul>
-<li>Using <code>Backward DataFlow</code>: Set <code>isSource()</code> as <code>any()</code>, so we will be getting every single thing floing to our specific sink.</li>
+<li>Using <code>Backward DataFlow</code>: Set <code>isSource()</code> as <code>any()</code>, so we will be getting every single node flowing to our specific sink.</li>
 <li>Using <code>Forward DataFlow</code>: Set <code>isSink()</code> as <code>any()</code>, so we will be getting flow from our specific source to any node.</li>
 <li>Setting custom node files in order to restrict result locations.</li>
 <li>Using a custom <code>PathNode</code> implementation to get the QL class used in each step of the flow path.</li>
